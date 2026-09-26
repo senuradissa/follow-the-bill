@@ -21,7 +21,7 @@ except Exception as e:
 
 from google.genai import errors, types
 
-MODELS = [GEMINI_MODEL, "gemini-flash-latest"]
+MODELS = [GEMINI_MODEL, "gemini-flash-latest", "gemini-3.1-flash-lite"]
 
 SUMMARY_SCHEMA = {
     "type": "object",
@@ -33,7 +33,26 @@ SUMMARY_SCHEMA = {
     "required": ["tldr", "summary", "key_changes"],
 }
 
+from pathlib import Path
+
+SUMMARY_CACHE_FILE = Path(__file__).parent/ "data" / "summary_cache.json"
+
+def load_summary_cache():
+    if SUMMARY_CACHE_FILE.exists():
+        return json.loads(SUMMARY_CACHE_FILE.read_text(encoding="utf-8"))
+    return {}
+
+def save_summary_cache():
+    SUMMARY_CACHE_FILE.write_text(
+        json.dumps(_summary_cache, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+_summary_cache = load_summary_cache()
+
 def summarize(bill, lang):
+    key=bill["source_url"]
+    if key in _summary_cache:
+        return _summary_cache[key]
     language = "English" if lang == "en" else "French"
 
     prompt = f"""You are explaining a Canadian federal bill to an ordinary citizen
@@ -62,10 +81,15 @@ def summarize(bill, lang):
     for model in MODELS:
         try:
             resp = client.models.generate_content(model=model, contents=prompt, config=config)
-            return json.loads(resp.text)
-        except errors.ServerError:
-            continue
-    raise RuntimeError("All models are busy, try again in a minute")
+            summary = json.loads(resp.text)
+            _summary_cache[key] = summary
+            save_summary_cache()
+            return summary
+        except errors.APIError as e:
+            if e.code in (429, 503): #429 = Out of quota, 503 = busy
+                continue
+            raise
+    raise RuntimeError("Gemini is busy or out of quota, try again later...")
 
 
 def draft_letter(lang, mp, bill, stance, note, name):

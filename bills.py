@@ -3,6 +3,8 @@
 Replace the fake data below with real calls to parl.ca. Keep the return shapes the
 same so the frontend doesn't break.
 """
+import requests
+HEADERS = {"User-Agent": "Mozilla/5.0 (Hack the Hill student project)"}
 
 FAKE_BILLS = [
     {"code": "C-5", "session": "45-1", "title_en": "One Canadian Economy Act",
@@ -14,8 +16,24 @@ FAKE_BILLS = [
 
 def list_bills():
     """Return a list of bills: [{code, session, title_en, title_fr, status_en}, ...]"""
-    # TODO(A): fetch the real list
-    return FAKE_BILLS
+    resp = requests.get("https://www.parl.ca/legisinfo/en/bills/json", headers=HEADERS, timeout=30)
+    resp.raise_for_status() #Check for site status. In case 404 gets returned or something.
+    bills = []
+    for b in resp.json():
+        if "pro forma" in b["StatusNameEn"].lower():
+            continue
+        bills.append({
+            "code": b["NumberCode"],
+            "session": f"{b['ParliamentNumber']}-{b['SessionNumber']}",
+            "title_en": b["ShortTitleEn"] or b["LongTitleEn"],
+
+            "title_fr": b["ShortTitleFr"] or b["LongTitleFr"],
+            "status_en": b["StatusNameEn"],
+            "introduced": b["PassedHouseFirstReadingDateTime"] or b["PassedSenateFirstReadingDateTime"]
+            })
+    bills.sort(key=lambda bill: bill["introduced"], reverse=True)
+    return bills
+
 
 
 def bill_text(session, code, lang):

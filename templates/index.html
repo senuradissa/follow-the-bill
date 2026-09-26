@@ -1,20 +1,40 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Follow the Bill</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  <!-- Person C: build the real UI here. The four steps:
-       1. Pick a bill        GET  /api/bills
-       2. Read the summary   GET  /api/bills/<session>/<code>/summary?lang=en|fr
-       3. Find your MP       GET  /api/mp?postal=K1N6N5
-       4. Write to them      POST /api/letter
-  -->
-  <h1>Follow the Bill</h1>
-  <p>Skeleton page. Every API route currently returns fake data.</p>
-  <pre id="output">Loading /api/bills…</pre>
+  <header class="masthead">
+    <div class="masthead-row">
+      <a class="wordmark" href="{{ url_for('index') }}">
+        <span class="wordmark-leaf" aria-hidden="true">&#x1F341;</span>
+        Follow the Bill
+      </a>
+      <span class="masthead-session">45th Parliament, 1st session</span>
+    </div>
+    <p class="masthead-tag">Read what's before the House &mdash; then tell your MP what you think.</p>
+  </header>
+
+  <main class="wrap">
+    <div class="list-controls">
+      <label for="search">Search bills</label>
+      <input type="search" id="search" placeholder="Search by title or number, e.g. C-5" autocomplete="off">
+    </div>
+
+    <p id="status" class="status" role="status" aria-live="polite">Loading bills&hellip;</p>
+
+    <ol class="gazette" id="gazette" hidden></ol>
+  </main>
+
+  <footer class="site-footer">
+    <p>Demo data &mdash; not yet connected to real bill text or Parliament of Canada records.</p>
+  </footer>
+
   <script src="{{ url_for('static', filename='app.js') }}"></script>
 </body>
 </html>

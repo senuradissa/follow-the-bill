@@ -1,0 +1,364 @@
+/* Follow the Bill — design tokens
+   Palette drawn from the parliamentary gazette + Canadian civic identity,
+   not a generic dashboard kit: paper white, deep ink, one restrained red. */
+:root {
+  --paper: #ffffff;
+  --surface: #f6f5f1;
+  --ink: #16223a;
+  --ink-soft: #4b5a72;
+  --ink-faint: #8b96a6;
+  --line: #d9d4c8;
+  --red: #c8102e;
+  --green: #2f6f4e;
+  --amber: #a6742c;
+
+  --serif: "Source Serif 4", Georgia, serif;
+  --sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+a { color: var(--ink); }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+}
+
+/* Masthead */
+.masthead {
+  border-bottom: 3px solid var(--ink);
+  padding: 1.5rem 1.25rem 1.1rem;
+}
+.masthead-row {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.wordmark {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.wordmark-leaf { font-size: 1.1rem; }
+.masthead-session {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.masthead-tag {
+  max-width: 720px;
+  margin: 0.6rem auto 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+.back-link {
+  display: inline-block;
+  max-width: 720px;
+  margin: 0.6rem auto 0;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: var(--ink-soft);
+}
+.back-link:hover { color: var(--ink); }
+
+/* List controls + search */
+.list-controls {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.list-controls label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.list-controls input[type="search"] {
+  font: inherit;
+  font-size: 1rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+/* Status / loading / errors */
+.status {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin: 1.5rem 0;
+}
+.field-error {
+  color: var(--red);
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0;
+}
+
+/* Gazette bill list */
+.gazette {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.gazette-item {
+  border-bottom: 1px solid var(--line);
+}
+.gazette-item a {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: start;
+  gap: 1rem;
+  padding: 1.1rem 0.25rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.gazette-item a:hover .gazette-title { text-decoration: underline; }
+.gazette-code {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.gazette-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+.gazette-status {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  text-align: right;
+  padding-top: 0.25rem;
+}
+.gazette-empty {
+  padding: 2rem 0.25rem;
+  color: var(--ink-soft);
+}
+
+/* Bill article */
+.bill-heading {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.bill-code {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+}
+.lang-toggle { display: flex; gap: 0.4rem; }
+.lang-btn {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.lang-btn.is-active {
+  color: var(--paper);
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: 2rem;
+  line-height: 1.25;
+  margin: 0.4rem 0 1.5rem;
+}
+h2 {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  margin: 2.2rem 0 0.8rem;
+}
+
+.tldr {
+  margin: 0 0 1.5rem;
+  padding-left: 1.1rem;
+  border-left: 3px solid var(--red);
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-style: normal;
+  color: var(--ink);
+  max-width: 62ch;
+}
+
+.summary {
+  max-width: 68ch;
+  color: var(--ink);
+  white-space: pre-line;
+}
+
+.changes {
+  max-width: 68ch;
+  padding-left: 1.2rem;
+}
+.changes li { margin-bottom: 0.5rem; }
+
+.source-line {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: var(--ink-faint);
+}
+.source-line a { color: var(--ink-soft); }
+
+/* Step sections */
+.step {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+
+.inline-form {
+  display: flex;
+  align-items: end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.inline-form label {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.inline-form input {
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--surface);
+  min-width: 10rem;
+}
+
+button, .btn {
+  font: inherit;
+  font-size: 0.95rem;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 2px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+button:hover, .btn:hover { background: #0d1626; }
+.btn-quiet {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--line);
+}
+.btn-quiet:hover { background: var(--surface); }
+
+.mp-card {
+  margin-top: 1.25rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.mp-photo {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  flex-shrink: 0;
+}
+.mp-name { font-weight: 600; margin: 0; }
+.mp-meta { margin: 0.15rem 0 0; color: var(--ink-soft); font-size: 0.9rem; }
+
+.letter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  max-width: 42rem;
+}
+.letter-form fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+.letter-form legend {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  padding: 0;
+  margin-bottom: 0.4rem;
+}
+.radio { font-size: 0.95rem; display: flex; align-items: center; gap: 0.4rem; }
+.letter-form label:not(.radio) {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.letter-form textarea, .letter-form input[type="text"] {
+  font: inherit;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--surface);
+  resize: vertical;
+}
+.letter-form button { align-self: start; margin-top: 0.3rem; }
+
+.letter-paper {
+  margin-top: 1.5rem;
+  padding: 1.75rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  max-width: 42rem;
+}
+.letter-subject { margin: 0 0 1rem; }
+.letter-body {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  white-space: pre-wrap;
+  margin: 0 0 1.25rem;
+}
+.letter-actions { display: flex; gap: 0.6rem; }
+
+.site-footer {
+  max-width: 720px;
+  margin: 3rem auto 0;
+  padding: 1.25rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-faint);
+  font-size: 0.8rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}

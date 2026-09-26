@@ -21,6 +21,12 @@ def index():
     return render_template("index.html")
 
 
+@app.get("/bill/<session>/<code>")
+def bill_page(session, code):
+    # Renders the shell; static/app.js fetches /api/bills/<session>/<code>/summary etc.
+    return render_template("bill.html", session_id=session, code=code)
+
+
 @app.get("/api/bills")
 def list_bills():
     return jsonify(bills.list_bills())

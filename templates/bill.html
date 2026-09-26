@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en" id="html-root">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bill {{ code }} &mdash; Follow the Bill</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body data-session="{{ session_id }}" data-code="{{ code }}">
+  <header class="masthead">
+    <div class="masthead-row">
+      <a class="wordmark" href="{{ url_for('index') }}">
+        <span class="wordmark-leaf" aria-hidden="true">&#x1F341;</span>
+        Follow the Bill
+      </a>
+      <span class="masthead-session">45th Parliament, 1st session</span>
+    </div>
+    <a class="back-link" href="{{ url_for('index') }}">&larr; All bills</a>
+  </header>
+
+  <main class="wrap">
+    <p id="status" class="status" role="status" aria-live="polite">Loading bill&hellip;</p>
+
+    <article id="bill-article" hidden>
+      <div class="bill-heading">
+        <span class="bill-code" id="bill-code"></span>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button type="button" id="lang-en" class="lang-btn is-active" aria-pressed="true">English</button>
+          <button type="button" id="lang-fr" class="lang-btn" aria-pressed="false">Fran&ccedil;ais</button>
+        </div>
+      </div>
+      <h1 id="bill-title"></h1>
+
+      <blockquote class="tldr" id="bill-tldr" aria-label="Plain-language summary"></blockquote>
+
+      <div id="bill-summary" class="summary"></div>
+
+      <h2>Key changes</h2>
+      <ul id="bill-changes" class="changes"></ul>
+
+      <p class="source-line">Source: <a id="bill-source" href="#" target="_blank" rel="noopener">official bill text</a></p>
+    </article>
+
+    <section class="step" id="mp-step" hidden>
+      <h2>Find your MP</h2>
+      <form id="mp-form" class="inline-form" novalidate>
+        <label for="postal">Postal code</label>
+        <input type="text" id="postal" name="postal" placeholder="K1N 6N5" autocomplete="postal-code" inputmode="text" maxlength="7">
+        <button type="submit">Find MP</button>
+      </form>
+      <p id="mp-error" class="field-error" role="alert" hidden></p>
+      <div id="mp-card" class="mp-card" hidden>
+        <div class="mp-photo" id="mp-photo" aria-hidden="true"></div>
+        <div class="mp-info">
+          <p class="mp-name" id="mp-name"></p>
+          <p class="mp-meta" id="mp-meta"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="step" id="letter-step" hidden>
+      <h2>Write to your MP</h2>
+      <form id="letter-form" class="letter-form" novalidate>
+        <fieldset>
+          <legend>Your stance on this bill</legend>
+          <label class="radio"><input type="radio" name="stance" value="support" checked> Support</label>
+          <label class="radio"><input type="radio" name="stance" value="oppose"> Oppose</label>
+          <label class="radio"><input type="radio" name="stance" value="questions"> I have questions</label>
+        </fieldset>
+
+        <label for="note">Add your own words (optional)</label>
+        <textarea id="note" name="note" rows="4" placeholder="Why this bill matters to you&hellip;"></textarea>
+
+        <label for="name">Your name</label>
+        <input type="text" id="name" name="name" placeholder="Jane Smith" autocomplete="name">
+
+        <button type="submit">Draft letter</button>
+      </form>
+
+      <p id="letter-status" class="status" role="status" aria-live="polite" hidden></p>
+
+      <div id="letter-output" class="letter-paper" hidden>
+        <p class="letter-subject"><strong>Subject:</strong> <span id="letter-subject"></span></p>
+        <pre class="letter-body" id="letter-body"></pre>
+        <div class="letter-actions">
+          <a id="letter-mailto" class="btn" href="#">Open in email</a>
+          <button type="button" id="letter-copy" class="btn btn-quiet">Copy</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Demo data &mdash; summaries and letters shown here are placeholders, not real Gemini output yet.</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

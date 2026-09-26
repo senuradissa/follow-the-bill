@@ -178,38 +178,30 @@ def politicians_holding(company_name):
     return [h for h in holdings if h["holding"].lower() in name_lower or name_lower in h["holding"].lower()]
 
 
-ASSUMED_SHARES = 1000  # illustrative only — real disclosed share counts aren't public
-
-
 def analyze_impact(bill, lang="en"):
+    """Companies/sectors a bill plausibly affects, with real stock prices and
+    real disclosed MP/party holding matches -- a conflict-of-interest signal,
+    not investment analytics.
+
+    No forward-looking price projection or hypothetical net-worth figure is
+    computed here on purpose: an illustrative "4-year prediction" chart,
+    however clearly labelled, reads as a buy signal, which is exactly what
+    this feature should not be. get_price_history() and project_trend() are
+    left defined above in case a genuinely different, honestly-framed use for
+    real historical context comes up later, but analyze_impact() no longer
+    calls them or reports anything derived from them.
+    """
     extracted = ai.identify_affected_companies(bill, lang)
     results = []
     for company in extracted["companies"]:
         ticker = resolve_ticker(company)
         snapshot = get_stock_snapshot(ticker)
-        history = get_price_history(ticker)
-        trend = project_trend(history) if history else None
         conflicts = politicians_holding(company)
-
-        illustrative_value = None
-        illustrative_value_4y = None
-        if snapshot and trend:
-            illustrative_value = round(snapshot["price"] * ASSUMED_SHARES, 2)
-            illustrative_value_4y = round(trend[-1]["price"] * ASSUMED_SHARES, 2)
 
         results.append({
             "company": company,
             "ticker": ticker,
             "market_data": snapshot,
-            "price_history": history,
-            "projected_trend": trend,
-            "trend_note": (
-                "Illustrative projection based on the last ~5 months of trading "
-                "data, extrapolated forward. Not a forecast."
-            ),
             "political_holdings": conflicts,
-            "assumed_shares": ASSUMED_SHARES if illustrative_value else None,
-            "illustrative_value_now": illustrative_value,
-            "illustrative_value_4y": illustrative_value_4y,
         })
     return {"companies": results, "sectors": extracted["sectors"]}

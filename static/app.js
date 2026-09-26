@@ -155,7 +155,11 @@ function initBillPage() {
       const holdings = c.political_holdings || [];
       const conflictHtml = holdings.map((h) => {
         const who = h.mp_name || h.mp || h.name || "An MP";
-        return `<span class="conflict-flag">\u26a0 <strong>${escapeHtml(who)}</strong> has a disclosed holding matching this company.</span>`;
+        return `
+          <span class="conflict-flag">
+            <span>\u26a0 <strong>${escapeHtml(who)}</strong> has a disclosed holding matching this company.</span>
+            <a class="conflict-cta" href="#mp-step">Contact your MP about this &rarr;</a>
+          </span>`;
       }).join("");
       return `
         <li class="company-row">
@@ -170,11 +174,10 @@ function initBillPage() {
   function loadImpact(lang) {
     const impactStatus = document.getElementById("impact-status");
     impactStatus.hidden = false;
-    impactStatus.textContent = "Loading financial analytics…";
+    impactStatus.textContent = "Loading conflict-of-interest data…";
     document.getElementById("company-list").innerHTML = "";
     document.getElementById("holdings-table-wrap").hidden = true;
-    document.getElementById("charts-wrap").innerHTML = "";
-    document.getElementById("networth-section").hidden = true;
+    document.getElementById("impact-sectors").hidden = true;
 
     fetch(`/api/bills/${encodeURIComponent(session)}/${encodeURIComponent(code)}/impact?lang=${lang}`)
       .then((resp) => {
@@ -182,6 +185,7 @@ function initBillPage() {
         return resp.json();
       })
       .then((data) => {
+        renderSectors(data);
         renderCompanies(data);
         renderFinancials(data.companies || []);
       })
@@ -189,7 +193,7 @@ function initBillPage() {
         // Optional/experimental feature (needs FINNHUB_API_KEY etc.) — fail without
         // taking down the rest of the page.
         impactStatus.hidden = false;
-        impactStatus.textContent = "Couldn't load financial analytics for this bill right now.";
+        impactStatus.textContent = "Couldn't load conflict-of-interest data for this bill right now.";
       });
   }
 
@@ -315,7 +319,7 @@ function initBillPage() {
   });
 }
 
-// ---------- Description / Financial analytics tabs ----------
+// ---------- Description / Conflict of interest tabs ----------
 function initTabs() {
   const tabDescription = document.getElementById("tab-description");
   const tabFinancial = document.getElementById("tab-financial");
@@ -348,10 +352,21 @@ function renderDescription(data) {
   }
 }
 
-let _impactCharts = [];
+function renderSectors(data) {
+  const el = document.getElementById('impact-sectors');
+  const sectors = (data && data.sectors) || [];
+  if (!sectors.length) {
+    el.hidden = true;
+    return;
+  }
+  el.innerHTML = `<strong>Sectors this bill affects:</strong> ${sectors.map(escapeHtml).join(', ')}`;
+  el.hidden = false;
+}
 
 function renderFinancials(companies) {
-  // ---- holdings table ----
+  // Holdings table only -- this is real, disclosed accountability data, kept
+  // deliberately separate from anything that looks like an investment pitch
+  // (no price chart, no projected trend, no net-worth figure: see impact.py).
   const tableWrap = document.getElementById('holdings-table-wrap');
   const tbody = document.getElementById('holdings-table-body');
   tbody.innerHTML = '';
@@ -372,95 +387,6 @@ function renderFinancials(companies) {
     });
   });
   tableWrap.hidden = rowCount === 0;
-
-  // ---- charts (one per company that has real price history) ----
-  _impactCharts.forEach(ch => ch.destroy());
-  _impactCharts = [];
-  const chartsWrap = document.getElementById('charts-wrap');
-  chartsWrap.innerHTML = '';
-
-  companies.forEach(c => {
-    if (!c.price_history || !c.projected_trend) return;
-
-    const box = document.createElement('div');
-    box.className = 'chart-box';
-    box.innerHTML = `
-      <h4>${escapeHtml(c.company)}${c.ticker ? ' (' + escapeHtml(c.ticker) + ')' : ''}</h4>
-      <canvas></canvas>
-      <p class="trend-note">${escapeHtml(c.trend_note)}</p>
-    `;
-    chartsWrap.appendChild(box);
-
-    const histLabels = c.price_history.map(p => p.date);
-    const histData = c.price_history.map(p => p.close);
-    const lastClose = histData[histData.length - 1];
-
-    // projected_trend is [{year, price}, ...] for years 1..4 from "now" —
-    // give it its own label track appended after the historical dates,
-    // and bridge it from the last real close so the line connects visually.
-    const projLabels = c.projected_trend.map(t => `+${t.year}y`);
-    const projData = c.projected_trend.map(t => t.price);
-
-    const labels = [...histLabels, ...projLabels];
-    const historicalSeries = [...histData, ...projLabels.map(() => null)];
-    const projectedSeries = [
-      ...histData.map(() => null),
-    ];
-    projectedSeries[histData.length - 1] = lastClose; // bridge point
-    projectedSeries.push(...projData);
-
-    const ctx = box.querySelector('canvas').getContext('2d');
-    const chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels,
-        datasets: [
-          {
-            label: 'Actual close',
-            data: historicalSeries,
-            borderColor: '#2563eb',
-            spanGaps: false,
-            pointRadius: 0,
-          },
-          {
-            label: 'Illustrative trend (not a forecast)',
-            data: projectedSeries,
-            borderColor: '#ea580c',
-            borderDash: [6, 4],
-            spanGaps: true,
-            pointRadius: 0,
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        interaction: { mode: 'index', intersect: false },
-        scales: {
-          x: { ticks: { maxTicksLimit: 8 } },
-        },
-      },
-    });
-    _impactCharts.push(chart);
-  });
-
-  // ---- net worth ----
-  const conflicted = companies.filter(c => (c.political_holdings || []).length > 0);
-  const withValue = conflicted.filter(c => c.illustrative_value_now != null);
-
-  const nwSection = document.getElementById('networth-section');
-  if (withValue.length === 0) {
-    nwSection.hidden = true;
-    return;
-  }
-
-  const totalNow = withValue.reduce((sum, c) => sum + c.illustrative_value_now, 0);
-  const total4y = withValue.reduce((sum, c) => sum + c.illustrative_value_4y, 0);
-  const fmt = n => n.toLocaleString('en-CA', { style: 'currency', currency: 'USD' });
-
-  document.getElementById('assumed-shares').textContent = withValue[0].assumed_shares;
-  document.getElementById('networth-now').textContent = fmt(totalNow);
-  document.getElementById('networth-4y').textContent = fmt(total4y);
-  nwSection.hidden = false;
 }
 
 initBillList();

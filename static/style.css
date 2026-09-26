@@ -1,16 +1,22 @@
-/* Follow the Bill — design tokens
-   Palette drawn from the parliamentary gazette + Canadian civic identity,
-   not a generic dashboard kit: paper white, deep ink, one restrained red. */
+/* Follow the Bill — design tokens (v2)
+   A civic-register/gazette identity: dark masthead like an official
+   letterhead, paper-white body, one red rule underneath (flag red, used
+   with intent, not decoration), plus a small numbered seal instead of
+   an emoji mark. */
 :root {
-  --paper: #ffffff;
-  --surface: #f6f5f1;
-  --ink: #16223a;
+  --ink: #11182b;
   --ink-soft: #4b5a72;
   --ink-faint: #8b96a6;
-  --line: #d9d4c8;
+  --paper: #ffffff;
+  --surface: #eef1f5;
+  --line: #d7dbe2;
+  --on-dark: #f4f6fa;
+  --on-dark-soft: #a9b3c6;
+
   --red: #c8102e;
-  --green: #2f6f4e;
+  --green: #1e7a4c;
   --amber: #a6742c;
+  --gold: #9c6f0b;
 
   --serif: "Source Serif 4", Georgia, serif;
   --sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
@@ -39,40 +45,58 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding: 0 1.25rem 4rem;
 }
 
-/* Masthead */
+/* Masthead: dark letterhead band + a single red rule, not a thin grey line */
 .masthead {
-  border-bottom: 3px solid var(--ink);
-  padding: 1.5rem 1.25rem 1.1rem;
+  background: var(--ink);
+  color: var(--on-dark);
+  border-bottom: 3px solid var(--red);
+  padding: 1.4rem 1.25rem 1.1rem;
 }
 .masthead-row {
   max-width: 720px;
   margin: 0 auto;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
 }
 .wordmark {
   font-family: var(--serif);
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-weight: 600;
   text-decoration: none;
-  color: var(--ink);
+  color: var(--on-dark);
   display: inline-flex;
-  align-items: baseline;
-  gap: 0.5rem;
+  align-items: center;
+  gap: 0.65rem;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
-.wordmark-leaf { font-size: 1.1rem; }
-.masthead-session {
+.seal {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--on-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
   font-size: 0.85rem;
-  color: var(--ink-soft);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.masthead-session {
+  font-size: 0.8rem;
+  color: var(--on-dark-soft);
   white-space: nowrap;
 }
 .masthead-tag {
   max-width: 720px;
   margin: 0.6rem auto 0;
-  color: var(--ink-soft);
+  color: var(--on-dark-soft);
   font-size: 1rem;
 }
 .back-link {
@@ -80,10 +104,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   max-width: 720px;
   margin: 0.6rem auto 0;
   font-size: 0.9rem;
-  text-decoration: none;
-  color: var(--ink-soft);
+  color: var(--on-dark-soft);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
 }
-.back-link:hover { color: var(--ink); }
+.back-link:hover { color: var(--on-dark); }
 
 /* List controls + search */
 .list-controls {
@@ -118,48 +146,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin: 0.5rem 0 0;
 }
 
-/* Gazette bill list */
-.gazette {
-  list-style: none;
-  margin: 1.5rem 0 0;
-  padding: 0;
-  border-top: 1px solid var(--line);
-}
-.gazette-item {
-  border-bottom: 1px solid var(--line);
-}
-.gazette-item a {
-  display: grid;
-  grid-template-columns: 3.5rem 1fr auto;
-  align-items: start;
-  gap: 1rem;
-  padding: 1.1rem 0.25rem;
-  text-decoration: none;
-  color: var(--ink);
-}
-.gazette-item a:hover .gazette-title { text-decoration: underline; }
-.gazette-item a { grid-template-columns: 3.5rem 1fr; }
-.gazette-code {
-  font-family: var(--serif);
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: var(--ink);
-}
-.gazette-title {
-  font-family: var(--serif);
-  font-size: 1.15rem;
-  line-height: 1.35;
-}
-.gazette-meta {
-  font-size: 0.8rem;
-  color: var(--ink-soft);
-  margin-top: 0.3rem;
-}
-.gazette-empty {
-  padding: 2rem 0.25rem;
-  color: var(--ink-soft);
-}
-
+/* Status filter pills */
 .filters {
   display: flex;
   gap: 0.5rem;
@@ -182,6 +169,42 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-color: var(--ink);
 }
 
+/* Gazette bill list */
+.gazette {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+.gazette-item { border-bottom: 1px solid var(--line); }
+.gazette-item a {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  align-items: start;
+  gap: 1rem;
+  padding: 1.1rem 0.25rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+.gazette-item a:hover .gazette-title { text-decoration: underline; }
+.gazette-code {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.gazette-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.35;
+}
+.gazette-meta {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin-top: 0.3rem;
+}
+.gazette-empty { padding: 2rem 0.25rem; color: var(--ink-soft); }
+
 /* Bill article */
 .bill-heading {
   margin-top: 2rem;
@@ -191,11 +214,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   gap: 1rem;
   flex-wrap: wrap;
 }
-.bill-code {
-  font-family: var(--serif);
-  font-size: 1.1rem;
-  color: var(--ink-soft);
-}
+.bill-code { font-family: var(--serif); font-size: 1.1rem; color: var(--ink-soft); }
 .lang-toggle { display: flex; gap: 0.4rem; }
 .lang-btn {
   font: inherit;
@@ -207,23 +226,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 2px;
   cursor: pointer;
 }
-.lang-btn.is-active {
-  color: var(--paper);
-  background: var(--ink);
-  border-color: var(--ink);
-}
+.lang-btn.is-active { color: var(--paper); background: var(--ink); border-color: var(--ink); }
 
-h1 {
-  font-family: var(--serif);
-  font-size: 2rem;
-  line-height: 1.25;
-  margin: 0.4rem 0 1.5rem;
-}
-h2 {
-  font-family: var(--serif);
-  font-size: 1.3rem;
-  margin: 2.2rem 0 0.8rem;
-}
+h1 { font-family: var(--serif); font-size: 2rem; line-height: 1.25; margin: 0.4rem 0 1.5rem; }
+h2 { font-family: var(--serif); font-size: 1.3rem; margin: 2.2rem 0 0.8rem; }
 
 .tldr {
   margin: 0 0 1.5rem;
@@ -231,91 +237,61 @@ h2 {
   border-left: 3px solid var(--red);
   font-family: var(--serif);
   font-size: 1.2rem;
-  font-style: normal;
   color: var(--ink);
   max-width: 62ch;
 }
-
-.summary {
-  max-width: 68ch;
-  color: var(--ink);
-  white-space: pre-line;
-}
-
-.changes {
-  max-width: 68ch;
-  padding-left: 1.2rem;
-}
+.summary { max-width: 68ch; color: var(--ink); white-space: pre-line; }
+.changes { max-width: 68ch; padding-left: 1.2rem; }
 .changes li { margin-bottom: 0.5rem; }
-
-.impact-list {
-  list-style: none;
-  margin: 1.25rem 0 0;
-  padding: 0;
-}
-.impact-item {
-  padding: 1rem 0;
-  border-bottom: 1px solid var(--line);
-}
-.impact-company {
-  font-family: var(--serif);
-  font-size: 1.05rem;
-  font-weight: 600;
-  display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-}
-.impact-ticker {
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  color: var(--ink-soft);
-  border: 1px solid var(--line);
-  border-radius: 2px;
-  padding: 0.1rem 0.4rem;
-}
-.impact-price {
-  display: block;
-  margin-top: 0.3rem;
-  font-size: 0.9rem;
-  color: var(--ink-soft);
-}
-.impact-up { color: var(--green); }
-.impact-down { color: var(--red); }
-.impact-unknown { color: var(--ink-faint); font-style: italic; }
-.impact-conflict {
-  margin-top: 0.5rem;
-  font-size: 0.85rem;
-  padding: 0.5rem 0.75rem;
-  background: var(--surface);
-  border-left: 3px solid var(--amber);
-}
-
-.source-line {
-  margin-top: 2rem;
-  font-size: 0.85rem;
-  color: var(--ink-faint);
-}
+.source-line { margin-top: 2rem; font-size: 0.85rem; color: var(--ink-faint); }
 .source-line a { color: var(--ink-soft); }
 
-/* Step sections */
-.step {
-  margin-top: 2.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--line);
+/* Companies & market impact */
+.company-note {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  max-width: 66ch;
+  margin: -0.3rem 0 1rem;
 }
-
-.inline-form {
+.company-list { list-style: none; margin: 0; padding: 0; max-width: 66ch; }
+.company-row {
+  padding: 0.85rem 0;
+  border-bottom: 1px solid var(--line);
   display: flex;
-  align-items: end;
+  align-items: baseline;
   gap: 0.75rem;
   flex-wrap: wrap;
 }
-.inline-form label {
+.company-row:last-child { border-bottom: none; }
+.company-name { font-weight: 600; }
+.company-ticker {
+  font-family: var(--serif);
   font-size: 0.85rem;
   color: var(--ink-soft);
-  display: block;
-  margin-bottom: 0.3rem;
 }
+.company-price { font-size: 0.9rem; margin-left: auto; white-space: nowrap; }
+.company-price.up { color: var(--green); }
+.company-price.down { color: var(--red); }
+.company-sector {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 0.15rem 0.6rem;
+}
+.conflict-flag {
+  display: block;
+  width: 100%;
+  font-size: 0.82rem;
+  color: var(--gold);
+  margin-top: 0.3rem;
+}
+.conflict-flag strong { font-weight: 600; }
+
+/* Step sections */
+.step { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.inline-form { display: flex; align-items: end; gap: 0.75rem; flex-wrap: wrap; }
+.inline-form label { font-size: 0.85rem; color: var(--ink-soft); display: block; margin-bottom: 0.3rem; }
 .inline-form input {
   font: inherit;
   padding: 0.6rem 0.75rem;
@@ -337,56 +313,20 @@ button, .btn {
   text-decoration: none;
   display: inline-block;
 }
-button:hover, .btn:hover { background: #0d1626; }
-.btn-quiet {
-  background: var(--paper);
-  color: var(--ink);
-  border-color: var(--line);
-}
+button:hover, .btn:hover { background: #060b17; }
+.btn-quiet { background: var(--paper); color: var(--ink); border-color: var(--line); }
 .btn-quiet:hover { background: var(--surface); }
 
-.mp-card {
-  margin-top: 1.25rem;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-.mp-photo {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  flex-shrink: 0;
-}
+.mp-card { margin-top: 1.25rem; display: flex; gap: 1rem; align-items: center; }
+.mp-photo { width: 3rem; height: 3rem; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); flex-shrink: 0; }
 .mp-name { font-weight: 600; margin: 0; }
 .mp-meta { margin: 0.15rem 0 0; color: var(--ink-soft); font-size: 0.9rem; }
 
-.letter-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-  max-width: 42rem;
-}
-.letter-form fieldset {
-  border: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 1.25rem;
-  flex-wrap: wrap;
-}
-.letter-form legend {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  padding: 0;
-  margin-bottom: 0.4rem;
-}
+.letter-form { display: flex; flex-direction: column; gap: 0.9rem; max-width: 42rem; }
+.letter-form fieldset { border: none; padding: 0; margin: 0; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+.letter-form legend { font-size: 0.85rem; color: var(--ink-soft); padding: 0; margin-bottom: 0.4rem; }
 .radio { font-size: 0.95rem; display: flex; align-items: center; gap: 0.4rem; }
-.letter-form label:not(.radio) {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-}
+.letter-form label:not(.radio) { font-size: 0.85rem; color: var(--ink-soft); }
 .letter-form textarea, .letter-form input[type="text"] {
   font: inherit;
   padding: 0.65rem 0.8rem;
@@ -397,20 +337,9 @@ button:hover, .btn:hover { background: #0d1626; }
 }
 .letter-form button { align-self: start; margin-top: 0.3rem; }
 
-.letter-paper {
-  margin-top: 1.5rem;
-  padding: 1.75rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  max-width: 42rem;
-}
+.letter-paper { margin-top: 1.5rem; padding: 1.75rem; background: var(--surface); border: 1px solid var(--line); max-width: 42rem; }
 .letter-subject { margin: 0 0 1rem; }
-.letter-body {
-  font-family: var(--serif);
-  font-size: 1.02rem;
-  white-space: pre-wrap;
-  margin: 0 0 1.25rem;
-}
+.letter-body { font-family: var(--serif); font-size: 1.02rem; white-space: pre-wrap; margin: 0 0 1.25rem; }
 .letter-actions { display: flex; gap: 0.6rem; }
 
 .site-footer {
@@ -422,6 +351,4 @@ button:hover, .btn:hover { background: #0d1626; }
   font-size: 0.8rem;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
-}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

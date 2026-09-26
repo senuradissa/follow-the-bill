@@ -12,7 +12,7 @@
   <header class="masthead">
     <div class="masthead-row">
       <a class="wordmark" href="{{ url_for('index') }}">
-        <span class="wordmark-leaf" aria-hidden="true">&#x1F341;</span>
+        <span class="seal" aria-hidden="true">45</span>
         Follow the Bill
       </a>
       <span class="masthead-session">45th Parliament, 1st session</span>
@@ -40,14 +40,14 @@
       <h2>Key changes</h2>
       <ul id="bill-changes" class="changes"></ul>
 
+      <div id="impact-section" hidden>
+        <h2>Companies &amp; market impact</h2>
+        <p class="company-note">Gemini reads the bill text to name real companies or sectors it plausibly affects. Stock prices and MP stock-holding matches are looked up separately and are facts, not guesses &mdash; only the connection between the bill and the company is Gemini's read of the text.</p>
+        <ul id="company-list" class="company-list"></ul>
+      </div>
+
       <p class="source-line">Source: <a id="bill-source" href="#" target="_blank" rel="noopener">official bill text</a></p>
     </article>
-
-    <section class="step" id="impact-step" hidden>
-      <h2>Who this bill really affects</h2>
-      <p id="impact-status" class="status" role="status" aria-live="polite">Analyzing affected companies&hellip;</p>
-      <ul id="impact-list" class="impact-list" hidden></ul>
-    </section>
 
     <section class="step" id="mp-step" hidden>
       <h2>Find your MP</h2>
@@ -99,7 +99,7 @@
   </main>
 
   <footer class="site-footer">
-    <p>Demo data &mdash; summaries and letters shown here are placeholders, not real Gemini output yet.</p>
+    <p>Summaries and letters are AI-generated &mdash; always check the official bill text before acting.</p>
   </footer>
 
   <script src="{{ url_for('static', filename='app.js') }}"></script>

@@ -1,17 +1,10 @@
 """Federal bills (owner: Person A).
 
-Replace the fake data below with real calls to parl.ca. Keep the return shapes the
-same so the frontend doesn't break.
+list_bills() fetches the real parl.ca feed. bill_text() is still a stub
+until Person A finishes it (see TODO below).
 """
 import requests
 HEADERS = {"User-Agent": "Mozilla/5.0 (Hack the Hill student project)"}
-
-FAKE_BILLS = [
-    {"code": "C-5", "session": "45-1", "title_en": "One Canadian Economy Act",
-     "title_fr": "Loi sur l'unité de l'économie canadienne", "status_en": "Royal assent received"},
-    {"code": "C-2", "session": "45-1", "title_en": "Strong Borders Act",
-     "title_fr": "Loi visant une sécurité rigoureuse à la frontière", "status_en": "At second reading"},
-]
 
 
 def list_bills():

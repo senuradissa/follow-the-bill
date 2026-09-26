@@ -9,7 +9,14 @@ import json
 import time
 from google import genai
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
-client = genai.Client()  # reads GEMINI_API_KEY from the environment
+try:
+    client = genai.Client()  # reads GEMINI_API_KEY from the environment
+except Exception as e:
+    # Was crashing the whole app on import (and therefore every route, not just
+    # the Gemini ones) for anyone without GEMINI_API_KEY set yet. Falls back to
+    # the fake data below until a real key is in .env.
+    print(f"[ai.py] Gemini client not ready yet ({e}); using fake data for now.")
+    client = None
 
 def summarize(bill, lang):
     """Plain-language summary of a bill in 'en' or 'fr'.
@@ -41,6 +48,8 @@ def identify_affected_companies(bill, lang, max_retries=3):
     """Which real companies/sectors this bill affects.
     Return {companies: [str], sectors: [str]}
     """
+    if client is None:
+        return {"companies": [], "sectors": []}
     prompt = f"""Read this bill text and list real, named companies or 
 industry sectors that would be materially affected if it passes.
 Use ONLY what's in the text plus general knowledge of the sector, 

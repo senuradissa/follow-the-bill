@@ -114,62 +114,6 @@ function initBillPage() {
       });
   }
 
-  function renderImpact(data) {
-    const list = document.getElementById("impact-list");
-    const status = document.getElementById("impact-status");
-
-    if (!data.companies || data.companies.length === 0) {
-      status.textContent = "No specific companies identified for this bill yet.";
-      list.hidden = true;
-      return;
-    }
-
-    list.innerHTML = data.companies.map((c) => {
-      const price = c.market_data
-        ? `<span class="impact-price">$${c.market_data.price.toFixed(2)} 
-           <span class="${c.market_data.change >= 0 ? 'impact-up' : 'impact-down'}">
-             (${c.market_data.change >= 0 ? '+' : ''}${c.market_data.change_pct.toFixed(2)}%)
-           </span></span>`
-        : '<span class="impact-price impact-unknown">Price unavailable</span>';
-
-      const conflicts = c.political_holdings && c.political_holdings.length > 0
-        ? `<div class="impact-conflict">
-             <strong>Fact:</strong> disclosed holdings on record for
-             ${c.political_holdings.map((h) => escapeHtml(h.mp)).join(", ")}
-           </div>`
-        : "";
-
-      return `
-        <li class="impact-item">
-          <div class="impact-company">
-            ${escapeHtml(c.company)}
-            ${c.ticker ? `<span class="impact-ticker">${escapeHtml(c.ticker)}</span>` : ""}
-          </div>
-          ${price}
-          ${conflicts}
-        </li>
-      `;
-    }).join("");
-
-    status.hidden = true;
-    list.hidden = false;
-  }
-
-  function loadImpact() {
-    const impactStep = document.getElementById("impact-step");
-    impactStep.hidden = false;
-    fetch(`/api/bills/${encodeURIComponent(session)}/${encodeURIComponent(code)}/impact?lang=${currentLang}`)
-      .then((resp) => {
-        if (!resp.ok) throw new Error("Request failed");
-        return resp.json();
-      })
-      .then(renderImpact)
-      .catch(() => {
-        document.getElementById("impact-status").textContent =
-          "Couldn't analyze this bill's impact right now.";
-      });
-  }
-
   function renderBill(data) {
     currentBill = data;
     document.getElementById("bill-code").textContent = `Bill ${code} \u2014 ${session}`;
@@ -187,6 +131,51 @@ function initBillPage() {
     document.getElementById("lang-fr").setAttribute("aria-pressed", String(currentLang === "fr"));
   }
 
+  function renderCompanies(data) {
+    const section = document.getElementById("impact-section");
+    const list = document.getElementById("company-list");
+    if (!data || !(data.companies || []).length) {
+      section.hidden = true;
+      return;
+    }
+    list.innerHTML = data.companies.map((c) => {
+      const m = c.market_data;
+      let priceHtml = "";
+      if (m && typeof m.price === "number") {
+        const dir = m.change > 0 ? "up" : m.change < 0 ? "down" : "";
+        const sign = m.change > 0 ? "+" : "";
+        priceHtml = `<span class="company-price ${dir}">$${m.price.toFixed(2)} (${sign}${m.change_pct.toFixed(1)}%)</span>`;
+      }
+      const holdings = c.political_holdings || [];
+      const conflictHtml = holdings.map((h) => {
+        const who = h.mp_name || h.mp || h.name || "An MP";
+        return `<span class="conflict-flag">\u26a0 <strong>${escapeHtml(who)}</strong> has a disclosed holding matching this company.</span>`;
+      }).join("");
+      return `
+        <li class="company-row">
+          <span class="company-name">${escapeHtml(c.company)}</span>
+          ${c.ticker ? `<span class="company-ticker">${escapeHtml(c.ticker)}</span>` : ""}
+          ${priceHtml}
+          ${conflictHtml}
+        </li>`;
+    }).join("");
+    section.hidden = false;
+  }
+
+  function loadImpact(lang) {
+    fetch(`/api/bills/${encodeURIComponent(session)}/${encodeURIComponent(code)}/impact?lang=${lang}`)
+      .then((resp) => {
+        if (!resp.ok) throw new Error("Request failed");
+        return resp.json();
+      })
+      .then(renderCompanies)
+      .catch(() => {
+        // Optional/experimental feature (needs FINNHUB_API_KEY etc.) — fail quietly,
+        // the rest of the page still works without it.
+        document.getElementById("impact-section").hidden = true;
+      });
+  }
+
   function loadAndRender(lang) {
     status.hidden = false;
     status.textContent = "Loading summary\u2026 this can take up to 20 seconds.";
@@ -199,7 +188,7 @@ function initBillPage() {
         article.hidden = false;
         document.getElementById("mp-step").hidden = false;
         document.getElementById("letter-step").hidden = false;
-        loadImpact();
+        loadImpact(lang);
       })
       .catch(() => {
         status.textContent = "Couldn't load this bill's summary right now.";

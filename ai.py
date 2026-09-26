@@ -11,6 +11,7 @@ from google import genai
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.8-flash")
 try:
     client = genai.Client()  # reads GEMINI_API_KEY from the environment
+
 except Exception as e:
     # Was crashing the whole app on import (and therefore every route, not just
     # the Gemini ones) for anyone without GEMINI_API_KEY set yet. Falls back to
@@ -18,18 +19,53 @@ except Exception as e:
     print(f"[ai.py] Gemini client not ready yet ({e}); using fake data for now.")
     client = None
 
-def summarize(bill, lang):
-    """Plain-language summary of a bill in 'en' or 'fr'.
+from google.genai import errors, types
 
-    `bill` is what bills.bill_text() returns.
-    Return {tldr, summary, key_changes: [str]}
+MODELS = [GEMINI_MODEL, "gemini-flash-latest"]
+
+SUMMARY_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "tldr": {"type": "string"},
+        "summary": {"type": "string"},
+        "key_changes": {"type": "array", "items": {"type": "string"}},
+    },
+    "required": ["tldr", "summary", "key_changes"],
+}
+
+def summarize(bill, lang):
+    language = "English" if lang == "en" else "French"
+
+    prompt = f"""You are explaining a Canadian federal bill to an ordinary citizen
+
+    Rules:
+    - Write in {language}, at a level a high school student could understand.
+    - Use only what's in the bill text, and no opinions or outside facts
+    - Don't use legal jargon, if you must use it, explain it in simple terms
+
+    Write:
+    - tldr - One or two sentences
+    - summary: Two or three short paragraphs
+    - key_changes: 5 or 6 bullet points, one sentence each
+
+    Title: {bill["title"]}
+
+    Official Summary: {bill["official_summary"]}
+    Bill text:
+    {bill["text"][:150000]}
     """
-    # TODO(A): call Gemini
-    return {
-        "tldr": f"[{lang}] One-sentence fake summary of {bill['title']}.",
-        "summary": "Fake paragraph one.\n\nFake paragraph two.",
-        "key_changes": ["Fake change one", "Fake change two"],
-    }
+
+    config = types.GenerateContentConfig(
+        response_mime_type="application/json",
+        response_schema=SUMMARY_SCHEMA,
+    )
+    for model in MODELS:
+        try:
+            resp = client.models.generate_content(model=model, contents=prompt, config=config)
+            return json.loads(resp.text)
+        except errors.ServerError:
+            continue
+    raise RuntimeError("All models are busy, try again in a minute")
 
 
 def draft_letter(lang, mp, bill, stance, note, name):

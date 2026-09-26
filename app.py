@@ -12,7 +12,7 @@ from flask import Flask, jsonify, render_template, request  # noqa: E402
 import ai  # noqa: E402
 import bills  # noqa: E402
 import mp  # noqa: E402
-
+import impact
 app = Flask(__name__)
 
 
@@ -55,3 +55,9 @@ def letter():
         data.get("lang", "en"), data["mp"], data["bill"], data["stance"],
         data.get("note", ""), data.get("name", ""),
     ))
+
+@app.get("/api/bills/<session>/<code>/impact")
+def bill_impact(session, code):
+    lang = request.args.get("lang", "en")
+    bill = bills.bill_text(session, code, lang)
+    return jsonify(impact.analyze_impact(bill, lang))

@@ -248,6 +248,48 @@ h2 {
 }
 .changes li { margin-bottom: 0.5rem; }
 
+.impact-list {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+}
+.impact-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.impact-company {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.impact-ticker {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 0.1rem 0.4rem;
+}
+.impact-price {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.impact-up { color: var(--green); }
+.impact-down { color: var(--red); }
+.impact-unknown { color: var(--ink-faint); font-style: italic; }
+.impact-conflict {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface);
+  border-left: 3px solid var(--amber);
+}
+
 .source-line {
   margin-top: 2rem;
   font-size: 0.85rem;

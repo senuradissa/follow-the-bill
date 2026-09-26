@@ -10,11 +10,50 @@ function escapeHtml(str) {
 // ---------- Page 1: bill list ----------
 function initBillList() {
   const gazette = document.getElementById("gazette");
+  const filtersEl = document.getElementById("filters");
   const status = document.getElementById("status");
   const search = document.getElementById("search");
   if (!gazette) return; // not this page
 
   let allBills = [];
+  let activeFilter = "All";
+
+  function metaLine(b) {
+    // Once Person A's list_bills() adds `introduced`, prefer showing that date;
+    // fall back to session + status for now.
+    if (b.introduced) {
+      const d = new Date(b.introduced);
+      const dateStr = isNaN(d) ? b.introduced : d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+      return `${dateStr} \u00b7 ${escapeHtml(b.status_en)}`;
+    }
+    return `${escapeHtml(b.session)} \u00b7 ${escapeHtml(b.status_en)}`;
+  }
+
+  function renderFilters() {
+    const statuses = ["All", ...new Set(allBills.map((b) => b.status_en))];
+    filtersEl.innerHTML = statuses.map((s) => `
+      <button type="button" class="filter-pill${s === activeFilter ? " is-active" : ""}" data-status="${escapeHtml(s)}">
+        ${escapeHtml(s)}
+      </button>
+    `).join("");
+    filtersEl.hidden = statuses.length <= 1;
+    filtersEl.querySelectorAll(".filter-pill").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeFilter = btn.dataset.status;
+        renderFilters();
+        render(applyFilters());
+      });
+    });
+  }
+
+  function applyFilters() {
+    const q = search.value.trim().toLowerCase();
+    return allBills.filter((b) => {
+      const matchesQ = !q || b.code.toLowerCase().includes(q) || b.title_en.toLowerCase().includes(q);
+      const matchesStatus = activeFilter === "All" || b.status_en === activeFilter;
+      return matchesQ && matchesStatus;
+    });
+  }
 
   function render(bills) {
     if (bills.length === 0) {
@@ -26,8 +65,10 @@ function initBillList() {
       <li class="gazette-item">
         <a href="/bill/${encodeURIComponent(b.session)}/${encodeURIComponent(b.code)}">
           <span class="gazette-code">${escapeHtml(b.code)}</span>
-          <span class="gazette-title">${escapeHtml(b.title_en)}</span>
-          <span class="gazette-status">${escapeHtml(b.status_en)}</span>
+          <span>
+            <span class="gazette-title">${escapeHtml(b.title_en)}</span>
+            <div class="gazette-meta">${metaLine(b)}</div>
+          </span>
         </a>
       </li>
     `).join("");
@@ -42,19 +83,14 @@ function initBillList() {
     .then((bills) => {
       allBills = bills;
       status.hidden = true;
-      render(allBills);
+      renderFilters();
+      render(applyFilters());
     })
     .catch(() => {
       status.textContent = "Couldn't load bills right now. Try refreshing the page.";
     });
 
-  search.addEventListener("input", () => {
-    const q = search.value.trim().toLowerCase();
-    const filtered = !q ? allBills : allBills.filter((b) =>
-      b.code.toLowerCase().includes(q) || b.title_en.toLowerCase().includes(q)
-    );
-    render(filtered);
-  });
+  search.addEventListener("input", () => render(applyFilters()));
 }
 
 // ---------- Page 2: single bill ----------

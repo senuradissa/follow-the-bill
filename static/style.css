@@ -138,6 +138,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--ink);
 }
 .gazette-item a:hover .gazette-title { text-decoration: underline; }
+.gazette-item a { grid-template-columns: 3.5rem 1fr; }
 .gazette-code {
   font-family: var(--serif);
   font-size: 1.3rem;
@@ -149,16 +150,36 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: 1.15rem;
   line-height: 1.35;
 }
-.gazette-status {
+.gazette-meta {
   font-size: 0.8rem;
   color: var(--ink-soft);
-  white-space: nowrap;
-  text-align: right;
-  padding-top: 0.25rem;
+  margin-top: 0.3rem;
 }
 .gazette-empty {
   padding: 2rem 0.25rem;
   color: var(--ink-soft);
+}
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1.1rem 0 0;
+}
+.filter-pill {
+  font: inherit;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  cursor: pointer;
+}
+.filter-pill.is-active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
 }
 
 /* Bill article */

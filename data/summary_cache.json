@@ -10,5 +10,29 @@
       "The government must publicly provide details, studies, and assessments regarding these national interest projects before final approvals are given.",
       "A mandatory annual independent review of the progress, budget, and timelines for each national interest project will be conducted and reported to Parliament."
     ]
+  },
+  "https://www.parl.ca/DocumentViewer/fr/13577934": {
+    "tldr": "Cette loi vise à rendre le commerce entre les provinces plus facile pour les biens et les travailleurs, tout en créant un processus accéléré pour les grands projets jugés d'intérêt national.",
+    "summary": "La première partie de la loi cherche à supprimer les obstacles fédéraux au commerce intérieur. Elle permet aux biens et services conformes aux règles d'une province d'être automatiquement acceptés comme conformes aux règles fédérales comparables. De plus, elle facilite la mobilité des travailleurs en obligeant les organismes fédéraux à reconnaître les permis d'exercer délivrés par les provinces.",
+    "key_changes": [
+      "Les biens et services respectant les règles provinciales seront désormais reconnus comme conformes aux exigences fédérales similaires.",
+      "Les travailleurs possédant un permis professionnel d'une province pourront obtenir une autorisation fédérale équivalente pour travailler ailleurs au pays.",
+      "Le gouvernement peut désigner certains projets comme étant d'intérêt national pour accélérer leur approbation réglementaire.",
+      "Un ministre pourra délivrer un document unique qui remplace plusieurs autorisations fédérales requises pour ces grands projets.",
+      "Un registre public sera créé pour assurer la transparence sur les détails et l'avancement des projets d'intérêt national.",
+      "Des examens indépendants annuels seront obligatoires pour suivre les progrès des projets d'intérêt national et s'assurer qu'ils respectent les objectifs fixés."
+    ]
+  },
+  "https://www.parl.ca/DocumentViewer/en/14182752": {
+    "tldr": "The Used Car Tax Cut Act eliminates the Goods and Services Tax (GST) on the sale of used vehicles. This change makes buying a pre-owned car or motor home more affordable for Canadians.",
+    "summary": "This bill updates the Excise Tax Act to make used motor vehicles 'zero-rated.' In tax terms, being zero-rated means that the government charges zero percent GST on the item, rather than the standard tax rate. This applies to vehicles designed for use on public roads, such as cars, trucks, and motor homes.\n\nThe law specifies that the vehicle must have been previously registered to a different owner under provincial law to qualify. It also clarifies that brand-new vehicles held by a dealership for their first sale do not count as 'used' under this rule and will still be taxed normally.",
+    "key_changes": [
+      "Used motor vehicles are now classified as zero-rated supplies under the Excise Tax Act.",
+      "The 5% GST will no longer be charged on the sale of eligible used vehicles.",
+      "This tax exemption applies to vehicles designed for use on highways, including motor homes.",
+      "To qualify as used, a vehicle must have been previously registered to a different owner.",
+      "New vehicles held by dealers for their initial sale are excluded from this tax break.",
+      "The act officially establishes these changes under a new section titled 'Part IV.1 Used Motor Vehicles'."
+    ]
   }
 }

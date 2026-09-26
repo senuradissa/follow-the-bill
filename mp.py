@@ -46,8 +46,5 @@ def find_mp(postal):
         "riding": mp.get("district_name") or "",
         "email": mp.get("email") or "",
         "photo_url": mp.get("photo_url"),
-<<<<<<< HEAD
     }
-=======
     }
->>>>>>> 75a5af4c60a548c078d4df7f44fc4369860f9085

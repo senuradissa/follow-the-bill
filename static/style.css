@@ -270,6 +270,34 @@ h2 { font-family: var(--serif); font-size: 1.3rem; margin: 2.2rem 0 0.8rem; }
 .source-line { margin-top: 2rem; font-size: 0.85rem; color: var(--ink-faint); }
 .source-line a { color: var(--ink-soft); }
 
+/* Listen button: reads the summary aloud (ElevenLabs) */
+.listen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.9rem;
+  margin: 0 0 1.25rem;
+}
+.listen-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.listen-btn:hover { background: var(--surface); }
+.listen-btn:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.listen-btn:disabled { cursor: progress; opacity: 0.6; }
+.listen-status { font-size: 0.85rem; color: var(--ink-soft); }
+.listen audio { width: 100%; max-width: 28rem; }
+
 /* Bill description */
 #description-text { max-width: 68ch; color: var(--ink); }
 

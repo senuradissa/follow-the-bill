@@ -7,12 +7,14 @@ from dotenv import load_dotenv
 
 load_dotenv()  # loads GEMINI_API_KEY from .env
 
-from flask import Flask, jsonify, render_template, request  # noqa: E402
+from flask import Flask, jsonify, render_template, request, send_file  # noqa: E402
 
 import ai  # noqa: E402
 import bills  # noqa: E402
 import mp  # noqa: E402
 import impact
+import voice #noqa: E402
+
 app = Flask(__name__)
 
 @app.get("/")
@@ -63,3 +65,22 @@ def bill_impact(session, code):
     lang = request.args.get("lang", "en")
     bill = bills.bill_text(session, code, lang)
     return jsonify(impact.analyze_impact(bill, lang))
+
+@app.get("/api/bills/<session>/<code>/audio")
+def bill_audio(session, code):
+    lang = request.args.get("lang", "en")
+    bill = bills.bill_text(session, code, lang)
+    summary = ai.summarize(bill, lang)
+
+    heading = "Key Changes" if lang == "en" else "Principaux changements"
+    text = "\n\n".join([
+        bill["title"],
+        summary["tldr"],
+        summary["summary"],
+        heading + ":",
+        *summary["key_changes"],
+    ])
+
+    mp3_path = voice.speak(text)
+    return send_file(mp3_path, mimetype="audio/mpeg")
+

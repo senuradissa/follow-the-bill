@@ -202,6 +202,7 @@ function initBillPage() {
   }
 
   function loadAndRender(lang) {
+    resetListen();
     status.hidden = false;
     status.textContent = "Loading summary… this can take up to 20 seconds.";
     article.hidden = true;
@@ -210,6 +211,7 @@ function initBillPage() {
         currentLang = lang;
         renderBill(data);
         renderDescription(data);
+        resetListen();
         status.hidden = true;
         article.hidden = false;
         document.getElementById("mp-step").hidden = false;
@@ -220,6 +222,57 @@ function initBillPage() {
         status.textContent = "Couldn't load this bill's summary right now.";
       });
   }
+
+  // ---- Listen: read the summary aloud (ElevenLabs, via /audio) ----
+  const listenBtn = document.getElementById("listen-btn");
+  const listenLabel = document.getElementById("listen-label");
+  const listenStatus = document.getElementById("listen-status");
+  const listenAudio = document.getElementById("listen-audio");
+
+  const LISTEN_TEXT = {
+    en: {
+      idle: "Listen to this summary",
+      loading: "Preparing audio… this can take up to 20 seconds.",
+      error: "Couldn't load the audio right now.",
+    },
+    fr: {
+      idle: "Écouter ce résumé",
+      loading: "Préparation de l’audio… cela peut prendre jusqu’à 20 secondes.",
+      error: "Impossible de charger l’audio pour le moment.",
+    },
+  };
+
+  // Stop any playing audio and put the button back to its starting state
+  // (called when the page loads a summary or switches language).
+  function resetListen() {
+    listenAudio.pause();
+    listenAudio.removeAttribute("src");
+    listenAudio.load();
+    listenAudio.hidden = true;
+    listenBtn.disabled = false;
+    listenStatus.textContent = "";
+    listenLabel.textContent = LISTEN_TEXT[currentLang].idle;
+  }
+
+  listenBtn.addEventListener("click", () => {
+    listenBtn.disabled = true;
+    listenStatus.textContent = LISTEN_TEXT[currentLang].loading;
+    listenAudio.src = `/api/bills/${encodeURIComponent(session)}/${encodeURIComponent(code)}/audio?lang=${currentLang}`;
+    listenAudio.hidden = false;
+    listenAudio.play().catch(() => {}); // failures are handled by the "error" listener below
+  });
+
+  listenAudio.addEventListener("playing", () => {
+    listenStatus.textContent = "";
+    listenBtn.disabled = false;
+  });
+
+  listenAudio.addEventListener("error", () => {
+    if (!listenAudio.getAttribute("src")) return; // just reset, not a real error
+    listenStatus.textContent = LISTEN_TEXT[currentLang].error;
+    listenAudio.hidden = true;
+    listenBtn.disabled = false;
+  });
 
   document.getElementById("lang-en").addEventListener("click", () => loadAndRender("en"));
   document.getElementById("lang-fr").addEventListener("click", () => loadAndRender("fr"));

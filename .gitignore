@@ -4,3 +4,5 @@ venv/
 __pycache__/
 *.pyc
 context.md
+data/lobbying_raw/
+data/.cache_*.json

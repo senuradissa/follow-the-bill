@@ -24,9 +24,9 @@ function initBillList() {
     if (b.introduced) {
       const d = new Date(b.introduced);
       const dateStr = isNaN(d) ? b.introduced : d.toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
-      return `${dateStr} \u00b7 ${escapeHtml(b.status_en)}`;
+      return `${dateStr} · ${escapeHtml(b.status_en)}`;
     }
-    return `${escapeHtml(b.session)} \u00b7 ${escapeHtml(b.status_en)}`;
+    return `${escapeHtml(b.session)} · ${escapeHtml(b.status_en)}`;
   }
 
   function renderFilters() {
@@ -116,7 +116,7 @@ function initBillPage() {
 
   function renderBill(data) {
     currentBill = data;
-    document.getElementById("bill-code").textContent = `Bill ${code} \u2014 ${session}`;
+    document.getElementById("bill-code").textContent = `Bill ${code} — ${session}`;
     document.getElementById("bill-title").textContent = data.title;
     document.getElementById("bill-tldr").textContent = data.tldr;
     document.getElementById("bill-summary").textContent = data.summary;
@@ -152,21 +152,25 @@ function initBillPage() {
         const sign = m.change > 0 ? "+" : "";
         priceHtml = `<span class="company-price ${dir}">$${m.price.toFixed(2)} (${sign}${m.change_pct.toFixed(1)}%)</span>`;
       }
-      const holdings = c.political_holdings || [];
-      const conflictHtml = holdings.map((h) => {
-        const who = h.mp_name || h.mp || h.name || "An MP";
-        return `
+      const lobbying = c.lobbying_activity || [];
+      let lobbyHtml = "";
+      if (lobbying.length) {
+        const first = lobbying[0];
+        const extra = lobbying.length - 1;
+        const who = `${escapeHtml(first.dpoh_name)}${first.dpoh_institution ? ` (${escapeHtml(first.dpoh_institution)})` : ""}`;
+        const rest = extra > 0 ? ` and ${extra} other${extra > 1 ? "s" : ""}` : "";
+        lobbyHtml = `
           <span class="conflict-flag">
-            <span>\u26a0 <strong>${escapeHtml(who)}</strong> has a disclosed holding matching this company.</span>
+            <span>⚠ Registered lobbying: contacted <strong>${who}</strong>${rest}.</span>
             <a class="conflict-cta" href="#mp-step">Contact your MP about this &rarr;</a>
           </span>`;
-      }).join("");
+      }
       return `
         <li class="company-row">
           <span class="company-name">${escapeHtml(c.company)}</span>
           ${c.ticker ? `<span class="company-ticker">${escapeHtml(c.ticker)}</span>` : ""}
           ${priceHtml}
-          ${conflictHtml}
+          ${lobbyHtml}
         </li>`;
     }).join("");
   }
@@ -174,7 +178,7 @@ function initBillPage() {
   function loadImpact(lang) {
     const impactStatus = document.getElementById("impact-status");
     impactStatus.hidden = false;
-    impactStatus.textContent = "Loading conflict-of-interest data…";
+    impactStatus.textContent = "Loading lobbying data…";
     document.getElementById("company-list").innerHTML = "";
     document.getElementById("holdings-table-wrap").hidden = true;
     document.getElementById("impact-sectors").hidden = true;
@@ -193,13 +197,13 @@ function initBillPage() {
         // Optional/experimental feature (needs FINNHUB_API_KEY etc.) — fail without
         // taking down the rest of the page.
         impactStatus.hidden = false;
-        impactStatus.textContent = "Couldn't load conflict-of-interest data for this bill right now.";
+        impactStatus.textContent = "Couldn't load lobbying data for this bill right now.";
       });
   }
 
   function loadAndRender(lang) {
     status.hidden = false;
-    status.textContent = "Loading summary\u2026 this can take up to 20 seconds.";
+    status.textContent = "Loading summary… this can take up to 20 seconds.";
     article.hidden = true;
     loadSummary(lang)
       .then((data) => {
@@ -248,7 +252,7 @@ function initBillPage() {
       .then((mp) => {
         currentMp = mp;
         document.getElementById("mp-name").textContent = mp.name;
-        document.getElementById("mp-meta").textContent = `${mp.party} \u00b7 ${mp.riding}`;
+        document.getElementById("mp-meta").textContent = `${mp.party} · ${mp.riding}`;
         mpCard.hidden = false;
       })
       .catch((err) => {
@@ -279,7 +283,7 @@ function initBillPage() {
     const name = document.getElementById("name").value.trim();
 
     letterStatus.hidden = false;
-    letterStatus.textContent = "Drafting your letter\u2026";
+    letterStatus.textContent = "Drafting your letter…";
 
     fetch("/api/letter", {
       method: "POST",
@@ -319,7 +323,7 @@ function initBillPage() {
   });
 }
 
-// ---------- Description / Conflict of interest tabs ----------
+// ---------- Description / Lobbying activity tabs ----------
 function initTabs() {
   const tabDescription = document.getElementById("tab-description");
   const tabFinancial = document.getElementById("tab-financial");
@@ -364,23 +368,24 @@ function renderSectors(data) {
 }
 
 function renderFinancials(companies) {
-  // Holdings table only -- this is real, disclosed accountability data, kept
-  // deliberately separate from anything that looks like an investment pitch
-  // (no price chart, no projected trend, no net-worth figure: see impact.py).
+  // Lobbying activity table -- who registered companies affected by this bill
+  // have actually contacted in government, sourced from Canada's public
+  // Registry of Lobbyists (see impact.py: company_lobbying()).
   const tableWrap = document.getElementById('holdings-table-wrap');
   const tbody = document.getElementById('holdings-table-body');
   tbody.innerHTML = '';
   let rowCount = 0;
 
   companies.forEach(c => {
-    (c.political_holdings || []).forEach(h => {
+    (c.lobbying_activity || []).forEach(r => {
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${escapeHtml(h.mp)}</td>
-        <td>${escapeHtml(h.party)}</td>
-        <td>${escapeHtml(h.riding)}</td>
-        <td>${escapeHtml(c.company)}</td>
+        <td>${escapeHtml(c.registered_name || c.company)}</td>
         <td>${escapeHtml(c.ticker || '—')}</td>
+        <td>${escapeHtml(r.dpoh_name || '—')}</td>
+        <td>${escapeHtml(r.dpoh_title || '—')}</td>
+        <td>${escapeHtml(r.dpoh_institution || '—')}</td>
+        <td>${escapeHtml(r.date || '—')}</td>
       `;
       tbody.appendChild(tr);
       rowCount++;

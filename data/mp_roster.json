@@ -1,0 +1,2060 @@
+[
+  {
+    "name": "Parm Bains",
+    "party": "Liberal",
+    "riding": "Richmond East\u2014Steveston",
+    "email": "parm.bains@parl.gc.ca"
+  },
+  {
+    "name": "Tamara Kronis",
+    "party": "Conservative",
+    "riding": "Nanaimo\u2014Ladysmith",
+    "email": "tamara.kronis@parl.gc.ca"
+  },
+  {
+    "name": "Rachel Bendayan",
+    "party": "Liberal",
+    "riding": "Outremont",
+    "email": "Rachel.Bendayan@parl.gc.ca"
+  },
+  {
+    "name": "Jenna Sudds",
+    "party": "Liberal",
+    "riding": "Kanata",
+    "email": "jenna.sudds@parl.gc.ca"
+  },
+  {
+    "name": "Adam van Koeverden",
+    "party": "Liberal",
+    "riding": "Burlington North\u2014Milton West",
+    "email": "Adam.vanKoeverden@parl.gc.ca"
+  },
+  {
+    "name": "Michael Coteau",
+    "party": "Liberal",
+    "riding": "Scarborough\u2014Woburn",
+    "email": "michael.coteau@parl.gc.ca"
+  },
+  {
+    "name": "Christine Normandin",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Saint-Jean",
+    "email": "Christine.Normandin@parl.gc.ca"
+  },
+  {
+    "name": "Ernie Klassen",
+    "party": "Liberal",
+    "riding": "South Surrey\u2014White Rock",
+    "email": "ernie.klassen@parl.gc.ca"
+  },
+  {
+    "name": "Ron McKinnon",
+    "party": "Liberal",
+    "riding": "Coquitlam\u2014Port Coquitlam",
+    "email": "ron.mckinnon@parl.gc.ca"
+  },
+  {
+    "name": "Xavier Barsalou-Duval",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Pierre-Boucher\u2014Les Patriotes\u2014Verch\u00e8res",
+    "email": "xavier.barsalou-duval@parl.gc.ca"
+  },
+  {
+    "name": "Charles Sousa",
+    "party": "Liberal",
+    "riding": "Mississauga\u2014Lakeshore",
+    "email": "charles.sousa@parl.gc.ca"
+  },
+  {
+    "name": "Salma Zahid",
+    "party": "Liberal",
+    "riding": "Scarborough Centre\u2014Don Valley East",
+    "email": "salma.zahid@parl.gc.ca"
+  },
+  {
+    "name": "Buckley Belanger",
+    "party": "Liberal",
+    "riding": "Desneth\u00e9\u2014Missinippi\u2014Churchill River",
+    "email": "buckley.belanger@parl.gc.ca"
+  },
+  {
+    "name": "John Zerucelli",
+    "party": "Liberal",
+    "riding": "Etobicoke North",
+    "email": "john.zerucelli@parl.gc.ca"
+  },
+  {
+    "name": "Shannon Miedema",
+    "party": "Liberal",
+    "riding": "Halifax",
+    "email": "shannon.miedema@parl.gc.ca"
+  },
+  {
+    "name": "Rob Moore",
+    "party": "Conservative",
+    "riding": "Fundy Royal",
+    "email": "Rob.Moore@parl.gc.ca"
+  },
+  {
+    "name": "Clifford Small",
+    "party": "Conservative",
+    "riding": "Central Newfoundland",
+    "email": "clifford.small@parl.gc.ca"
+  },
+  {
+    "name": "Leslie Church",
+    "party": "Liberal",
+    "riding": "Toronto\u2014St. Paul's",
+    "email": "leslie.church@parl.gc.ca"
+  },
+  {
+    "name": "Ryan Turnbull",
+    "party": "Liberal",
+    "riding": "Whitby",
+    "email": "Ryan.Turnbull@parl.gc.ca"
+  },
+  {
+    "name": "Scott Anderson",
+    "party": "Conservative",
+    "riding": "Vernon\u2014Lake Country\u2014Monashee",
+    "email": "scott.anderson@parl.gc.ca"
+  },
+  {
+    "name": "Tim Hodgson",
+    "party": "Liberal",
+    "riding": "Markham\u2014Thornhill",
+    "email": "tim.hodgson@parl.gc.ca"
+  },
+  {
+    "name": "Mel Arnold",
+    "party": "Conservative",
+    "riding": "Kamloops\u2014Shuswap\u2014Central Rockies",
+    "email": "mel.arnold@parl.gc.ca"
+  },
+  {
+    "name": "Greg McLean",
+    "party": "Conservative",
+    "riding": "Calgary Centre",
+    "email": "greg.mclean@parl.gc.ca"
+  },
+  {
+    "name": "\u00c9lisabeth Bri\u00e8re",
+    "party": "Liberal",
+    "riding": "Sherbrooke",
+    "email": "Elisabeth.Briere@parl.gc.ca"
+  },
+  {
+    "name": "Sophie Chatel",
+    "party": "Liberal",
+    "riding": "Pontiac\u2014Kitigan Zibi",
+    "email": "sophie.chatel@parl.gc.ca"
+  },
+  {
+    "name": "Hedy Fry",
+    "party": "Liberal",
+    "riding": "Vancouver Centre",
+    "email": "hedy.fry@parl.gc.ca"
+  },
+  {
+    "name": "Alexis Brunelle-Duceppe",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Lac-Saint-Jean",
+    "email": "Alexis.Brunelle-Duceppe@parl.gc.ca"
+  },
+  {
+    "name": "Ga\u00e9tan Malette",
+    "party": "Conservative",
+    "riding": "Kapuskasing\u2014Timmins\u2014Mushkegowuk",
+    "email": "gaetan.malette@parl.gc.ca"
+  },
+  {
+    "name": "Natilien Joseph",
+    "party": "Liberal",
+    "riding": "Longueuil\u2014Saint-Hubert",
+    "email": "natilien.joseph@parl.gc.ca"
+  },
+  {
+    "name": "Patrick Weiler",
+    "party": "Liberal",
+    "riding": "West Vancouver\u2014Sunshine Coast\u2014Sea to Sky Country",
+    "email": "Patrick.Weiler@parl.gc.ca"
+  },
+  {
+    "name": "Raquel Dancho",
+    "party": "Conservative",
+    "riding": "Kildonan\u2014St. Paul",
+    "email": "Raquel.Dancho@parl.gc.ca"
+  },
+  {
+    "name": "Jake Sawatzky",
+    "party": "Liberal",
+    "riding": "New Westminster\u2014Burnaby\u2014Maillardville",
+    "email": "jake.sawatzky@parl.gc.ca"
+  },
+  {
+    "name": "William Stevenson",
+    "party": "Conservative",
+    "riding": "Yellowhead",
+    "email": "william.stevenson@parl.gc.ca"
+  },
+  {
+    "name": "Louis Plamondon",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "B\u00e9cancour\u2014Nicolet\u2014Saurel\u2014Aln\u00f4bak",
+    "email": "louis.plamondon@parl.gc.ca"
+  },
+  {
+    "name": "Bob Zimmer",
+    "party": "Conservative",
+    "riding": "Prince George\u2014Peace River\u2014Northern Rockies",
+    "email": "bob.zimmer@parl.gc.ca"
+  },
+  {
+    "name": "Terry Duguid",
+    "party": "Liberal",
+    "riding": "Winnipeg South",
+    "email": "terry.duguid@parl.gc.ca"
+  },
+  {
+    "name": "Cheryl Gallant",
+    "party": "Conservative",
+    "riding": "Algonquin\u2014Renfrew\u2014Pembroke",
+    "email": "cheryl.gallant@parl.gc.ca"
+  },
+  {
+    "name": "Tim Watchorn",
+    "party": "Liberal",
+    "riding": "Les Pays-d'en-Haut",
+    "email": "tim.watchorn@parl.gc.ca"
+  },
+  {
+    "name": "Steven Bonk",
+    "party": "Conservative",
+    "riding": "Souris\u2014Moose Mountain",
+    "email": "steven.bonk@parl.gc.ca"
+  },
+  {
+    "name": "Harb Gill",
+    "party": "Conservative",
+    "riding": "Windsor West",
+    "email": "harb.gill@parl.gc.ca"
+  },
+  {
+    "name": "Pauline Rochefort",
+    "party": "Liberal",
+    "riding": "Nipissing\u2014Timiskaming",
+    "email": "pauline.rochefort@parl.gc.ca"
+  },
+  {
+    "name": "Kelly DeRidder",
+    "party": "Conservative",
+    "riding": "Kitchener Centre",
+    "email": "kelly.deridder@parl.gc.ca"
+  },
+  {
+    "name": "Rebecca Alty",
+    "party": "Liberal",
+    "riding": "Northwest Territories",
+    "email": "rebecca.alty@parl.gc.ca"
+  },
+  {
+    "name": "Caroline Desrochers",
+    "party": "Liberal",
+    "riding": "Trois-Rivi\u00e8res",
+    "email": "caroline.desrochers@parl.gc.ca"
+  },
+  {
+    "name": "Rachael Thomas",
+    "party": "Conservative",
+    "riding": "Lethbridge",
+    "email": "rachael.thomas@parl.gc.ca"
+  },
+  {
+    "name": "Eric Lefebvre",
+    "party": "Conservative",
+    "riding": "Richmond\u2014Arthabaska",
+    "email": "eric.lefebvre@parl.gc.ca"
+  },
+  {
+    "name": "Gord Johns",
+    "party": "NDP",
+    "riding": "Courtenay\u2014Alberni",
+    "email": "gord.johns@parl.gc.ca"
+  },
+  {
+    "name": "Anna Gainey",
+    "party": "Liberal",
+    "riding": "Notre-Dame-de-Gr\u00e2ce\u2014Westmount",
+    "email": "anna.gainey@parl.gc.ca"
+  },
+  {
+    "name": "Michael Guglielmin",
+    "party": "Conservative",
+    "riding": "Vaughan\u2014Woodbridge",
+    "email": "michael.guglielmin@parl.gc.ca"
+  },
+  {
+    "name": "Garnett Genuis",
+    "party": "Conservative",
+    "riding": "Sherwood Park\u2014Fort Saskatchewan",
+    "email": "garnett.genuis@parl.gc.ca"
+  },
+  {
+    "name": "Tom Kmiec",
+    "party": "Conservative",
+    "riding": "Calgary Shepard",
+    "email": "tom.kmiec@parl.gc.ca"
+  },
+  {
+    "name": "Ziad Aboultaif",
+    "party": "Conservative",
+    "riding": "Edmonton Manning",
+    "email": "ziad.aboultaif@parl.gc.ca"
+  },
+  {
+    "name": "Carol Anstey",
+    "party": "Conservative",
+    "riding": "Long Range Mountains",
+    "email": "carol.anstey@parl.gc.ca"
+  },
+  {
+    "name": "Michael Cooper",
+    "party": "Conservative",
+    "riding": "St. Albert\u2014Sturgeon River",
+    "email": "michael.cooper@parl.gc.ca"
+  },
+  {
+    "name": "Mario Simard",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Jonqui\u00e8re",
+    "email": "Mario.Simard@parl.gc.ca"
+  },
+  {
+    "name": "Jonathan Rowe",
+    "party": "Conservative",
+    "riding": "Terra Nova\u2014The Peninsulas",
+    "email": "jonathan.rowe@parl.gc.ca"
+  },
+  {
+    "name": "James Maloney",
+    "party": "Liberal",
+    "riding": "Etobicoke\u2014Lakeshore",
+    "email": "james.maloney@parl.gc.ca"
+  },
+  {
+    "name": "Madeleine Chenette",
+    "party": "Liberal",
+    "riding": "Th\u00e9r\u00e8se-De Blainville",
+    "email": "madeleine.chenette@parl.gc.ca"
+  },
+  {
+    "name": "Jim B\u00e9langer",
+    "party": "Conservative",
+    "riding": "Sudbury East\u2014Manitoulin\u2014Nickel Belt",
+    "email": "jim.belanger@parl.gc.ca"
+  },
+  {
+    "name": "Jamil Jivani",
+    "party": "Conservative",
+    "riding": "Bowmanville\u2014Oshawa North",
+    "email": "jamil.jivani@parl.gc.ca"
+  },
+  {
+    "name": "Gabriel Hardy",
+    "party": "Conservative",
+    "riding": "Montmorency\u2014Charlevoix",
+    "email": "gabriel.hardy@parl.gc.ca"
+  },
+  {
+    "name": "Sonia Sidhu",
+    "party": "Liberal",
+    "riding": "Brampton South",
+    "email": "sonia.sidhu@parl.gc.ca"
+  },
+  {
+    "name": "Jean-Denis Garon",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Mirabel",
+    "email": "jean-denis.garon@parl.gc.ca"
+  },
+  {
+    "name": "Mario Beaulieu",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "La Pointe-de-l'\u00cele",
+    "email": "mario.beaulieu@parl.gc.ca"
+  },
+  {
+    "name": "Jasraj Hallan",
+    "party": "Conservative",
+    "riding": "Calgary East",
+    "email": "JasrajSingh.Hallan@parl.gc.ca"
+  },
+  {
+    "name": "Ginette Petitpas Taylor",
+    "party": "Liberal",
+    "riding": "Moncton\u2014Dieppe",
+    "email": "ginette.petitpastaylor@parl.gc.ca"
+  },
+  {
+    "name": "Tim Uppal",
+    "party": "Conservative",
+    "riding": "Edmonton Gateway",
+    "email": "Tim.Uppal@parl.gc.ca"
+  },
+  {
+    "name": "Peter Schiefke",
+    "party": "Liberal",
+    "riding": "Vaudreuil",
+    "email": "peter.schiefke@parl.gc.ca"
+  },
+  {
+    "name": "Lianne Rood",
+    "party": "Conservative",
+    "riding": "Middlesex\u2014London",
+    "email": "Lianne.Rood@parl.gc.ca"
+  },
+  {
+    "name": "Jeremy Patzer",
+    "party": "Conservative",
+    "riding": "Swift Current\u2014Grasslands\u2014Kindersley",
+    "email": "Jeremy.Patzer@parl.gc.ca"
+  },
+  {
+    "name": "Eric Duncan",
+    "party": "Conservative",
+    "riding": "Stormont\u2014Dundas\u2014Glengarry",
+    "email": "Eric.Duncan@parl.gc.ca"
+  },
+  {
+    "name": "Philip Earle",
+    "party": "Liberal",
+    "riding": "Labrador",
+    "email": "philip.earle@parl.gc.ca"
+  },
+  {
+    "name": "Marie-Gabrielle M\u00e9nard",
+    "party": "Liberal",
+    "riding": "Hochelaga\u2014Rosemont-Est",
+    "email": "marie-gabrielle.menard@parl.gc.ca"
+  },
+  {
+    "name": "Stephen Fuhr",
+    "party": "Liberal",
+    "riding": "Kelowna",
+    "email": "stephen.fuhr@parl.gc.ca"
+  },
+  {
+    "name": "Linda Lapointe",
+    "party": "Liberal",
+    "riding": "Rivi\u00e8re-des-Mille-\u00celes",
+    "email": "linda.lapointe@parl.gc.ca"
+  },
+  {
+    "name": "Sandra Cobena",
+    "party": "Conservative",
+    "riding": "Newmarket\u2014Aurora",
+    "email": "sandra.cobena@parl.gc.ca"
+  },
+  {
+    "name": "Anita Anand",
+    "party": "Liberal",
+    "riding": "Oakville East",
+    "email": "Anita.Anand@parl.gc.ca"
+  },
+  {
+    "name": "Randy Hoback",
+    "party": "Conservative",
+    "riding": "Prince Albert",
+    "email": "randy.hoback@parl.gc.ca"
+  },
+  {
+    "name": "Roman Baber",
+    "party": "Conservative",
+    "riding": "York Centre",
+    "email": "roman.baber@parl.gc.ca"
+  },
+  {
+    "name": "Brendan Hanley",
+    "party": "Liberal",
+    "riding": "Yukon",
+    "email": "brendan.hanley@parl.gc.ca"
+  },
+  {
+    "name": "Dominic LeBlanc",
+    "party": "Liberal",
+    "riding": "Beaus\u00e9jour",
+    "email": "dominic.leblanc@parl.gc.ca"
+  },
+  {
+    "name": "Jagsharan Singh Mahal",
+    "party": "Conservative",
+    "riding": "Edmonton Southeast",
+    "email": "jagsharansingh.mahal@parl.gc.ca"
+  },
+  {
+    "name": "Dave Epp",
+    "party": "Conservative",
+    "riding": "Chatham-Kent\u2014Leamington",
+    "email": "Dave.Epp@parl.gc.ca"
+  },
+  {
+    "name": "Chrystia Freeland",
+    "party": "Liberal",
+    "riding": "University\u2014Rosedale",
+    "email": "chrystia.freeland@parl.gc.ca"
+  },
+  {
+    "name": "Anthony Housefather",
+    "party": "Liberal",
+    "riding": "Mount Royal",
+    "email": "anthony.housefather@parl.gc.ca"
+  },
+  {
+    "name": "Billy Morin",
+    "party": "Conservative",
+    "riding": "Edmonton Northwest",
+    "email": "billy.morin@parl.gc.ca"
+  },
+  {
+    "name": "Kyle Seeback",
+    "party": "Conservative",
+    "riding": "Dufferin\u2014Caledon",
+    "email": "Kyle.Seeback@parl.gc.ca"
+  },
+  {
+    "name": "Chris Bittle",
+    "party": "Liberal",
+    "riding": "St. Catharines",
+    "email": "chris.bittle@parl.gc.ca"
+  },
+  {
+    "name": "Amandeep Sodhi",
+    "party": "Liberal",
+    "riding": "Brampton Centre",
+    "email": "amandeep.sodhi@parl.gc.ca"
+  },
+  {
+    "name": "Nathaniel Erskine-Smith",
+    "party": "Liberal",
+    "riding": "Beaches\u2014East York",
+    "email": "nathaniel.erskine-smith@parl.gc.ca"
+  },
+  {
+    "name": "Dominique Vien",
+    "party": "Conservative",
+    "riding": "Bellechasse\u2014Les Etchemins\u2014L\u00e9vis",
+    "email": "dominique.vien@parl.gc.ca"
+  },
+  {
+    "name": "Sameer Zuberi",
+    "party": "Liberal",
+    "riding": "Pierrefonds\u2014Dollard",
+    "email": "Sameer.Zuberi@parl.gc.ca"
+  },
+  {
+    "name": "Judy A. Sgro",
+    "party": "Liberal",
+    "riding": "Humber River\u2014Black Creek",
+    "email": "judy.sgro@parl.gc.ca"
+  },
+  {
+    "name": "Yasir Naqvi",
+    "party": "Liberal",
+    "riding": "Ottawa Centre",
+    "email": "yasir.naqvi@parl.gc.ca"
+  },
+  {
+    "name": "Juanita Nathan",
+    "party": "Liberal",
+    "riding": "Pickering\u2014Brooklin",
+    "email": "juanita.nathan@parl.gc.ca"
+  },
+  {
+    "name": "Ted Falk",
+    "party": "Conservative",
+    "riding": "Provencher",
+    "email": "ted.falk@parl.gc.ca"
+  },
+  {
+    "name": "Paul Connors",
+    "party": "Liberal",
+    "riding": "Avalon",
+    "email": "paul.connors@parl.gc.ca"
+  },
+  {
+    "name": "Marcus Powlowski",
+    "party": "Liberal",
+    "riding": "Thunder Bay\u2014Rainy River",
+    "email": "Marcus.Powlowski@parl.gc.ca"
+  },
+  {
+    "name": "Maggie Chi",
+    "party": "Liberal",
+    "riding": "Don Valley North",
+    "email": "maggie.chi@parl.gc.ca"
+  },
+  {
+    "name": "Luc Th\u00e9riault",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Montcalm",
+    "email": "luc.theriault@parl.gc.ca"
+  },
+  {
+    "name": "Terry Dowdall",
+    "party": "Conservative",
+    "riding": "Simcoe\u2014Grey",
+    "email": "Terry.Dowdall@parl.gc.ca"
+  },
+  {
+    "name": "Aaron Gunn",
+    "party": "Conservative",
+    "riding": "North Island\u2014Powell River",
+    "email": "aaron.gunn@parl.gc.ca"
+  },
+  {
+    "name": "Will Greaves",
+    "party": "Liberal",
+    "riding": "Victoria",
+    "email": "will.greaves@parl.gc.ca"
+  },
+  {
+    "name": "Julie Dzerowicz",
+    "party": "Liberal",
+    "riding": "Davenport",
+    "email": "julie.dzerowicz@parl.gc.ca"
+  },
+  {
+    "name": "Amanpreet S. Gill",
+    "party": "Conservative",
+    "riding": "Calgary Skyview",
+    "email": "amanpreetsingh.gill@parl.gc.ca"
+  },
+  {
+    "name": "Chris Malette",
+    "party": "Liberal",
+    "riding": "Bay of Quinte",
+    "email": "chris.malette@parl.gc.ca"
+  },
+  {
+    "name": "Claude DeBellefeuille",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Beauharnois\u2014Salaberry\u2014Soulanges\u2014Huntingdon",
+    "email": "Claude.DeBellefeuille@parl.gc.ca"
+  },
+  {
+    "name": "Michael D. Chong",
+    "party": "Conservative",
+    "riding": "Wellington\u2014Halton Hills North",
+    "email": "michael.chong@parl.gc.ca"
+  },
+  {
+    "name": "Angelo Iacono",
+    "party": "Liberal",
+    "riding": "Alfred-Pellan",
+    "email": "angelo.iacono@parl.gc.ca"
+  },
+  {
+    "name": "Michael Kram",
+    "party": "Conservative",
+    "riding": "Regina\u2014Wascana",
+    "email": "Michael.Kram@parl.gc.ca"
+  },
+  {
+    "name": "Costas Menegakis",
+    "party": "Conservative",
+    "riding": "Aurora\u2014Oak Ridges\u2014Richmond Hill",
+    "email": "costas.menegakis@parl.gc.ca"
+  },
+  {
+    "name": "Marilyn Gladu",
+    "party": "Conservative",
+    "riding": "Sarnia\u2014Lambton\u2014Bkejwanong",
+    "email": "marilyn.gladu@parl.gc.ca"
+  },
+  {
+    "name": "Anita Vandenbeld",
+    "party": "Liberal",
+    "riding": "Ottawa West\u2014Nepean",
+    "email": "anita.vandenbeld@parl.gc.ca"
+  },
+  {
+    "name": "Wade Grant",
+    "party": "Liberal",
+    "riding": "Vancouver Quadra",
+    "email": "wade.grant@parl.gc.ca"
+  },
+  {
+    "name": "Ahmed Hussen",
+    "party": "Liberal",
+    "riding": "York South\u2014Weston\u2014Etobicoke",
+    "email": "ahmed.hussen@parl.gc.ca"
+  },
+  {
+    "name": "Annie Koutrakis",
+    "party": "Liberal",
+    "riding": "Vimy",
+    "email": "Annie.Koutrakis@parl.gc.ca"
+  },
+  {
+    "name": "Joanne Thompson",
+    "party": "Liberal",
+    "riding": "St. John's East",
+    "email": "joanne.thompson@parl.gc.ca"
+  },
+  {
+    "name": "Jason Groleau",
+    "party": "Conservative",
+    "riding": "Beauce",
+    "email": "jason.groleau@parl.gc.ca"
+  },
+  {
+    "name": "Helena Jaczek",
+    "party": "Liberal",
+    "riding": "Markham\u2014Stouffville",
+    "email": "Helena.Jaczek@parl.gc.ca"
+  },
+  {
+    "name": "Dan Muys",
+    "party": "Conservative",
+    "riding": "Flamborough\u2014Glanbrook\u2014Brant North",
+    "email": "dan.muys@parl.gc.ca"
+  },
+  {
+    "name": "Mandy Gull-Masty",
+    "party": "Liberal",
+    "riding": "Abitibi\u2014Baie-James\u2014Nunavik\u2014Eeyou",
+    "email": "mandy.gull-masty@parl.gc.ca"
+  },
+  {
+    "name": "Eric Melillo",
+    "party": "Conservative",
+    "riding": "Kenora\u2014Kiiwetinoong",
+    "email": "Eric.Melillo@parl.gc.ca"
+  },
+  {
+    "name": "Jacob Mantle",
+    "party": "Conservative",
+    "riding": "York\u2014Durham",
+    "email": "jacob.mantle@parl.gc.ca"
+  },
+  {
+    "name": "Patrick Bonin",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Repentigny",
+    "email": "patrick.bonin@parl.gc.ca"
+  },
+  {
+    "name": "Mark Gerretsen",
+    "party": "Liberal",
+    "riding": "Kingston and the Islands",
+    "email": "mark.gerretsen@parl.gc.ca"
+  },
+  {
+    "name": "Tatiana Auguste",
+    "party": "Liberal",
+    "riding": "Terrebonne",
+    "email": "tatiana.auguste@parl.gc.ca"
+  },
+  {
+    "name": "Jill McKnight",
+    "party": "Liberal",
+    "riding": "Delta",
+    "email": "jill.mcknight@parl.gc.ca"
+  },
+  {
+    "name": "Jaime Battiste",
+    "party": "Liberal",
+    "riding": "Cape Breton\u2014Canso\u2014Antigonish",
+    "email": "Jaime.Battiste@parl.gc.ca"
+  },
+  {
+    "name": "Rob Morrison",
+    "party": "Conservative",
+    "riding": "Columbia\u2014Kootenay\u2014Southern Rockies",
+    "email": "Rob.Morrison@parl.gc.ca"
+  },
+  {
+    "name": "Maril\u00e8ne Gill",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "C\u00f4te-Nord\u2014Kawawachikamach\u2014Nitassinan",
+    "email": "marilene.gill@parl.gc.ca"
+  },
+  {
+    "name": "Giovanna Mingarelli",
+    "party": "Liberal",
+    "riding": "Prescott\u2014Russell\u2014Cumberland",
+    "email": "giovanna.mingarelli@parl.gc.ca"
+  },
+  {
+    "name": "Jean Yip",
+    "party": "Liberal",
+    "riding": "Scarborough\u2014Agincourt",
+    "email": "Jean.Yip@parl.gc.ca"
+  },
+  {
+    "name": "Don Davies",
+    "party": "NDP",
+    "riding": "Vancouver Kingsway",
+    "email": "don.davies@parl.gc.ca"
+  },
+  {
+    "name": "Eric St-Pierre",
+    "party": "Liberal",
+    "riding": "Honor\u00e9-Mercier",
+    "email": "eric.st-pierre@parl.gc.ca"
+  },
+  {
+    "name": "Bruce Fanjoy",
+    "party": "Liberal",
+    "riding": "Carleton",
+    "email": "bruce.fanjoy@parl.gc.ca"
+  },
+  {
+    "name": "Andrew Lawton",
+    "party": "Conservative",
+    "riding": "Elgin\u2014St. Thomas\u2014London South",
+    "email": "andrew.lawton@parl.gc.ca"
+  },
+  {
+    "name": "S\u00e9bastien Lemire",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Abitibi\u2014T\u00e9miscamingue",
+    "email": "Sebastien.Lemire@parl.gc.ca"
+  },
+  {
+    "name": "John Brassard",
+    "party": "Conservative",
+    "riding": "Barrie South\u2014Innisfil",
+    "email": "john.brassard@parl.gc.ca"
+  },
+  {
+    "name": "Pierre Poilievre",
+    "party": "Conservative",
+    "riding": "Battle River\u2014Crowfoot",
+    "email": "pierre.poilievre@parl.gc.ca"
+  },
+  {
+    "name": "Corey Hogan",
+    "party": "Liberal",
+    "riding": "Calgary Confederation",
+    "email": "corey.hogan@parl.gc.ca"
+  },
+  {
+    "name": "Rhonda Kirkland",
+    "party": "Conservative",
+    "riding": "Oshawa",
+    "email": "rhonda.kirkland@parl.gc.ca"
+  },
+  {
+    "name": "Chris Warkentin",
+    "party": "Conservative",
+    "riding": "Grande Prairie",
+    "email": "chris.warkentin@parl.gc.ca"
+  },
+  {
+    "name": "Steeve Lavoie",
+    "party": "Liberal",
+    "riding": "Beauport\u2014Limoilou",
+    "email": "steeve.lavoie@parl.gc.ca"
+  },
+  {
+    "name": "Yves-Fran\u00e7ois Blanchet",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Beloeil\u2014Chambly",
+    "email": "Yves-Francois.Blanchet@parl.gc.ca"
+  },
+  {
+    "name": "Rebecca Chartrand",
+    "party": "Liberal",
+    "riding": "Churchill\u2014Keewatinook Aski",
+    "email": "rebecca.chartrand@parl.gc.ca"
+  },
+  {
+    "name": "Shaun Chen",
+    "party": "Liberal",
+    "riding": "Scarborough North",
+    "email": "shaun.chen@parl.gc.ca"
+  },
+  {
+    "name": "Pierre Paul-Hus",
+    "party": "Conservative",
+    "riding": "Charlesbourg\u2014Haute-Saint-Charles",
+    "email": "Pierre.Paul-Hus@parl.gc.ca"
+  },
+  {
+    "name": "Connie Cody",
+    "party": "Conservative",
+    "riding": "Cambridge",
+    "email": "connie.cody@parl.gc.ca"
+  },
+  {
+    "name": "David Myles",
+    "party": "Liberal",
+    "riding": "Fredericton\u2014Oromocto",
+    "email": "david.myles@parl.gc.ca"
+  },
+  {
+    "name": "Kevin Waugh",
+    "party": "Conservative",
+    "riding": "Saskatoon South",
+    "email": "kevin.waugh@parl.gc.ca"
+  },
+  {
+    "name": "Brad Redekopp",
+    "party": "Conservative",
+    "riding": "Saskatoon West",
+    "email": "Brad.Redekopp@parl.gc.ca"
+  },
+  {
+    "name": "St\u00e9phane Lauzon",
+    "party": "Liberal",
+    "riding": "Argenteuil\u2014La Petite-Nation",
+    "email": "stephane.lauzon@parl.gc.ca"
+  },
+  {
+    "name": "John Williamson",
+    "party": "Conservative",
+    "riding": "Saint John\u2014St. Croix",
+    "email": "John.Williamson@parl.gc.ca"
+  },
+  {
+    "name": "Alexandre Boulerice",
+    "party": "NDP",
+    "riding": "Rosemont\u2014La Petite-Patrie",
+    "email": "Alexandre.Boulerice@parl.gc.ca"
+  },
+  {
+    "name": "Iqwinder Gaheer",
+    "party": "Liberal",
+    "riding": "Mississauga\u2014Malton",
+    "email": "iqwinder.gaheer@parl.gc.ca"
+  },
+  {
+    "name": "M\u00e9lanie Joly",
+    "party": "Liberal",
+    "riding": "Ahuntsic-Cartierville",
+    "email": "melanie.joly@parl.gc.ca"
+  },
+  {
+    "name": "Yvan Baker",
+    "party": "Liberal",
+    "riding": "Etobicoke Centre",
+    "email": "Yvan.Baker@parl.gc.ca"
+  },
+  {
+    "name": "Mike Lake",
+    "party": "Conservative",
+    "riding": "Leduc\u2014Wetaskiwin",
+    "email": "mike.lake@parl.gc.ca"
+  },
+  {
+    "name": "Lisa Hepfner",
+    "party": "Liberal",
+    "riding": "Hamilton Mountain",
+    "email": "lisa.hepfner@parl.gc.ca"
+  },
+  {
+    "name": "Michael Ma",
+    "party": "Conservative",
+    "riding": "Markham\u2014Unionville",
+    "email": "michael.ma@parl.gc.ca"
+  },
+  {
+    "name": "Alana Hirtle",
+    "party": "Liberal",
+    "riding": "Cumberland\u2014Colchester",
+    "email": "alana.hirtle@parl.gc.ca"
+  },
+  {
+    "name": "Todd Doherty",
+    "party": "Conservative",
+    "riding": "Cariboo\u2014Prince George",
+    "email": "todd.doherty@parl.gc.ca"
+  },
+  {
+    "name": "Jenny Kwan",
+    "party": "NDP",
+    "riding": "Vancouver East",
+    "email": "jenny.kwan@parl.gc.ca"
+  },
+  {
+    "name": "Matt Strauss",
+    "party": "Conservative",
+    "riding": "Kitchener South\u2014Hespeler",
+    "email": "matt.strauss@parl.gc.ca"
+  },
+  {
+    "name": "Lena Metlege Diab",
+    "party": "Liberal",
+    "riding": "Halifax West",
+    "email": "lenametlege.diab@parl.gc.ca"
+  },
+  {
+    "name": "Jacques Ramsay",
+    "party": "Liberal",
+    "riding": "La Prairie\u2014Atateken",
+    "email": "jacques.ramsay@parl.gc.ca"
+  },
+  {
+    "name": "G\u00e9rard Deltell",
+    "party": "Conservative",
+    "riding": "Louis-Saint-Laurent\u2014Akiawenhrahk",
+    "email": "gerard.deltell@parl.gc.ca"
+  },
+  {
+    "name": "Jennifer McKelvie",
+    "party": "Liberal",
+    "riding": "Ajax",
+    "email": "jennifer.mckelvie@parl.gc.ca"
+  },
+  {
+    "name": "Patty Hajdu",
+    "party": "Liberal",
+    "riding": "Thunder Bay\u2014Superior North",
+    "email": "patty.hajdu@parl.gc.ca"
+  },
+  {
+    "name": "Sukhman Gill",
+    "party": "Conservative",
+    "riding": "Abbotsford\u2014South Langley",
+    "email": "sukhman.gill@parl.gc.ca"
+  },
+  {
+    "name": "David McKenzie",
+    "party": "Conservative",
+    "riding": "Calgary Signal Hill",
+    "email": "david.mckenzie@parl.gc.ca"
+  },
+  {
+    "name": "Dean Allison",
+    "party": "Conservative",
+    "riding": "Niagara West",
+    "email": "dean.allison@parl.gc.ca"
+  },
+  {
+    "name": "Laila Goodridge",
+    "party": "Conservative",
+    "riding": "Fort McMurray\u2014Cold Lake",
+    "email": "laila.goodridge@parl.gc.ca"
+  },
+  {
+    "name": "Nathalie Provost",
+    "party": "Liberal",
+    "riding": "Ch\u00e2teauguay\u2014Les Jardins-de-Napierville",
+    "email": "nathalie.provost@parl.gc.ca"
+  },
+  {
+    "name": "Matt Jeneroux",
+    "party": "Conservative",
+    "riding": "Edmonton Riverbend",
+    "email": "matt.jeneroux@parl.gc.ca"
+  },
+  {
+    "name": "Burton Bailey",
+    "party": "Conservative",
+    "riding": "Red Deer",
+    "email": "burton.bailey@parl.gc.ca"
+  },
+  {
+    "name": "Fay\u00e7al El-Khoury",
+    "party": "Liberal",
+    "riding": "Laval\u2014Les \u00celes",
+    "email": "faycal.el-khoury@parl.gc.ca"
+  },
+  {
+    "name": "Elizabeth May",
+    "party": "Green Party",
+    "riding": "Saanich\u2014Gulf Islands",
+    "email": "elizabeth.may@parl.gc.ca"
+  },
+  {
+    "name": "Viviane Lapointe",
+    "party": "Liberal",
+    "riding": "Sudbury",
+    "email": "viviane.lapointe@parl.gc.ca"
+  },
+  {
+    "name": "Dalwinder Gill",
+    "party": "Conservative",
+    "riding": "Calgary McKnight",
+    "email": "dalwinder.gill@parl.gc.ca"
+  },
+  {
+    "name": "Frank Caputo",
+    "party": "Conservative",
+    "riding": "Kamloops\u2014Thompson\u2014Nicola",
+    "email": "frank.caputo@parl.gc.ca"
+  },
+  {
+    "name": "Shelby Kramp-Neuman",
+    "party": "Conservative",
+    "riding": "Hastings\u2014Lennox and Addington\u2014Tyendinaga",
+    "email": "shelby.kramp-neuman@parl.gc.ca"
+  },
+  {
+    "name": "Heather McPherson",
+    "party": "NDP",
+    "riding": "Edmonton Strathcona",
+    "email": "Heather.McPherson@parl.gc.ca"
+  },
+  {
+    "name": "Julie Dabrusin",
+    "party": "Liberal",
+    "riding": "Toronto\u2014Danforth",
+    "email": "julie.dabrusin@parl.gc.ca"
+  },
+  {
+    "name": "Fran\u00e7ois-Philippe Champagne",
+    "party": "Liberal",
+    "riding": "Saint-Maurice\u2014Champlain",
+    "email": "francois-philippe.champagne@parl.gc.ca"
+  },
+  {
+    "name": "Cathay Wagantall",
+    "party": "Conservative",
+    "riding": "Yorkton\u2014Melville",
+    "email": "cathay.wagantall@parl.gc.ca"
+  },
+  {
+    "name": "Robert J. Morrissey",
+    "party": "Liberal",
+    "riding": "Egmont",
+    "email": "robert.morrissey@parl.gc.ca"
+  },
+  {
+    "name": "Ben Lobb",
+    "party": "Conservative",
+    "riding": "Huron\u2014Bruce",
+    "email": "ben.lobb@parl.gc.ca"
+  },
+  {
+    "name": "Chris d'Entremont",
+    "party": "Conservative",
+    "riding": "Acadie\u2014Annapolis",
+    "email": "Chris.dEntremont@parl.gc.ca"
+  },
+  {
+    "name": "Stephanie Kusie",
+    "party": "Conservative",
+    "riding": "Calgary Midnapore",
+    "email": "stephanie.kusie@parl.gc.ca"
+  },
+  {
+    "name": "Serge Cormier",
+    "party": "Liberal",
+    "riding": "Acadie\u2014Bathurst",
+    "email": "serge.cormier@parl.gc.ca"
+  },
+  {
+    "name": "Dan Mazier",
+    "party": "Conservative",
+    "riding": "Riding Mountain",
+    "email": "Dan.Mazier@parl.gc.ca"
+  },
+  {
+    "name": "Mike Kelloway",
+    "party": "Liberal",
+    "riding": "Sydney\u2014Glace Bay",
+    "email": "Mike.Kelloway@parl.gc.ca"
+  },
+  {
+    "name": "Greg Fergus",
+    "party": "Liberal",
+    "riding": "Hull\u2014Aylmer",
+    "email": "Greg.Fergus@parl.gc.ca"
+  },
+  {
+    "name": "Maninder Sidhu",
+    "party": "Liberal",
+    "riding": "Brampton East",
+    "email": "Maninder.Sidhu@parl.gc.ca"
+  },
+  {
+    "name": "Gurbux Saini",
+    "party": "Liberal",
+    "riding": "Fleetwood\u2014Port Kells",
+    "email": "gurbux.saini@parl.gc.ca"
+  },
+  {
+    "name": "Chak Au",
+    "party": "Conservative",
+    "riding": "Richmond Centre\u2014Marpole",
+    "email": "chak.au@parl.gc.ca"
+  },
+  {
+    "name": "Bardish Chagger",
+    "party": "Liberal",
+    "riding": "Waterloo",
+    "email": "bardish.chagger@parl.gc.ca"
+  },
+  {
+    "name": "James Bezan",
+    "party": "Conservative",
+    "riding": "Selkirk\u2014Interlake\u2014Eastman",
+    "email": "james.bezan@parl.gc.ca"
+  },
+  {
+    "name": "Peter Fragiskatos",
+    "party": "Liberal",
+    "riding": "London Centre",
+    "email": "peter.fragiskatos@parl.gc.ca"
+  },
+  {
+    "name": "Dane Lloyd",
+    "party": "Conservative",
+    "riding": "Parkland",
+    "email": "Dane.Lloyd@parl.gc.ca"
+  },
+  {
+    "name": "Amarjeet Gill",
+    "party": "Conservative",
+    "riding": "Brampton West",
+    "email": "amarjeet.gill@parl.gc.ca"
+  },
+  {
+    "name": "Randeep Sarai",
+    "party": "Liberal",
+    "riding": "Surrey Centre",
+    "email": "randeep.sarai@parl.gc.ca"
+  },
+  {
+    "name": "Pat Kelly",
+    "party": "Conservative",
+    "riding": "Calgary Crowfoot",
+    "email": "pat.kelly@parl.gc.ca"
+  },
+  {
+    "name": "Dan Albas",
+    "party": "Conservative",
+    "riding": "Okanagan Lake West\u2014South Kelowna",
+    "email": "dan.albas@parl.gc.ca"
+  },
+  {
+    "name": "David J. McGuinty",
+    "party": "Liberal",
+    "riding": "Ottawa South",
+    "email": "david.mcguinty@parl.gc.ca"
+  },
+  {
+    "name": "Gary Anandasangaree",
+    "party": "Liberal",
+    "riding": "Scarborough\u2014Guildwood\u2014Rouge Park",
+    "email": "gary.anand@parl.gc.ca"
+  },
+  {
+    "name": "Kathy Borrelli",
+    "party": "Conservative",
+    "riding": "Windsor\u2014Tecumseh\u2014Lakeshore",
+    "email": "kathy.borrelli@parl.gc.ca"
+  },
+  {
+    "name": "Ali Ehsassi",
+    "party": "Liberal",
+    "riding": "Willowdale",
+    "email": "ali.ehsassi@parl.gc.ca"
+  },
+  {
+    "name": "Mike Dawson",
+    "party": "Conservative",
+    "riding": "Miramichi\u2014Grand Lake",
+    "email": "mike.dawson@parl.gc.ca"
+  },
+  {
+    "name": "Glen Motz",
+    "party": "Conservative",
+    "riding": "Medicine Hat\u2014Cardston\u2014Warner",
+    "email": "glen.motz@parl.gc.ca"
+  },
+  {
+    "name": "Kerry Diotte",
+    "party": "Conservative",
+    "riding": "Edmonton Griesbach",
+    "email": "kerry.diotte@parl.gc.ca"
+  },
+  {
+    "name": "Scott Aitchison",
+    "party": "Conservative",
+    "riding": "Parry Sound\u2014Muskoka",
+    "email": "Scott.Aitchison@parl.gc.ca"
+  },
+  {
+    "name": "Jacques Gourde",
+    "party": "Conservative",
+    "riding": "L\u00e9vis\u2014Lotbini\u00e8re",
+    "email": "jacques.gourde@parl.gc.ca"
+  },
+  {
+    "name": "Karim Bardeesy",
+    "party": "Liberal",
+    "riding": "Taiaiako'n\u2014Parkdale\u2014High Park",
+    "email": "karim.bardeesy@parl.gc.ca"
+  },
+  {
+    "name": "Peter Fonseca",
+    "party": "Liberal",
+    "riding": "Mississauga East\u2014Cooksville",
+    "email": "peter.fonseca@parl.gc.ca"
+  },
+  {
+    "name": "Kevin Lamoureux",
+    "party": "Liberal",
+    "riding": "Winnipeg North",
+    "email": "kevin.lamoureux@parl.gc.ca"
+  },
+  {
+    "name": "Ben Carr",
+    "party": "Liberal",
+    "riding": "Winnipeg South Centre",
+    "email": "ben.carr@parl.gc.ca"
+  },
+  {
+    "name": "Patricia Lattanzio",
+    "party": "Liberal",
+    "riding": "Saint-L\u00e9onard\u2014Saint-Michel",
+    "email": "Patricia.Lattanzio@parl.gc.ca"
+  },
+  {
+    "name": "Warren Steinley",
+    "party": "Conservative",
+    "riding": "Regina\u2014Lewvan",
+    "email": "Warren.Steinley@parl.gc.ca"
+  },
+  {
+    "name": "Steven Guilbeault",
+    "party": "Liberal",
+    "riding": "Laurier\u2014Sainte-Marie",
+    "email": "Steven.Guilbeault@parl.gc.ca"
+  },
+  {
+    "name": "Kelly McCauley",
+    "party": "Conservative",
+    "riding": "Edmonton West",
+    "email": "kelly.mccauley@parl.gc.ca"
+  },
+  {
+    "name": "Kristina Tesser Derksen",
+    "party": "Liberal",
+    "riding": "Milton East\u2014Halton Hills South",
+    "email": "kristina.tesserderksen@parl.gc.ca"
+  },
+  {
+    "name": "Taleeb Noormohamed",
+    "party": "Liberal",
+    "riding": "Vancouver Granville",
+    "email": "taleeb.noormohamed@parl.gc.ca"
+  },
+  {
+    "name": "Scot Davidson",
+    "party": "Conservative",
+    "riding": "New Tecumseth\u2014Gwillimbury",
+    "email": "Scot.Davidson@parl.gc.ca"
+  },
+  {
+    "name": "Doug Eyolfson",
+    "party": "Liberal",
+    "riding": "Winnipeg West",
+    "email": "doug.eyolfson@parl.gc.ca"
+  },
+  {
+    "name": "Rosemarie Falk",
+    "party": "Conservative",
+    "riding": "Battlefords\u2014Lloydminster\u2014Meadow Lake",
+    "email": "Rosemarie.Falk@parl.gc.ca"
+  },
+  {
+    "name": "Tako Van Popta",
+    "party": "Conservative",
+    "riding": "Langley Township\u2014Fraser Heights",
+    "email": "Tako.VanPopta@parl.gc.ca"
+  },
+  {
+    "name": "Doug Shipley",
+    "party": "Conservative",
+    "riding": "Barrie\u2014Springwater\u2014Oro-Medonte",
+    "email": "Doug.Shipley@parl.gc.ca"
+  },
+  {
+    "name": "Fares Al Soud",
+    "party": "Liberal",
+    "riding": "Mississauga Centre",
+    "email": "fares.alsoud@parl.gc.ca"
+  },
+  {
+    "name": "Marianne Dandurand",
+    "party": "Liberal",
+    "riding": "Compton\u2014Stanstead",
+    "email": "marianne.dandurand@parl.gc.ca"
+  },
+  {
+    "name": "Karina Gould",
+    "party": "Liberal",
+    "riding": "Burlington",
+    "email": "karina.gould@parl.gc.ca"
+  },
+  {
+    "name": "Vincent Neil Ho",
+    "party": "Conservative",
+    "riding": "Richmond Hill South",
+    "email": "vincent.ho@parl.gc.ca"
+  },
+  {
+    "name": "Brad Vis",
+    "party": "Conservative",
+    "riding": "Mission\u2014Matsqui\u2014Abbotsford",
+    "email": "Brad.Vis@parl.gc.ca"
+  },
+  {
+    "name": "Marjorie Michel",
+    "party": "Liberal",
+    "riding": "Papineau",
+    "email": "marjorie.michel@parl.gc.ca"
+  },
+  {
+    "name": "Claude Guay",
+    "party": "Liberal",
+    "riding": "LaSalle\u2014\u00c9mard\u2014Verdun",
+    "email": "claude.guay@parl.gc.ca"
+  },
+  {
+    "name": "Marc Dalton",
+    "party": "Conservative",
+    "riding": "Pitt Meadows\u2014Maple Ridge",
+    "email": "Marc.Dalton@parl.gc.ca"
+  },
+  {
+    "name": "Kent MacDonald",
+    "party": "Liberal",
+    "riding": "Cardigan",
+    "email": "kent.macdonald@parl.gc.ca"
+  },
+  {
+    "name": "David Bexte",
+    "party": "Conservative",
+    "riding": "Bow River",
+    "email": "david.bexte@parl.gc.ca"
+  },
+  {
+    "name": "Scott Reid",
+    "party": "Conservative",
+    "riding": "Lanark\u2014Frontenac",
+    "email": "scott.reid@parl.gc.ca"
+  },
+  {
+    "name": "Jeff Kibble",
+    "party": "Conservative",
+    "riding": "Cowichan\u2014Malahat\u2014Langford",
+    "email": "jeff.kibble@parl.gc.ca"
+  },
+  {
+    "name": "Jo\u00ebl Lightbound",
+    "party": "Liberal",
+    "riding": "Louis-H\u00e9bert",
+    "email": "joel.lightbound@parl.gc.ca"
+  },
+  {
+    "name": "Sherry Romanado",
+    "party": "Liberal",
+    "riding": "Longueuil\u2014Charles-LeMoyne",
+    "email": "sherry.romanado@parl.gc.ca"
+  },
+  {
+    "name": "Leslyn Lewis",
+    "party": "Conservative",
+    "riding": "Haldimand\u2014Norfolk",
+    "email": "leslyn.lewis@parl.gc.ca"
+  },
+  {
+    "name": "Alexandra Mend\u00e8s",
+    "party": "Liberal",
+    "riding": "Brossard\u2014Saint-Lambert",
+    "email": "alexandra.mendes@parl.gc.ca"
+  },
+  {
+    "name": "Braedon Clark",
+    "party": "Liberal",
+    "riding": "Sackville\u2014Bedford\u2014Preston",
+    "email": "braedon.clark@parl.gc.ca"
+  },
+  {
+    "name": "Ruby Sahota",
+    "party": "Liberal",
+    "riding": "Brampton North\u2014Caledon",
+    "email": "ruby.sahota@parl.gc.ca"
+  },
+  {
+    "name": "Terry Sheehan",
+    "party": "Liberal",
+    "riding": "Sault Ste. Marie\u2014Algoma",
+    "email": "terry.sheehan@parl.gc.ca"
+  },
+  {
+    "name": "Kody Blois",
+    "party": "Liberal",
+    "riding": "Kings\u2014Hants",
+    "email": "Kody.Blois@parl.gc.ca"
+  },
+  {
+    "name": "Robert Oliphant",
+    "party": "Liberal",
+    "riding": "Don Valley West",
+    "email": "rob.oliphant@parl.gc.ca"
+  },
+  {
+    "name": "Shannon Stubbs",
+    "party": "Conservative",
+    "riding": "Lakeland",
+    "email": "shannon.stubbs@parl.gc.ca"
+  },
+  {
+    "name": "Carlos Leit\u00e3o",
+    "party": "Liberal",
+    "riding": "Marc-Aur\u00e8le-Fortin",
+    "email": "carlos.leitao@parl.gc.ca"
+  },
+  {
+    "name": "Wade Chang",
+    "party": "Liberal",
+    "riding": "Burnaby Central",
+    "email": "wade.chang@parl.gc.ca"
+  },
+  {
+    "name": "Arnold Viersen",
+    "party": "Conservative",
+    "riding": "Peace River\u2014Westlock",
+    "email": "arnold.viersen@parl.gc.ca"
+  },
+  {
+    "name": "Bernard G\u00e9n\u00e9reux",
+    "party": "Conservative",
+    "riding": "C\u00f4te-du-Sud\u2014Rivi\u00e8re-du-Loup\u2014 Kataskomiq\u2014T\u00e9miscouata",
+    "email": "bernard.genereux@parl.gc.ca"
+  },
+  {
+    "name": "Luc Berthold",
+    "party": "Conservative",
+    "riding": "M\u00e9gantic\u2014L'\u00c9rable\u2014Lotbini\u00e8re",
+    "email": "luc.berthold@parl.gc.ca"
+  },
+  {
+    "name": "Marc Miller",
+    "party": "Liberal",
+    "riding": "Ville-Marie\u2014Le Sud-Ouest\u2014\u00cele-des-S\u0153urs",
+    "email": "Marc.Miller@parl.gc.ca"
+  },
+  {
+    "name": "Mark Carney",
+    "party": "Liberal",
+    "riding": "Nepean",
+    "email": "mark.carney@parl.gc.ca"
+  },
+  {
+    "name": "Vince Gasparro",
+    "party": "Liberal",
+    "riding": "Eglinton\u2014Lawrence",
+    "email": "vince.gasparro@parl.gc.ca"
+  },
+  {
+    "name": "Marie-H\u00e9l\u00e8ne Gaudreau",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Laurentides\u2014Labelle",
+    "email": "MH.Gaudreau@parl.gc.ca"
+  },
+  {
+    "name": "Ellis Ross",
+    "party": "Conservative",
+    "riding": "Skeena\u2014Bulkley Valley",
+    "email": "ellis.ross@parl.gc.ca"
+  },
+  {
+    "name": "John Nater",
+    "party": "Conservative",
+    "riding": "Perth\u2014Wellington",
+    "email": "john.nater@parl.gc.ca"
+  },
+  {
+    "name": "Darren Fisher",
+    "party": "Liberal",
+    "riding": "Dartmouth\u2014Cole Harbour",
+    "email": "darren.fisher@parl.gc.ca"
+  },
+  {
+    "name": "Tom Osborne",
+    "party": "Liberal",
+    "riding": "Cape Spear",
+    "email": "tom.osborne@parl.gc.ca"
+  },
+  {
+    "name": "Alex Ruff",
+    "party": "Conservative",
+    "riding": "Bruce\u2014Grey\u2014Owen Sound",
+    "email": "Alex.Ruff@parl.gc.ca"
+  },
+  {
+    "name": "Arpan Khanna",
+    "party": "Conservative",
+    "riding": "Oxford",
+    "email": "arpan.khanna@parl.gc.ca"
+  },
+  {
+    "name": "Leah Gazan",
+    "party": "NDP",
+    "riding": "Winnipeg Centre",
+    "email": "Leah.Gazan@parl.gc.ca"
+  },
+  {
+    "name": "Sean Fraser",
+    "party": "Liberal",
+    "riding": "Central Nova",
+    "email": "sean.fraser@parl.gc.ca"
+  },
+  {
+    "name": "Jo\u00ebl Godin",
+    "party": "Conservative",
+    "riding": "Portneuf\u2014Jacques-Cartier",
+    "email": "joel.godin@parl.gc.ca"
+  },
+  {
+    "name": "Fraser Tolmie",
+    "party": "Conservative",
+    "riding": "Moose Jaw\u2014Lake Centre\u2014Lanigan",
+    "email": "fraser.tolmie@parl.gc.ca"
+  },
+  {
+    "name": "Michael Barrett",
+    "party": "Conservative",
+    "riding": "Leeds\u2014Grenville\u2014Thousand Islands\u2014Rideau Lakes",
+    "email": "Michael.Barrett@parl.gc.ca"
+  },
+  {
+    "name": "Sean Casey",
+    "party": "Liberal",
+    "riding": "Charlottetown",
+    "email": "sean.casey@parl.gc.ca"
+  },
+  {
+    "name": "Blaine Calkins",
+    "party": "Conservative",
+    "riding": "Ponoka\u2014Didsbury",
+    "email": "blaine.calkins@parl.gc.ca"
+  },
+  {
+    "name": "Mona Fortier",
+    "party": "Liberal",
+    "riding": "Ottawa\u2014Vanier\u2014Gloucester",
+    "email": "mona.fortier@parl.gc.ca"
+  },
+  {
+    "name": "Alexis Desch\u00eanes",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Gasp\u00e9sie\u2014Les \u00celes-de-la-Madeleine\u2014Listuguj",
+    "email": "alexis.deschenes@parl.gc.ca"
+  },
+  {
+    "name": "Andr\u00e9anne Larouche",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Shefford",
+    "email": "Andreanne.Larouche@parl.gc.ca"
+  },
+  {
+    "name": "Tamara Jansen",
+    "party": "Conservative",
+    "riding": "Cloverdale\u2014Langley City",
+    "email": "tamara.jansen@parl.gc.ca"
+  },
+  {
+    "name": "Melissa Lantsman",
+    "party": "Conservative",
+    "riding": "Thornhill",
+    "email": "melissa.lantsman@parl.gc.ca"
+  },
+  {
+    "name": "Evan Solomon",
+    "party": "Liberal",
+    "riding": "Toronto Centre",
+    "email": "evan.solomon@parl.gc.ca"
+  },
+  {
+    "name": "Lori Idlout",
+    "party": "NDP",
+    "riding": "Nunavut",
+    "email": "lori.idlout@parl.gc.ca"
+  },
+  {
+    "name": "Mark Strahl",
+    "party": "Conservative",
+    "riding": "Chilliwack\u2014Hope",
+    "email": "Mark.Strahl@parl.gc.ca"
+  },
+  {
+    "name": "Abdelhaq Sari",
+    "party": "Liberal",
+    "riding": "Bourassa",
+    "email": "abdelhaq.sari@parl.gc.ca"
+  },
+  {
+    "name": "Marie-France Lalonde",
+    "party": "Liberal",
+    "riding": "Orl\u00e9ans",
+    "email": "Marie-France.Lalonde@parl.gc.ca"
+  },
+  {
+    "name": "Andrew Scheer",
+    "party": "Conservative",
+    "riding": "Regina\u2014Qu'Appelle",
+    "email": "andrew.scheer@parl.gc.ca"
+  },
+  {
+    "name": "Blake Richards",
+    "party": "Conservative",
+    "riding": "Airdrie\u2014Cochrane",
+    "email": "blake.richards@parl.gc.ca"
+  },
+  {
+    "name": "Tony Baldinelli",
+    "party": "Conservative",
+    "riding": "Niagara Falls\u2014Niagara-on-the-Lake",
+    "email": "Tony.Baldinelli@parl.gc.ca"
+  },
+  {
+    "name": "Ned Kuruc",
+    "party": "Conservative",
+    "riding": "Hamilton East\u2014Stoney Creek",
+    "email": "ned.kuruc@parl.gc.ca"
+  },
+  {
+    "name": "Emma Harrison",
+    "party": "Liberal",
+    "riding": "Peterborough",
+    "email": "emma.harrison@parl.gc.ca"
+  },
+  {
+    "name": "Stephanie McLean",
+    "party": "Liberal",
+    "riding": "Esquimalt\u2014Saanich\u2014Sooke",
+    "email": "stephanie.mclean@parl.gc.ca"
+  },
+  {
+    "name": "Simon-Pierre Savard-Tremblay",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Saint-Hyacinthe\u2014Bagot\u2014Acton",
+    "email": "Simon-Pierre.Savard-Tremblay@parl.gc.ca"
+  },
+  {
+    "name": "Terry Beech",
+    "party": "Liberal",
+    "riding": "Burnaby North\u2014Seymour",
+    "email": "terry.beech@parl.gc.ca"
+  },
+  {
+    "name": "Steven MacKinnon",
+    "party": "Liberal",
+    "riding": "Gatineau",
+    "email": "Steven.MacKinnon@parl.gc.ca"
+  },
+  {
+    "name": "Iqra Khalid",
+    "party": "Liberal",
+    "riding": "Mississauga\u2014Erin Mills",
+    "email": "iqra.khalid@parl.gc.ca"
+  },
+  {
+    "name": "Chris Lewis",
+    "party": "Conservative",
+    "riding": "Essex",
+    "email": "Chris.Lewis@parl.gc.ca"
+  },
+  {
+    "name": "Larry Brock",
+    "party": "Conservative",
+    "riding": "Brantford\u2014Brant South\u2014Six Nations",
+    "email": "larry.brock@parl.gc.ca"
+  },
+  {
+    "name": "Anju Dhillon",
+    "party": "Liberal",
+    "riding": "Dorval\u2014Lachine\u2014LaSalle",
+    "email": "anju.dhillon@parl.gc.ca"
+  },
+  {
+    "name": "Jonathan Wilkinson",
+    "party": "Liberal",
+    "riding": "North Vancouver\u2014Capilano",
+    "email": "jonathan.wilkinson@parl.gc.ca"
+  },
+  {
+    "name": "Richard Bragdon",
+    "party": "Conservative",
+    "riding": "Tobique\u2014Mactaquac",
+    "email": "Richard.Bragdon@parl.gc.ca"
+  },
+  {
+    "name": "Heath MacDonald",
+    "party": "Liberal",
+    "riding": "Malpeque",
+    "email": "heath.macdonald@parl.gc.ca"
+  },
+  {
+    "name": "Eleanor Olszewski",
+    "party": "Liberal",
+    "riding": "Edmonton Centre",
+    "email": "eleanor.olszewski@parl.gc.ca"
+  },
+  {
+    "name": "Michelle Rempel Garner",
+    "party": "Conservative",
+    "riding": "Calgary Nose Hill",
+    "email": "michelle.rempel@parl.gc.ca"
+  },
+  {
+    "name": "Philip Lawrence",
+    "party": "Conservative",
+    "riding": "Northumberland\u2014Clarke",
+    "email": "Philip.Lawrence@parl.gc.ca"
+  },
+  {
+    "name": "Jean-Yves Duclos",
+    "party": "Liberal",
+    "riding": "Qu\u00e9bec Centre",
+    "email": "jean-yves.duclos@parl.gc.ca"
+  },
+  {
+    "name": "Martin Champoux",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Drummond",
+    "email": "Martin.Champoux@parl.gc.ca"
+  },
+  {
+    "name": "Kurt Holman",
+    "party": "Conservative",
+    "riding": "London\u2014Fanshawe",
+    "email": "kurt.holman@parl.gc.ca"
+  },
+  {
+    "name": "Arielle Kayabaga",
+    "party": "Liberal",
+    "riding": "London West",
+    "email": "arielle.kayabaga@parl.gc.ca"
+  },
+  {
+    "name": "Ginette Lavack",
+    "party": "Liberal",
+    "riding": "St. Boniface\u2014St. Vital",
+    "email": "ginette.lavack@parl.gc.ca"
+  },
+  {
+    "name": "Louis Villeneuve",
+    "party": "Liberal",
+    "riding": "Brome\u2014Missisquoi",
+    "email": "louis.villeneuve@parl.gc.ca"
+  },
+  {
+    "name": "Kelly Block",
+    "party": "Conservative",
+    "riding": "Carlton Trail\u2014Eagle Creek",
+    "email": "kelly.block@parl.gc.ca"
+  },
+  {
+    "name": "Shafqat Ali",
+    "party": "Liberal",
+    "riding": "Brampton\u2014Chinguacousy Park",
+    "email": "shafqat.ali@parl.gc.ca"
+  },
+  {
+    "name": "Adam Chambers",
+    "party": "Conservative",
+    "riding": "Simcoe North",
+    "email": "adam.chambers@parl.gc.ca"
+  },
+  {
+    "name": "Helena Konanz",
+    "party": "Conservative",
+    "riding": "Similkameen\u2014South Okanagan\u2014West Kootenay",
+    "email": "helena.konanz@parl.gc.ca"
+  },
+  {
+    "name": "Guillaume Desch\u00eanes-Th\u00e9riault",
+    "party": "Liberal",
+    "riding": "Madawaska\u2014Restigouche",
+    "email": "guillaume.deschenes-theriault@parl.gc.ca"
+  },
+  {
+    "name": "Jessica Fancy",
+    "party": "Liberal",
+    "riding": "South Shore\u2014St. Margarets",
+    "email": "jessica.fancy@parl.gc.ca"
+  },
+  {
+    "name": "Wayne Long",
+    "party": "Liberal",
+    "riding": "Saint John\u2014Kennebecasis",
+    "email": "wayne.long@parl.gc.ca"
+  },
+  {
+    "name": "Tim Louis",
+    "party": "Liberal",
+    "riding": "Kitchener\u2014Conestoga",
+    "email": "Tim.Louis@parl.gc.ca"
+  },
+  {
+    "name": "Grant Jackson",
+    "party": "Conservative",
+    "riding": "Brandon\u2014Souris",
+    "email": "grant.jackson@parl.gc.ca"
+  },
+  {
+    "name": "Aslam Rana",
+    "party": "Liberal",
+    "riding": "Hamilton Centre",
+    "email": "aslam.rana@parl.gc.ca"
+  },
+  {
+    "name": "Richard Martel",
+    "party": "Conservative",
+    "riding": "Chicoutimi\u2014Le Fjord",
+    "email": "Richard.Martel@parl.gc.ca"
+  },
+  {
+    "name": "Zoe Royer",
+    "party": "Liberal",
+    "riding": "Port Moody\u2014Coquitlam",
+    "email": "zoe.royer@parl.gc.ca"
+  },
+  {
+    "name": "Fred Davies",
+    "party": "Conservative",
+    "riding": "Niagara South",
+    "email": "fred.davies@parl.gc.ca"
+  },
+  {
+    "name": "Maxime Blanchette-Joncas",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Rimouski\u2014La Matap\u00e9dia",
+    "email": "Maxime.Blanchette-Joncas@parl.gc.ca"
+  },
+  {
+    "name": "Bill Blair",
+    "party": "Liberal",
+    "riding": "Scarborough Southwest",
+    "email": "bill.blair@parl.gc.ca"
+  },
+  {
+    "name": "Emmanuella Lambropoulos",
+    "party": "Liberal",
+    "riding": "Saint-Laurent",
+    "email": "emmanuella.lambropoulos@parl.gc.ca"
+  },
+  {
+    "name": "John Barlow",
+    "party": "Conservative",
+    "riding": "Foothills",
+    "email": "john.barlow@parl.gc.ca"
+  },
+  {
+    "name": "Sukh Dhaliwal",
+    "party": "Liberal",
+    "riding": "Surrey Newton",
+    "email": "sukh.dhaliwal@parl.gc.ca"
+  },
+  {
+    "name": "Francis Scarpaleggia",
+    "party": "Liberal",
+    "riding": "Lac-Saint-Louis",
+    "email": "francis.scarpaleggia@parl.gc.ca"
+  },
+  {
+    "name": "Rh\u00e9al \u00c9loi Fortin",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Rivi\u00e8re-du-Nord",
+    "email": "rheal.fortin@parl.gc.ca"
+  },
+  {
+    "name": "Gregor Robertson",
+    "party": "Liberal",
+    "riding": "Vancouver Fraserview\u2014South Burnaby",
+    "email": "gregor.robertson@parl.gc.ca"
+  },
+  {
+    "name": "Colin Reynolds",
+    "party": "Conservative",
+    "riding": "Elmwood\u2014Transcona",
+    "email": "colin.reynolds@parl.gc.ca"
+  },
+  {
+    "name": "Anna Roberts",
+    "party": "Conservative",
+    "riding": "King\u2014Vaughan",
+    "email": "anna.roberts@parl.gc.ca"
+  },
+  {
+    "name": "Chi Nguyen",
+    "party": "Liberal",
+    "riding": "Spadina\u2014Harbourfront",
+    "email": "chi.nguyen@parl.gc.ca"
+  },
+  {
+    "name": "Branden Leslie",
+    "party": "Conservative",
+    "riding": "Portage\u2014Lisgar",
+    "email": "branden.leslie@parl.gc.ca"
+  },
+  {
+    "name": "Gabriel Ste-Marie",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Joliette\u2014Manawan",
+    "email": "gabriel.ste-marie@parl.gc.ca"
+  },
+  {
+    "name": "Dominique O'Rourke",
+    "party": "Liberal",
+    "riding": "Guelph",
+    "email": "dominique.orourke@parl.gc.ca"
+  },
+  {
+    "name": "Shuvaloy Majumdar",
+    "party": "Conservative",
+    "riding": "Calgary Heritage",
+    "email": "shuvaloy.majumdar@parl.gc.ca"
+  },
+  {
+    "name": "Corey Tochor",
+    "party": "Conservative",
+    "riding": "Saskatoon\u2014University",
+    "email": "Corey.Tochor@parl.gc.ca"
+  },
+  {
+    "name": "Rechie Valdez",
+    "party": "Liberal",
+    "riding": "Mississauga\u2014Streetsville",
+    "email": "rechie.valdez@parl.gc.ca"
+  },
+  {
+    "name": "John-Paul Danko",
+    "party": "Liberal",
+    "riding": "Hamilton West\u2014Ancaster\u2014Dundas",
+    "email": "john-paul.danko@parl.gc.ca"
+  },
+  {
+    "name": "Sima Acan",
+    "party": "Liberal",
+    "riding": "Oakville West",
+    "email": "sima.acan@parl.gc.ca"
+  },
+  {
+    "name": "Bienvenu-Olivier Ntumba",
+    "party": "Liberal",
+    "riding": "Mont-Saint-Bruno\u2014L'Acadie",
+    "email": "bienvenu-olivier.ntumba@parl.gc.ca"
+  },
+  {
+    "name": "Yves Perron",
+    "party": "Bloc Qu\u00e9b\u00e9cois",
+    "riding": "Berthier\u2014Maskinong\u00e9",
+    "email": "Yves.Perron@parl.gc.ca"
+  },
+  {
+    "name": "Jamie Schmale",
+    "party": "Conservative",
+    "riding": "Haliburton\u2014Kawartha Lakes",
+    "email": "jamie.schmale@parl.gc.ca"
+  }
+]

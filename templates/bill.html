@@ -35,7 +35,7 @@
 
       <nav class="section-tabs" role="tablist" aria-label="Bill view">
         <button type="button" id="tab-description" class="tab-btn is-active" role="tab" aria-selected="true" aria-controls="panel-description">Description</button>
-        <button type="button" id="tab-financial" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-financial">Conflict of interest</button>
+        <button type="button" id="tab-financial" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-financial">Lobbying activity</button>
       </nav>
 
       <div id="panel-description" class="tab-panel" role="tabpanel">
@@ -58,21 +58,21 @@
         <div id="impact-section">
           <div class="coi-disclaimer">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><line x1="12" y1="11" x2="12" y2="16"></line><circle cx="12" cy="7.5" r="0.6" fill="currentColor" stroke="none"></circle></svg>
-            <p>This is not investment advice, and holding a stock is not evidence of wrongdoing. This section makes Canada's public Conflict of Interest Act disclosures usable &mdash; so you can judge whether your representative has a personal stake in how they vote.</p>
+            <p>This isn't about personal wrongdoing. It shows which companies this bill plausibly affects have registered, publicly disclosed communications with government officials &mdash; and who they've been talking to. Lobbying is legal and regulated; this section just makes the public record easy to read.</p>
           </div>
 
-          <p class="company-note">Gemini reads the bill text to name real companies or sectors it plausibly affects. Stock prices and disclosed MP holdings are looked up separately and are facts, not guesses &mdash; only the connection between the bill and the company is Gemini's read of the text.</p>
+          <p class="company-note">Gemini reads the bill text to name real companies or sectors it plausibly affects. Lobbying activity is looked up separately from Canada's public Registry of Lobbyists and is a fact, not a guess &mdash; only the connection between the bill and the company is Gemini's read of the text.</p>
 
           <p id="impact-sectors" class="sector-line" hidden></p>
 
-          <p id="impact-status" class="status">Loading conflict-of-interest data&hellip;</p>
+          <p id="impact-status" class="status">Loading lobbying data&hellip;</p>
           <ul id="company-list" class="company-list"></ul>
 
           <div id="holdings-table-wrap" hidden>
-            <h3>Politicians &amp; parties with matching stock holdings</h3>
+            <h3>Companies with registered lobbying activity</h3>
             <table id="holdings-table">
               <thead>
-                <tr><th>MP</th><th>Party</th><th>Riding</th><th>Company</th><th>Ticker</th></tr>
+                <tr><th>Company</th><th>Ticker</th><th>Contacted</th><th>Title</th><th>Institution</th><th>Date</th></tr>
               </thead>
               <tbody id="holdings-table-body"></tbody>
             </table>

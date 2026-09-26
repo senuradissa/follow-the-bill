@@ -16,6 +16,24 @@ ALPHA_VANTAGE_KEY = os.environ.get("ALPHA_VANTAGE_API_KEY")
 CACHE_DIR = "data"
 os.makedirs(CACHE_DIR, exist_ok=True)
 
+_LOBBYING = None
+
+def load_lobbying_activity():
+    global _LOBBYING
+    if _LOBBYING is None:
+        with open("data/lobbying_activity.json", encoding="utf-8") as f:
+            _LOBBYING = json.load(f)
+    return _LOBBYING
+
+def company_lobbying(company_name):
+    """Case-insensitive substring match: Gemini's extracted name ("Suncor")
+    against the registry's formal name ("Suncor Energy Inc.")."""
+    lobbying = load_lobbying_activity()
+    needle = company_name.strip().lower()
+    for registered_name, records in lobbying.items():
+        if needle in registered_name.lower() or registered_name.lower() in needle:
+            return registered_name, records
+    return None, []
 
 def _load_disk_cache(name):
     path = os.path.join(CACHE_DIR, f".cache_{name}.json")
@@ -196,12 +214,13 @@ def analyze_impact(bill, lang="en"):
     for company in extracted["companies"]:
         ticker = resolve_ticker(company)
         snapshot = get_stock_snapshot(ticker)
-        conflicts = politicians_holding(company)
+        registered_name, lobbying_records = company_lobbying(company)
 
         results.append({
             "company": company,
+            "registered_name": registered_name,
             "ticker": ticker,
             "market_data": snapshot,
-            "political_holdings": conflicts,
+            "lobbying_activity": lobbying_records,
         })
     return {"companies": results, "sectors": extracted["sectors"]}

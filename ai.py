@@ -118,6 +118,7 @@ def summarize(bill, lang):
     - Write in {language}, at a level a high school student could understand.
     - Use only what's in the bill text, and no opinions or outside facts
     - Don't use legal jargon, if you must use it, explain it in simple terms
+    - Word count limit is 350 words
 
     Write:
     - tldr - One or two sentences

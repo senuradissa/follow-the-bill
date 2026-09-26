@@ -15,30 +15,33 @@ import mp  # noqa: E402
 import impact
 app = Flask(__name__)
 
-
 @app.get("/")
 def index():
     return render_template("index.html")
-
 
 @app.get("/bill/<session>/<code>")
 def bill_page(session, code):
     # Renders the shell; static/app.js fetches /api/bills/<session>/<code>/summary etc.
     return render_template("bill.html", session_id=session, code=code)
 
-
 @app.get("/api/bills")
 def list_bills():
     return jsonify(bills.list_bills())
-
 
 @app.get("/api/bills/<session>/<code>/summary")
 def bill_summary(session, code):
     lang = request.args.get("lang", "en")
     bill = bills.bill_text(session, code, lang)
-    summary = ai.summarize(bill, lang)
-    return jsonify({**summary, "title": bill["title"], "source_url": bill["source_url"]})
-
+    try:
+        summary = ai.summarize(bill, lang)
+    except Exception:
+        summary = {"tldr": None, "summary": None, "key_changes": []}
+    return jsonify({
+        **summary,
+        "title": bill["title"],
+        "official_summary": bill["official_summary"],
+        "source_url": bill["source_url"],
+    })
 
 @app.get("/api/mp")
 def find_mp():
@@ -46,7 +49,6 @@ def find_mp():
     if result is None:
         return jsonify({"error": "No MP found for that postal code"}), 404
     return jsonify(result)
-
 
 @app.post("/api/letter")
 def letter():

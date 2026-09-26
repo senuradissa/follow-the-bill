@@ -9,18 +9,37 @@ import ai
 
 load_dotenv()
 
-# Both optional: without them, resolve_ticker()/get_stock_snapshot() return None
-# instead of crashing, so the rest of the app still works. Fill these in .env
-# once someone on the team has real keys.
 FINNHUB_KEY = os.environ.get("FINNHUB_API_KEY")
-OPENFIGI_KEY = os.environ.get("OPENFIGI_API_KEY")  # optional but recommended
+OPENFIGI_KEY = os.environ.get("OPENFIGI_API_KEY")
+ALPHA_VANTAGE_KEY = os.environ.get("ALPHA_VANTAGE_API_KEY")
 
-_ticker_cache = {}
+CACHE_DIR = "data"
+os.makedirs(CACHE_DIR, exist_ok=True)
+
+
+def _load_disk_cache(name):
+    path = os.path.join(CACHE_DIR, f".cache_{name}.json")
+    try:
+        with open(path) as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def _save_disk_cache(name, data):
+    path = os.path.join(CACHE_DIR, f".cache_{name}.json")
+    with open(path, "w") as f:
+        json.dump(data, f)
+
+
+_ticker_cache = _load_disk_cache("tickers")
+_quote_cache = _load_disk_cache("quotes")
+_history_cache = _load_disk_cache("history")
 
 
 def resolve_ticker(company_name):
     if not OPENFIGI_KEY and not FINNHUB_KEY:
-        return None  # no point calling out if we can't price it anyway
+        return None
     if company_name in _ticker_cache:
         return _ticker_cache[company_name]
 
@@ -28,7 +47,6 @@ def resolve_ticker(company_name):
     if OPENFIGI_KEY:
         headers["X-OPENFIGI-APIKEY"] = OPENFIGI_KEY
 
-    # Try major exchanges in priority order: US (NYSE/Nasdaq composite), then Canada
     for exch in ["US", "CA"]:
         try:
             resp = requests.post(
@@ -44,15 +62,14 @@ def resolve_ticker(company_name):
         if data:
             ticker = data[0]["ticker"]
             _ticker_cache[company_name] = ticker
+            _save_disk_cache("tickers", _ticker_cache)
             time.sleep(0.3)
             return ticker
         time.sleep(0.3)
 
     _ticker_cache[company_name] = None
+    _save_disk_cache("tickers", _ticker_cache)
     return None
-
-
-_quote_cache = {}
 
 
 def get_stock_snapshot(ticker):
@@ -75,12 +92,78 @@ def get_stock_snapshot(ticker):
         return None
     snapshot = {"price": q["c"], "change": q["d"], "change_pct": q["dp"]}
     _quote_cache[ticker] = snapshot
+    _save_disk_cache("quotes", _quote_cache)
     return snapshot
 
 
+def get_price_history(ticker):
+    """~100 trading days (roughly the last 5 months) of daily closes,
+    oldest first: [{date, close}, ...], or None. Free-tier Alpha Vantage
+    only exposes this much; outputsize=full is a paid feature.
+    """
+    if not ticker or not ALPHA_VANTAGE_KEY:
+        return None
+    if ticker in _history_cache:
+        return _history_cache[ticker]
+    try:
+        resp = requests.get(
+            "https://www.alphavantage.co/query",
+            params={
+                "function": "TIME_SERIES_DAILY",
+                "symbol": ticker,
+                "apikey": ALPHA_VANTAGE_KEY,
+            },
+            timeout=20,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+    except requests.RequestException:
+        return None
+
+    series = data.get("Time Series (Daily)")
+    if not series:
+        _history_cache[ticker] = None
+        _save_disk_cache("history", _history_cache)
+        return None
+
+    points = sorted(
+        ({"date": d, "close": float(v["4. close"])} for d, v in series.items()),
+        key=lambda p: p["date"],
+    )
+    _history_cache[ticker] = points
+    _save_disk_cache("history", _history_cache)
+    return points
+
+
+def project_trend(history, years=4, max_annual_growth=0.20):
+    """Naive extrapolation from a short real window (~5 months on the free
+    tier). Explicitly illustrative, NOT a forecast. Growth rate is clamped
+    to +/-max_annual_growth to avoid a short noisy window producing an
+    absurd multi-year compounding result.
+    Return [{year, price}, ...] for years 1..years, or None.
+    """
+    if not history or len(history) < 2:
+        return None
+    start = history[0]["close"]
+    end = history[-1]["close"]
+    if start <= 0:
+        return None
+
+    span_days = (
+        __import__("datetime").date.fromisoformat(history[-1]["date"])
+        - __import__("datetime").date.fromisoformat(history[0]["date"])
+    ).days
+    span_years = max(span_days / 365.25, 0.05)
+    raw_cagr = (end / start) ** (1 / span_years) - 1
+    cagr = max(-max_annual_growth, min(max_annual_growth, raw_cagr))
+
+    return [
+        {"year": y, "price": round(end * (1 + cagr) ** y, 2)}
+        for y in range(1, years + 1)
+    ]
+
+
 def load_mp_holdings():
-    # TODO(team): data/mp_holdings.json doesn't exist in the repo yet.
-    # Expected shape: a JSON list of {"mp_name": str, "holding": str, ...}.
     try:
         with open("data/mp_holdings.json") as f:
             return json.load(f)
@@ -95,18 +178,38 @@ def politicians_holding(company_name):
     return [h for h in holdings if h["holding"].lower() in name_lower or name_lower in h["holding"].lower()]
 
 
+ASSUMED_SHARES = 1000  # illustrative only — real disclosed share counts aren't public
+
+
 def analyze_impact(bill, lang="en"):
     extracted = ai.identify_affected_companies(bill, lang)
     results = []
     for company in extracted["companies"]:
         ticker = resolve_ticker(company)
         snapshot = get_stock_snapshot(ticker)
+        history = get_price_history(ticker)
+        trend = project_trend(history) if history else None
         conflicts = politicians_holding(company)
+
+        illustrative_value = None
+        illustrative_value_4y = None
+        if snapshot and trend:
+            illustrative_value = round(snapshot["price"] * ASSUMED_SHARES, 2)
+            illustrative_value_4y = round(trend[-1]["price"] * ASSUMED_SHARES, 2)
+
         results.append({
             "company": company,
             "ticker": ticker,
-            "market_data": snapshot,          # Fact, if present
-            "political_holdings": conflicts,  # Fact: MP holds this stock
-            # Inferred label is added in the frontend/prompt copy, not asserted here
+            "market_data": snapshot,
+            "price_history": history,
+            "projected_trend": trend,
+            "trend_note": (
+                "Illustrative projection based on the last ~5 months of trading "
+                "data, extrapolated forward. Not a forecast."
+            ),
+            "political_holdings": conflicts,
+            "assumed_shares": ASSUMED_SHARES if illustrative_value else None,
+            "illustrative_value_now": illustrative_value,
+            "illustrative_value_4y": illustrative_value_4y,
         })
     return {"companies": results, "sectors": extracted["sectors"]}

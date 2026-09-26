@@ -132,13 +132,19 @@ function initBillPage() {
   }
 
   function renderCompanies(data) {
-    const section = document.getElementById("impact-section");
     const list = document.getElementById("company-list");
-    if (!data || !(data.companies || []).length) {
-      section.hidden = true;
+    const impactStatus = document.getElementById("impact-status");
+    const companies = (data && data.companies) || [];
+
+    if (!companies.length) {
+      list.innerHTML = "";
+      impactStatus.hidden = false;
+      impactStatus.textContent = "No companies or sectors were identified for this bill.";
       return;
     }
-    list.innerHTML = data.companies.map((c) => {
+    impactStatus.hidden = true;
+
+    list.innerHTML = companies.map((c) => {
       const m = c.market_data;
       let priceHtml = "";
       if (m && typeof m.price === "number") {
@@ -159,20 +165,31 @@ function initBillPage() {
           ${conflictHtml}
         </li>`;
     }).join("");
-    section.hidden = false;
   }
 
   function loadImpact(lang) {
+    const impactStatus = document.getElementById("impact-status");
+    impactStatus.hidden = false;
+    impactStatus.textContent = "Loading financial analytics…";
+    document.getElementById("company-list").innerHTML = "";
+    document.getElementById("holdings-table-wrap").hidden = true;
+    document.getElementById("charts-wrap").innerHTML = "";
+    document.getElementById("networth-section").hidden = true;
+
     fetch(`/api/bills/${encodeURIComponent(session)}/${encodeURIComponent(code)}/impact?lang=${lang}`)
       .then((resp) => {
         if (!resp.ok) throw new Error("Request failed");
         return resp.json();
       })
-      .then(renderCompanies)
+      .then((data) => {
+        renderCompanies(data);
+        renderFinancials(data.companies || []);
+      })
       .catch(() => {
-        // Optional/experimental feature (needs FINNHUB_API_KEY etc.) — fail quietly,
-        // the rest of the page still works without it.
-        document.getElementById("impact-section").hidden = true;
+        // Optional/experimental feature (needs FINNHUB_API_KEY etc.) — fail without
+        // taking down the rest of the page.
+        impactStatus.hidden = false;
+        impactStatus.textContent = "Couldn't load financial analytics for this bill right now.";
       });
   }
 
@@ -184,6 +201,7 @@ function initBillPage() {
       .then((data) => {
         currentLang = lang;
         renderBill(data);
+        renderDescription(data);
         status.hidden = true;
         article.hidden = false;
         document.getElementById("mp-step").hidden = false;
@@ -297,5 +315,154 @@ function initBillPage() {
   });
 }
 
+// ---------- Description / Financial analytics tabs ----------
+function initTabs() {
+  const tabDescription = document.getElementById("tab-description");
+  const tabFinancial = document.getElementById("tab-financial");
+  const panelDescription = document.getElementById("panel-description");
+  const panelFinancial = document.getElementById("panel-financial");
+  if (!tabDescription) return; // not this page
+
+  function activate(name) {
+    const isDescription = name === "description";
+    tabDescription.classList.toggle("is-active", isDescription);
+    tabDescription.setAttribute("aria-selected", String(isDescription));
+    tabFinancial.classList.toggle("is-active", !isDescription);
+    tabFinancial.setAttribute("aria-selected", String(!isDescription));
+    panelDescription.hidden = !isDescription;
+    panelFinancial.hidden = isDescription;
+  }
+
+  tabDescription.addEventListener("click", () => activate("description"));
+  tabFinancial.addEventListener("click", () => activate("financial"));
+}
+
+function renderDescription(data) {
+  const section = document.getElementById('description-section');
+  const text = document.getElementById('description-text');
+  if (data.official_summary) {
+    text.textContent = data.official_summary;
+    section.hidden = false;
+  } else {
+    section.hidden = true;
+  }
+}
+
+let _impactCharts = [];
+
+function renderFinancials(companies) {
+  // ---- holdings table ----
+  const tableWrap = document.getElementById('holdings-table-wrap');
+  const tbody = document.getElementById('holdings-table-body');
+  tbody.innerHTML = '';
+  let rowCount = 0;
+
+  companies.forEach(c => {
+    (c.political_holdings || []).forEach(h => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${escapeHtml(h.mp)}</td>
+        <td>${escapeHtml(h.party)}</td>
+        <td>${escapeHtml(h.riding)}</td>
+        <td>${escapeHtml(c.company)}</td>
+        <td>${escapeHtml(c.ticker || '—')}</td>
+      `;
+      tbody.appendChild(tr);
+      rowCount++;
+    });
+  });
+  tableWrap.hidden = rowCount === 0;
+
+  // ---- charts (one per company that has real price history) ----
+  _impactCharts.forEach(ch => ch.destroy());
+  _impactCharts = [];
+  const chartsWrap = document.getElementById('charts-wrap');
+  chartsWrap.innerHTML = '';
+
+  companies.forEach(c => {
+    if (!c.price_history || !c.projected_trend) return;
+
+    const box = document.createElement('div');
+    box.className = 'chart-box';
+    box.innerHTML = `
+      <h4>${escapeHtml(c.company)}${c.ticker ? ' (' + escapeHtml(c.ticker) + ')' : ''}</h4>
+      <canvas></canvas>
+      <p class="trend-note">${escapeHtml(c.trend_note)}</p>
+    `;
+    chartsWrap.appendChild(box);
+
+    const histLabels = c.price_history.map(p => p.date);
+    const histData = c.price_history.map(p => p.close);
+    const lastClose = histData[histData.length - 1];
+
+    // projected_trend is [{year, price}, ...] for years 1..4 from "now" —
+    // give it its own label track appended after the historical dates,
+    // and bridge it from the last real close so the line connects visually.
+    const projLabels = c.projected_trend.map(t => `+${t.year}y`);
+    const projData = c.projected_trend.map(t => t.price);
+
+    const labels = [...histLabels, ...projLabels];
+    const historicalSeries = [...histData, ...projLabels.map(() => null)];
+    const projectedSeries = [
+      ...histData.map(() => null),
+    ];
+    projectedSeries[histData.length - 1] = lastClose; // bridge point
+    projectedSeries.push(...projData);
+
+    const ctx = box.querySelector('canvas').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Actual close',
+            data: historicalSeries,
+            borderColor: '#2563eb',
+            spanGaps: false,
+            pointRadius: 0,
+          },
+          {
+            label: 'Illustrative trend (not a forecast)',
+            data: projectedSeries,
+            borderColor: '#ea580c',
+            borderDash: [6, 4],
+            spanGaps: true,
+            pointRadius: 0,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        scales: {
+          x: { ticks: { maxTicksLimit: 8 } },
+        },
+      },
+    });
+    _impactCharts.push(chart);
+  });
+
+  // ---- net worth ----
+  const conflicted = companies.filter(c => (c.political_holdings || []).length > 0);
+  const withValue = conflicted.filter(c => c.illustrative_value_now != null);
+
+  const nwSection = document.getElementById('networth-section');
+  if (withValue.length === 0) {
+    nwSection.hidden = true;
+    return;
+  }
+
+  const totalNow = withValue.reduce((sum, c) => sum + c.illustrative_value_now, 0);
+  const total4y = withValue.reduce((sum, c) => sum + c.illustrative_value_4y, 0);
+  const fmt = n => n.toLocaleString('en-CA', { style: 'currency', currency: 'USD' });
+
+  document.getElementById('assumed-shares').textContent = withValue[0].assumed_shares;
+  document.getElementById('networth-now').textContent = fmt(totalNow);
+  document.getElementById('networth-4y').textContent = fmt(total4y);
+  nwSection.hidden = false;
+}
+
 initBillList();
 initBillPage();
+initTabs();

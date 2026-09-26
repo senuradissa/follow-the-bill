@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 </head>
 <body data-session="{{ session_id }}" data-code="{{ code }}">
   <header class="masthead">
@@ -33,20 +34,65 @@
       </div>
       <h1 id="bill-title"></h1>
 
-      <blockquote class="tldr" id="bill-tldr" aria-label="Plain-language summary"></blockquote>
+      <nav class="section-tabs" role="tablist" aria-label="Bill view">
+        <button type="button" id="tab-description" class="tab-btn is-active" role="tab" aria-selected="true" aria-controls="panel-description">Description</button>
+        <button type="button" id="tab-financial" class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-financial">Financial analytics</button>
+      </nav>
 
-      <div id="bill-summary" class="summary"></div>
+      <div id="panel-description" class="tab-panel" role="tabpanel">
+        <blockquote class="tldr" id="bill-tldr" aria-label="Plain-language summary"></blockquote>
 
-      <h2>Key changes</h2>
-      <ul id="bill-changes" class="changes"></ul>
+        <div id="bill-summary" class="summary"></div>
 
-      <div id="impact-section" hidden>
-        <h2>Companies &amp; market impact</h2>
-        <p class="company-note">Gemini reads the bill text to name real companies or sectors it plausibly affects. Stock prices and MP stock-holding matches are looked up separately and are facts, not guesses &mdash; only the connection between the bill and the company is Gemini's read of the text.</p>
-        <ul id="company-list" class="company-list"></ul>
+        <h2>Key changes</h2>
+        <ul id="bill-changes" class="changes"></ul>
+
+        <div id="description-section" hidden>
+          <h2>What this bill does</h2>
+          <p id="description-text"></p>
+        </div>
+
+        <p class="source-line">Source: <a id="bill-source" href="#" target="_blank" rel="noopener">official bill text</a></p>
       </div>
 
-      <p class="source-line">Source: <a id="bill-source" href="#" target="_blank" rel="noopener">official bill text</a></p>
+      <div id="panel-financial" class="tab-panel" role="tabpanel" hidden>
+        <div id="impact-section">
+          <p class="company-note">Gemini reads the bill text to name real companies or sectors it plausibly affects. Stock prices and MP stock-holding matches are looked up separately and are facts, not guesses &mdash; only the connection between the bill and the company is Gemini's read of the text.</p>
+          <p id="impact-status" class="status">Loading financial analytics&hellip;</p>
+          <ul id="company-list" class="company-list"></ul>
+
+          <div id="holdings-table-wrap" hidden>
+            <h3>Politicians &amp; parties with matching stock holdings</h3>
+            <table id="holdings-table">
+              <thead>
+                <tr><th>MP</th><th>Party</th><th>Riding</th><th>Company</th><th>Ticker</th></tr>
+              </thead>
+              <tbody id="holdings-table-body"></tbody>
+            </table>
+          </div>
+
+          <div id="charts-wrap"></div>
+
+          <div id="networth-section" hidden>
+            <h3>Illustrative holdings value</h3>
+            <p class="disclaimer">
+              Hypothetical only &mdash; assumes <span id="assumed-shares"></span> shares held per
+              matched company. Real disclosed share counts aren't public, and the 4-year figure is
+              a naive trend extrapolation, not a forecast. This is not anyone's real net worth.
+            </p>
+            <div class="networth-figures">
+              <div class="networth-figure">
+                <span class="label">Now</span>
+                <span class="value" id="networth-now">&mdash;</span>
+              </div>
+              <div class="networth-figure">
+                <span class="label">Illustrative, in 4 years</span>
+                <span class="value" id="networth-4y">&mdash;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </article>
 
     <section class="step" id="mp-step" hidden>

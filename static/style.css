@@ -228,6 +228,29 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .lang-btn.is-active { color: var(--paper); background: var(--ink); border-color: var(--ink); }
 
+/* Description / Financial analytics tabs */
+.section-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--line);
+  margin: 0 0 1.75rem;
+}
+.tab-btn {
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.7rem 1.1rem 0.65rem;
+  border: none;
+  background: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.is-active { color: var(--ink); border-bottom-color: var(--red); }
+.tab-panel { max-width: 68ch; }
+
 h1 { font-family: var(--serif); font-size: 2rem; line-height: 1.25; margin: 0.4rem 0 1.5rem; }
 h2 { font-family: var(--serif); font-size: 1.3rem; margin: 2.2rem 0 0.8rem; }
 
@@ -245,6 +268,89 @@ h2 { font-family: var(--serif); font-size: 1.3rem; margin: 2.2rem 0 0.8rem; }
 .changes li { margin-bottom: 0.5rem; }
 .source-line { margin-top: 2rem; font-size: 0.85rem; color: var(--ink-faint); }
 .source-line a { color: var(--ink-soft); }
+
+/* Bill description */
+#description-text { max-width: 68ch; color: var(--ink); }
+
+/* Financial analysis: holdings table */
+#holdings-table-wrap { margin-top: 1.5rem; max-width: 66ch; }
+#holdings-table-wrap h3 {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  margin: 0 0 0.6rem;
+}
+#holdings-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+#holdings-table th, #holdings-table td {
+  text-align: left;
+  padding: 0.55rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+#holdings-table th {
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Financial analysis: charts */
+#charts-wrap { max-width: 66ch; }
+.chart-box {
+  margin: 1.5rem 0;
+  padding: 1.1rem 1.1rem 0.9rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.chart-box h4 {
+  font-family: var(--serif);
+  font-size: 1rem;
+  margin: 0 0 0.75rem;
+}
+.trend-note {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin: 0.6rem 0 0;
+}
+
+/* Financial analysis: illustrative net worth */
+#networth-section {
+  margin: 1.5rem 0 0;
+  padding: 1.1rem;
+  max-width: 66ch;
+  background: var(--surface);
+  border-left: 3px solid var(--amber);
+}
+#networth-section h3 {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem;
+}
+.disclaimer {
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  margin: 0 0 1rem;
+  max-width: 60ch;
+}
+.networth-figures { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+.networth-figure .label {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.networth-figure .value {
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-top: 0.15rem;
+}
 
 /* Companies & market impact */
 .company-note {

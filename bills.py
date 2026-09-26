@@ -1,10 +1,13 @@
 """Federal bills (owner: Person A).
 
-list_bills() fetches the real parl.ca feed. bill_text() is still a stub
-until Person A finishes it (see TODO below).
+list_bills() fetches the real parl.ca feed. bill_text() fetches a bill's
+official text (EN or FR) from its parl.ca XML file.
 """
 import requests
+import re
+import xml.etree.ElementTree as ET
 HEADERS = {"User-Agent": "Mozilla/5.0 (Hack the Hill student project)"}
+
 
 
 def list_bills():
@@ -28,15 +31,57 @@ def list_bills():
     return bills
 
 
+def latest_publication_id(session, code):
+    url = f"https://www.parl.ca/legisinfo/en/bill/{session}/{code.lower()}/json"
+    resp = requests.get(url, headers=HEADERS, timeout=30)
+    resp.raise_for_status()
+    bill = resp.json()[0]
+    publications = bill["Publications"]
+    return publications[-1]["PublicationId"]
+
+
+def xml_url(publication_id, lang):
+    page_url = f"https://www.parl.ca/DocumentViewer/{lang}/{publication_id}"
+    resp = requests.get(page_url, headers=HEADERS, timeout=30)
+    resp.raise_for_status()
+
+    letter = "E" if lang == "en" else "F"
+    match = re.search(rf'href="([^"]+_{letter}\.xml)"', resp.text)
+    if match is None:
+        return None
+    return "https://www.parl.ca" + match.group(1)
+
+def text_of(box):
+    if box is None:
+        return ""
+    return " ".join(" ".join(box.itertext()).split())
+
+def read_bill_xml(url):
+    resp = requests.get(url, headers=HEADERS, timeout=30)
+    resp.raise_for_status()
+    root = ET.fromstring(resp.content)
+
+    return {
+        "title": text_of(root.find("Identification/ShortTitle")) or text_of(root.find("Identification/LongTitle")),
+        "official_summary": text_of(root.find("Introduction/Summary")),
+        "text": text_of(root.find("Body")),
+    }
+
+_cache = {}
 
 def bill_text(session, code, lang):
-    """Return the bill's text in 'en' or 'fr':
-    {title, official_summary, text, source_url}
-    """
-    # TODO(A): fetch the real bill text
-    return {
-        "title": f"Fake bill {code}",
-        "official_summary": "This is placeholder text until the real bill is fetched.",
-        "text": "Section 1. Placeholder.",
-        "source_url": "https://www.parl.ca/legisinfo/",
-    }
+    key = (session, code, lang)
+    if key in _cache:
+        return _cache[key]
+
+    publication_id = latest_publication_id(session, code)
+    url = xml_url(publication_id, lang)
+    bill = read_bill_xml(url)
+    bill["source_url"] = f"https://www.parl.ca/DocumentViewer/{lang}/{publication_id}"
+
+    _cache[key] = bill
+    return bill   
+
+
+
+    

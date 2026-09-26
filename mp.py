@@ -47,4 +47,3 @@ def find_mp(postal):
         "email": mp.get("email") or "",
         "photo_url": mp.get("photo_url"),
     }
-    }

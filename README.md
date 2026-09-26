@@ -8,13 +8,15 @@ Pick a federal bill → read it in plain English or French → find your MP by p
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate        # fish shell: source venv/bin/activate.fish
 pip install -r requirements.txt
 cp .env.example .env        # paste the Gemini key in here; share it privately, never commit it
 flask --app app run --debug
 ```
 
 Open http://127.0.0.1:5000
+
+Who does what, and how: see **[PLAN.md](PLAN.md)**.
 
 ## Status
 

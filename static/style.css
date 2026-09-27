@@ -54,7 +54,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding: 1.4rem 1.25rem 1.1rem;
 }
 .masthead-row {
-  max-width: 720px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -103,34 +103,70 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .masthead-actions {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
+  gap: 1.1rem;
+  padding-left: 1.1rem;
+  border-left: 1px solid rgba(244, 246, 250, 0.18);
 }
 .nav-link {
-  font-size: 0.85rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   color: var(--on-dark-soft);
   text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
 }
-.nav-link:hover, .nav-link.is-active { color: var(--on-dark); text-decoration: underline; }
+.nav-link:hover { color: var(--on-dark); }
+.nav-link.is-active { color: var(--on-dark); border-bottom-color: var(--red); }
+.nav-link--button {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(244, 246, 250, 0.35);
+  border-radius: 2px;
+}
+.nav-link--button:hover { border-color: var(--on-dark); background: rgba(244, 246, 250, 0.08); }
 .masthead-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   font-size: 0.8rem;
   color: var(--on-dark-soft);
   white-space: nowrap;
 }
+.user-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--red);
+  color: var(--on-dark);
+  font-family: var(--serif);
+  font-size: 0.7rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
 .masthead-tag {
-  max-width: 720px;
-  margin: 0.6rem auto 0;
+  max-width: 1200px;
+  margin: 0.9rem auto 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(244, 246, 250, 0.14);
   color: var(--on-dark-soft);
   font-size: 1rem;
 }
 .back-link {
   display: inline-block;
-  max-width: 720px;
-  margin: 0.6rem auto 0;
+  max-width: 1200px;
+  margin: 0.9rem auto 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(244, 246, 250, 0.14);
   font-size: 0.9rem;
   color: var(--on-dark-soft);
   background: none;
-  border: none;
-  padding: 0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
   cursor: pointer;
   font-family: inherit;
 }
@@ -227,12 +263,27 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 2px;
 }
 
+/* Status filter as a dropdown -- swapped in for the pill list on phones and
+   tablets (see the media query below), where a column of a dozen-plus pills
+   would push the actual bill list off the first screen. */
+.status-select {
+  display: none;
+  width: 100%;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--ink);
+}
+
 @media (max-width: 780px) {
   .index-layout { grid-template-columns: 1fr; gap: 1.5rem; }
   .index-sidebar { position: static; order: -1; }
   .index-main { order: 1; }
-  .index-sidebar .filters { flex-direction: row; flex-wrap: wrap; }
-  .index-sidebar .filter-pill { width: auto; text-align: center; }
+  .index-sidebar .filters { display: none; }
+  .status-select:not([hidden]) { display: block; }
 }
 
 /* Gazette bill list */
@@ -423,7 +474,7 @@ h2 { font-family: var(--serif); font-size: 1.3rem; margin: 2.2rem 0 0.8rem; }
 #description-text { max-width: 68ch; color: var(--ink); }
 
 /* Financial analysis: holdings table */
-#holdings-table-wrap { margin-top: 1.5rem; max-width: 66ch; }
+#holdings-table-wrap { margin-top: 1.5rem; max-width: 66ch; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 #holdings-table-wrap h3 {
   font-family: var(--serif);
   font-size: 1.05rem;
@@ -589,6 +640,40 @@ button:hover, .btn:hover { background: #060b17; }
   border-top: 1px solid var(--line);
   color: var(--ink-faint);
   font-size: 0.8rem;
+}
+
+/* Phone-width tightening: masthead stacking, single-column headings, and
+   letting anything genuinely too wide (the lobbying table) scroll on its
+   own instead of squeezing the whole page. */
+@media (max-width: 640px) {
+  .wrap, .index-wrap { padding: 0 1rem 3rem; }
+  .masthead { padding: 1.1rem 1rem 1rem; }
+
+  .masthead-row { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+  .masthead-right { width: 100%; flex-direction: column; align-items: flex-start; gap: 0.65rem; }
+  .masthead-actions {
+    width: 100%;
+    flex-wrap: wrap;
+    border-left: none;
+    padding-left: 0;
+    padding-top: 0.65rem;
+    border-top: 1px solid rgba(244, 246, 250, 0.14);
+  }
+  .masthead-tag, .back-link { font-size: 0.88rem; }
+
+  h1 { font-size: 1.55rem; }
+
+  .bill-heading { flex-direction: column; align-items: flex-start; gap: 0.85rem; }
+  .bill-heading-actions { width: 100%; justify-content: space-between; }
+
+  .section-tabs { gap: 0.15rem; }
+  .tab-btn { font-size: 0.85rem; padding: 0.6rem 0.75rem 0.55rem; }
+
+  #holdings-table { min-width: 480px; }
+
+  .letter-paper { padding: 1.15rem; }
+  .letter-actions { flex-wrap: wrap; }
+  .company-price { margin-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

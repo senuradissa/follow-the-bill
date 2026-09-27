@@ -19,12 +19,15 @@
       <div class="masthead-right">
         <span class="masthead-session">45th Parliament, 1st session</span>
         <nav class="masthead-actions">
-          <a class="nav-link" href="{{ url_for('bookmarks_page') }}">Bookmarks</a>
+          <a class="nav-link{{ ' is-active' if request.endpoint == 'bookmarks_page' else '' }}" href="{{ url_for('bookmarks_page') }}">Bookmarks</a>
           {% if current_user %}
-            <span class="masthead-user">{{ current_user.name or current_user.email }}</span>
-            <a class="nav-link" href="{{ url_for('auth.logout') }}">Log out</a>
+            <span class="masthead-user">
+              <span class="user-avatar" aria-hidden="true">{{ (current_user.name or current_user.email or '?')[0]|upper }}</span>
+              {{ current_user.name or current_user.email }}
+            </span>
+            <a class="nav-link nav-link--button" href="{{ url_for('auth.logout') }}">Log out</a>
           {% else %}
-            <a class="nav-link" href="{{ url_for('auth.login') }}">Log in</a>
+            <a class="nav-link nav-link--button" href="{{ url_for('auth.login') }}">Log in</a>
           {% endif %}
         </nav>
       </div>

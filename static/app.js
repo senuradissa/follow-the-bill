@@ -37,6 +37,7 @@ function statusRank(s) {
 function initBillList() {
   const gazette = document.getElementById("gazette");
   const filtersEl = document.getElementById("filters");
+  const statusSelect = document.getElementById("status-select");
   const status = document.getElementById("status");
   const search = document.getElementById("search");
   if (!gazette) return; // not this page
@@ -59,6 +60,8 @@ function initBillList() {
     const sortedStatuses = [...new Set(allBills.map((b) => b.status_en))]
       .sort((a, b) => statusRank(a) - statusRank(b));
     const statuses = ["All", ...sortedStatuses];
+
+    // Pill list -- shown on wider screens (see .index-sidebar .filters in style.css).
     filtersEl.innerHTML = statuses.map((s) => `
       <button type="button" class="filter-pill${s === activeFilter ? " is-active" : ""}" data-status="${escapeHtml(s)}">
         ${escapeHtml(s)}
@@ -72,6 +75,14 @@ function initBillList() {
         render(applyFilters());
       });
     });
+
+    // Same list as a <select> -- shown instead of the pills on phones/tablets
+    // (same breakpoint, in style.css) where a column of ~13 pills would eat
+    // the whole screen before you get to a single bill.
+    statusSelect.innerHTML = statuses.map((s) => `
+      <option value="${escapeHtml(s)}"${s === activeFilter ? " selected" : ""}>${escapeHtml(s)}</option>
+    `).join("");
+    statusSelect.hidden = statuses.length <= 1;
   }
 
   function applyFilters() {
@@ -125,6 +136,15 @@ function initBillList() {
     });
 
   search.addEventListener("input", () => render(applyFilters()));
+
+  // The select's own <option> list gets rebuilt every renderFilters() call,
+  // but the <select> element itself never does, so this listener only
+  // needs to be wired up once.
+  statusSelect.addEventListener("change", () => {
+    activeFilter = statusSelect.value;
+    renderFilters();
+    render(applyFilters());
+  });
 }
 
 // ---------- Page 2: single bill ----------

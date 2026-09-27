@@ -3,16 +3,20 @@
 Run:  flask --app app run --debug
 The routes are thin; the real work goes in bills.py, mp.py and ai.py.
 """
+import os
+
 from dotenv import load_dotenv
 
-load_dotenv()  # loads GEMINI_API_KEY, AUTH0_*, MONGODB_URI, etc. from .env
+load_dotenv()  # loads GEMINI_API_KEY, AUTH0_*, MONGODB_URI, SMTP_*, etc. from .env
 
 from flask import Flask, jsonify, render_template, request  # noqa: E402
+from apscheduler.schedulers.background import BackgroundScheduler  # noqa: E402
 
 import ai  # noqa: E402
 import auth  # noqa: E402
 import bills  # noqa: E402
 import mp  # noqa: E402
+import notifications  # noqa: E402
 import users  # noqa: E402
 import impact
 app = Flask(__name__)
@@ -25,6 +29,19 @@ def inject_user():
     # Lets every template check `{% if current_user %}` without each route
     # having to pass it in explicitly.
     return {"current_user": auth.current_user()}
+
+
+# ---- Bill-change notifications (owner: Person B) ----
+# Polls LEGISinfo every 10 minutes and emails anyone who's bookmarked a bill
+# whose status changed since the last check. flask --debug runs this file
+# twice (the reloader's watcher process + the real worker); WERKZEUG_RUN_MAIN
+# is only set in the real worker, so this guard stops the job from running,
+# and therefore emailing, twice per change.
+if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(notifications.check_for_bill_changes, "interval", minutes=10)
+    scheduler.start()
+    notifications.check_for_bill_changes()  # also run once at startup, right away
 
 
 @app.get("/")

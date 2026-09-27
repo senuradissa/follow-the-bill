@@ -82,3 +82,34 @@ def is_bookmarked(sub, session, code):
     return _db().bookmarks.count_documents(
         {"auth0_sub": sub, "session": session, "code": code}, limit=1
     ) > 0
+
+
+# ---- Status-change tracking, for notifications.py ----
+# One doc per bill recording the last status we saw it in, so the
+# background job can tell "changed" from "same as last check".
+
+def get_last_status(session, code):
+    doc = _db().bill_status.find_one({"session": session, "code": code})
+    return doc["status_en"] if doc else None
+
+
+def set_last_status(session, code, status_en):
+    _db().bill_status.update_one(
+        {"session": session, "code": code},
+        {"$set": {"session": session, "code": code, "status_en": status_en}},
+        upsert=True,
+    )
+
+
+def bookmarkers_for_bill(session, code):
+    """Everyone who has this bill bookmarked: [(auth0_sub, email, name), ...]."""
+    subs = [
+        d["auth0_sub"]
+        for d in _db().bookmarks.find({"session": session, "code": code}, {"auth0_sub": 1})
+    ]
+    if not subs:
+        return []
+    return [
+        (u["auth0_sub"], u.get("email"), u.get("name"))
+        for u in _db().users.find({"auth0_sub": {"$in": subs}})
+    ]

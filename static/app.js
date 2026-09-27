@@ -403,6 +403,12 @@ function renderDescription(data) {
   const text = document.getElementById('description-text');
   if (data.official_summary) {
     text.textContent = data.official_summary;
+    // Collapsed by default: for big bills this is thousands of words.
+    // renderBill() has already set the page language by this point.
+    document.getElementById('description-toggle').textContent =
+      document.documentElement.lang === 'fr'
+        ? 'Lire le sommaire officiel du Parlement'
+        : 'Read the official summary from Parliament';
     section.hidden = false;
   } else {
     section.hidden = true;

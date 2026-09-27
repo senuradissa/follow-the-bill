@@ -298,6 +298,22 @@ h2 { font-family: var(--serif); font-size: 1.3rem; margin: 2.2rem 0 0.8rem; }
 .listen-status { font-size: 0.85rem; color: var(--ink-soft); }
 .listen audio { width: 100%; max-width: 28rem; }
 
+/* Official summary from Parliament: collapsed by default (can be very long) */
+.official-summary {
+  max-width: 68ch;
+  margin-top: 2rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1rem;
+}
+.official-summary summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+.official-summary summary:hover { color: var(--ink); }
+.official-summary summary:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.official-summary p { color: var(--ink); font-size: 0.95rem; }
+
 /* Bill description */
 #description-text { max-width: 68ch; color: var(--ink); }
 

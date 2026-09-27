@@ -169,6 +169,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--paper);
   border-color: var(--ink);
 }
+.filter-pill:not(.is-active):hover { background: var(--surface); color: var(--ink); }
 
 /* Gazette bill list */
 .gazette {
@@ -228,6 +229,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   cursor: pointer;
 }
 .lang-btn.is-active { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.lang-btn:not(.is-active):hover { background: var(--surface); color: var(--ink); }
 
 /* Description / Financial analytics tabs */
 .section-tabs {
@@ -248,7 +250,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
 }
-.tab-btn:hover { color: var(--ink); }
+.tab-btn:hover { color: var(--ink); background: none; }  /* override the global dark button:hover */
 .tab-btn.is-active { color: var(--ink); border-bottom-color: var(--red); }
 .tab-panel { max-width: 68ch; }
 

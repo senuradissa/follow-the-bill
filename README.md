@@ -36,25 +36,6 @@ The challenge statement calls out specific real-world constraints. Here's how th
 | **Connectivity** | Summaries and lobbying data are cached to disk after first fetch, so the same bill can load instantly after the first request. |
 | **Ease of use** | The project comes with one search box, one set of status filters, one click to bookmark, and one click to draft a letter. Moreover, an account is not required if you just want to read and understand a bill. An account is only needed for the following up on a bill by bookmarking it and enabling email alerts. |
 
-## Files
-
-| File | What's in it | Who |
-|---|---|---|
-| `bills.py` | Getting bills and bill text from parl.ca | A |
-| `ai.py` → `summarize()`, `identify_affected_companies()` | Gemini summaries, company/sector detection, both cached | A |
-| `ai.py` → `draft_letter()` | Gemini letter to your MP | B |
-| `mp.py` | MP lookup by postal code (Represent API) | B |
-| `impact.py` | Joins Gemini's affected-companies list against real lobbying activity; optional stock data | shared |
-| `build_lobbying_activity.py` | One-time offline script: turns the Registry of Lobbyists' raw CSV exports into `data/lobbying_activity.json` | B |
-| `auth.py` | Auth0 login/callback/logout (Authlib) | B |
-| `users.py` | Mongo-backed bookmarks, user records, last-known bill status | B |
-| `notifications.py` | Background job: emails bookmarkers when a bill's status changes | B |
-| `voice.py` | "Listen to this summary" audio generation | C |
-| `templates/`, `static/` | Frontend | C |
-| `app.py` | Flask routes (shared, check with the team before changing) | everyone |
-| `data/.cache_*.json` | Saved Gemini results. Commit them so everyone gets them for free | |
-| `data/lobbying_activity.json` | Built once by `build_lobbying_activity.py`, then committed | |
-
 ## API
 
 These shapes are what the frontend expects.

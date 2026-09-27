@@ -5,21 +5,35 @@ The routes are thin; the real work goes in bills.py, mp.py and ai.py.
 """
 from dotenv import load_dotenv
 
-load_dotenv()  # loads GEMINI_API_KEY from .env
+load_dotenv()  # loads GEMINI_API_KEY, AUTH0_*, MONGODB_URI, etc. from .env
 
-from flask import Flask, jsonify, render_template, request, send_file  # noqa: E402
+from flask import Flask, jsonify, render_template, request  # noqa: E402
 
 import ai  # noqa: E402
+import auth  # noqa: E402
 import bills  # noqa: E402
 import mp  # noqa: E402
+import users  # noqa: E402
 import impact
-import voice #noqa: E402
-
 app = Flask(__name__)
+auth.init_auth(app)
+app.register_blueprint(auth.auth_bp)  # adds /login, /callback, /logout
+
+
+@app.context_processor
+def inject_user():
+    # Lets every template check `{% if current_user %}` without each route
+    # having to pass it in explicitly.
+    return {"current_user": auth.current_user()}
+
 
 @app.get("/")
 def index():
     return render_template("index.html")
+
+@app.get("/bookmarks")
+def bookmarks_page():
+    return render_template("bookmarks.html")
 
 @app.get("/bill/<session>/<code>")
 def bill_page(session, code):
@@ -66,21 +80,31 @@ def bill_impact(session, code):
     bill = bills.bill_text(session, code, lang)
     return jsonify(impact.analyze_impact(bill, lang))
 
-@app.get("/api/bills/<session>/<code>/audio")
-def bill_audio(session, code):
-    lang = request.args.get("lang", "en")
-    bill = bills.bill_text(session, code, lang)
-    summary = ai.summarize(bill, lang)
 
-    heading = "Key Changes" if lang == "en" else "Principaux changements"
-    text = "\n\n".join([
-        bill["title"],
-        summary["tldr"],
-        summary["summary"],
-        heading + ":",
-        *summary["key_changes"],
-    ])
+# ---- Bookmarks (owner: Person B) ----
+# All three require login; a user's bookmarks are keyed on their stable
+# Auth0 `sub`, never their email. See users.py for the Mongo side.
 
-    mp3_path = voice.speak(text)
-    return send_file(mp3_path, mimetype="audio/mpeg")
+@app.get("/api/bookmarks")
+def api_list_bookmarks():
+    user = auth.current_user()
+    if user is None:
+        return jsonify({"error": "Not logged in"}), 401
+    return jsonify(users.list_bookmarks(user["sub"]))
 
+@app.post("/api/bookmarks")
+def api_add_bookmark():
+    user = auth.current_user()
+    if user is None:
+        return jsonify({"error": "Not logged in"}), 401
+    data = request.get_json(force=True)
+    users.add_bookmark(user["sub"], data["session"], data["code"], data.get("title_en", ""))
+    return jsonify({"ok": True}), 201
+
+@app.delete("/api/bookmarks/<session>/<code>")
+def api_remove_bookmark(session, code):
+    user = auth.current_user()
+    if user is None:
+        return jsonify({"error": "Not logged in"}), 401
+    users.remove_bookmark(user["sub"], session, code)
+    return jsonify({"ok": True})

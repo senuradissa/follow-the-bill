@@ -8,6 +8,32 @@ function escapeHtml(str) {
 }
 
 // ---------- Page 1: bill list ----------
+// Explicit progress order for the filter tags, most-advanced first. The two
+// terminal outcomes lead; "awaiting first reading in [other chamber]" ranks
+// above that chamber's own third reading because it means the bill already
+// finished an entire chamber. Same-stage Senate/Commons ties are broken by
+// convention (Senate first) since either chamber can be a bill's origin.
+const STATUS_ORDER = [
+  "Royal assent received",
+  "Bill defeated",
+  "House of Commons bill awaiting first reading in the Senate",
+  "Senate bill awaiting first reading in the House of Commons",
+  "At third reading in the Senate",
+  "At third reading in the House of Commons",
+  "At report stage in the Senate",
+  "At report stage in the House of Commons",
+  "At consideration in committee in the Senate",
+  "At consideration in committee in the House of Commons",
+  "At second reading in the Senate",
+  "At second reading in the House of Commons",
+  "Outside the Order of Precedence",
+];
+
+function statusRank(s) {
+  const i = STATUS_ORDER.indexOf(s);
+  return i === -1 ? STATUS_ORDER.length : i; // unrecognized statuses sort last, not dropped
+}
+
 function initBillList() {
   const gazette = document.getElementById("gazette");
   const filtersEl = document.getElementById("filters");
@@ -30,7 +56,9 @@ function initBillList() {
   }
 
   function renderFilters() {
-    const statuses = ["All", ...new Set(allBills.map((b) => b.status_en))];
+    const sortedStatuses = [...new Set(allBills.map((b) => b.status_en))]
+      .sort((a, b) => statusRank(a) - statusRank(b));
+    const statuses = ["All", ...sortedStatuses];
     filtersEl.innerHTML = statuses.map((s) => `
       <button type="button" class="filter-pill${s === activeFilter ? " is-active" : ""}" data-status="${escapeHtml(s)}">
         ${escapeHtml(s)}
@@ -55,13 +83,8 @@ function initBillList() {
     });
   }
 
-  function render(bills) {
-    if (bills.length === 0) {
-      gazette.innerHTML = '<li class="gazette-empty">No bills match your search.</li>';
-      gazette.hidden = false;
-      return;
-    }
-    gazette.innerHTML = bills.map((b) => `
+  function billRow(b) {
+    return `
       <li class="gazette-item">
         <a href="/bill/${encodeURIComponent(b.session)}/${encodeURIComponent(b.code)}">
           <span class="gazette-code">${escapeHtml(b.code)}</span>
@@ -70,8 +93,19 @@ function initBillList() {
             <div class="gazette-meta">${metaLine(b)}</div>
           </span>
         </a>
-      </li>
-    `).join("");
+      </li>`;
+  }
+
+  function render(bills) {
+    if (bills.length === 0) {
+      gazette.innerHTML = '<li class="gazette-empty">No bills match your search.</li>';
+      gazette.hidden = false;
+      return;
+    }
+    // Newest first. `introduced` may be missing on some entries; those sort
+    // to the end rather than breaking the sort.
+    const sorted = [...bills].sort((a, b) => new Date(b.introduced || 0) - new Date(a.introduced || 0));
+    gazette.innerHTML = sorted.map(billRow).join("");
     gazette.hidden = false;
   }
 
@@ -202,7 +236,6 @@ function initBillPage() {
   }
 
   function loadAndRender(lang) {
-    resetListen();
     status.hidden = false;
     status.textContent = "Loading summary… this can take up to 20 seconds.";
     article.hidden = true;
@@ -211,7 +244,6 @@ function initBillPage() {
         currentLang = lang;
         renderBill(data);
         renderDescription(data);
-        resetListen();
         status.hidden = true;
         article.hidden = false;
         document.getElementById("mp-step").hidden = false;
@@ -222,57 +254,6 @@ function initBillPage() {
         status.textContent = "Couldn't load this bill's summary right now.";
       });
   }
-
-  // ---- Listen: read the summary aloud (ElevenLabs, via /audio) ----
-  const listenBtn = document.getElementById("listen-btn");
-  const listenLabel = document.getElementById("listen-label");
-  const listenStatus = document.getElementById("listen-status");
-  const listenAudio = document.getElementById("listen-audio");
-
-  const LISTEN_TEXT = {
-    en: {
-      idle: "Listen to this summary",
-      loading: "Preparing audio… this can take up to 20 seconds.",
-      error: "Couldn't load the audio right now.",
-    },
-    fr: {
-      idle: "Écouter ce résumé",
-      loading: "Préparation de l’audio… cela peut prendre jusqu’à 20 secondes.",
-      error: "Impossible de charger l’audio pour le moment.",
-    },
-  };
-
-  // Stop any playing audio and put the button back to its starting state
-  // (called when the page loads a summary or switches language).
-  function resetListen() {
-    listenAudio.pause();
-    listenAudio.removeAttribute("src");
-    listenAudio.load();
-    listenAudio.hidden = true;
-    listenBtn.disabled = false;
-    listenStatus.textContent = "";
-    listenLabel.textContent = LISTEN_TEXT[currentLang].idle;
-  }
-
-  listenBtn.addEventListener("click", () => {
-    listenBtn.disabled = true;
-    listenStatus.textContent = LISTEN_TEXT[currentLang].loading;
-    listenAudio.src = `/api/bills/${encodeURIComponent(session)}/${encodeURIComponent(code)}/audio?lang=${currentLang}`;
-    listenAudio.hidden = false;
-    listenAudio.play().catch(() => {}); // failures are handled by the "error" listener below
-  });
-
-  listenAudio.addEventListener("playing", () => {
-    listenStatus.textContent = "";
-    listenBtn.disabled = false;
-  });
-
-  listenAudio.addEventListener("error", () => {
-    if (!listenAudio.getAttribute("src")) return; // just reset, not a real error
-    listenStatus.textContent = LISTEN_TEXT[currentLang].error;
-    listenAudio.hidden = true;
-    listenBtn.disabled = false;
-  });
 
   document.getElementById("lang-en").addEventListener("click", () => loadAndRender("en"));
   document.getElementById("lang-fr").addEventListener("click", () => loadAndRender("fr"));
@@ -403,12 +384,6 @@ function renderDescription(data) {
   const text = document.getElementById('description-text');
   if (data.official_summary) {
     text.textContent = data.official_summary;
-    // Collapsed by default: for big bills this is thousands of words.
-    // renderBill() has already set the page language by this point.
-    document.getElementById('description-toggle').textContent =
-      document.documentElement.lang === 'fr'
-        ? 'Lire le sommaire officiel du Parlement'
-        : 'Read the official summary from Parliament';
     section.hidden = false;
   } else {
     section.hidden = true;
@@ -424,6 +399,93 @@ function renderSectors(data) {
   }
   el.innerHTML = `<strong>Sectors this bill affects:</strong> ${sectors.map(escapeHtml).join(', ')}`;
   el.hidden = false;
+}
+
+// ---------- Bookmark button (bill page) ----------
+function initBookmarkButton() {
+  const btn = document.getElementById("bookmark-btn");
+  if (!btn) return; // not this page
+
+  const session = document.body.dataset.session;
+  const code = document.body.dataset.code;
+  const label = document.getElementById("bookmark-label");
+
+  function setSaved(saved) {
+    btn.classList.toggle("is-saved", saved);
+    label.textContent = saved ? "Bookmarked" : "Bookmark";
+  }
+
+  if (btn.dataset.loggedIn !== "true") {
+    // Not logged in yet -- send them to log in rather than silently failing
+    // the API call. They land back on the homepage; they can come back to
+    // this bill and bookmark it once they're signed in.
+    btn.addEventListener("click", () => { window.location.href = "/login"; });
+    return;
+  }
+
+  fetch("/api/bookmarks")
+    .then((resp) => resp.json())
+    .then((bookmarks) => {
+      setSaved(bookmarks.some((b) => b.session === session && b.code === code));
+    })
+    .catch(() => {}); // leave it unbookmarked-looking rather than block the page
+
+  btn.addEventListener("click", () => {
+    if (btn.classList.contains("is-saved")) {
+      fetch(`/api/bookmarks/${encodeURIComponent(session)}/${encodeURIComponent(code)}`, { method: "DELETE" })
+        .then(() => setSaved(false));
+    } else {
+      const title = document.getElementById("bill-title").textContent || "";
+      fetch("/api/bookmarks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session, code, title_en: title }),
+      }).then(() => setSaved(true));
+    }
+  });
+}
+
+// ---------- Bookmarks page ----------
+function bookmarkRow(b) {
+  return `
+    <li class="gazette-item gazette-item--bookmark">
+      <a href="/bill/${encodeURIComponent(b.session)}/${encodeURIComponent(b.code)}">
+        <span class="gazette-code">${escapeHtml(b.code)}</span>
+        <span class="gazette-title">${escapeHtml(b.title_en)}</span>
+      </a>
+      <button type="button" class="bookmark-remove" data-session="${escapeHtml(b.session)}" data-code="${escapeHtml(b.code)}" aria-label="Remove bookmark">&times;</button>
+    </li>`;
+}
+
+function initBookmarksPage() {
+  const list = document.getElementById("bookmark-list");
+  if (!list) return; // not this page, or not logged in (server renders the login prompt instead)
+  const status = document.getElementById("status");
+
+  fetch("/api/bookmarks")
+    .then((resp) => {
+      if (!resp.ok) throw new Error("Request failed");
+      return resp.json();
+    })
+    .then((bookmarks) => {
+      if (bookmarks.length === 0) {
+        list.innerHTML = '<li class="gazette-empty">No bookmarks yet &mdash; open a bill and tap "Bookmark" to save it here.</li>';
+      } else {
+        list.innerHTML = bookmarks.map(bookmarkRow).join("");
+        list.querySelectorAll(".bookmark-remove").forEach((removeBtn) => {
+          removeBtn.addEventListener("click", () => {
+            const { session, code } = removeBtn.dataset;
+            fetch(`/api/bookmarks/${encodeURIComponent(session)}/${encodeURIComponent(code)}`, { method: "DELETE" })
+              .then(() => removeBtn.closest(".gazette-item").remove());
+          });
+        });
+      }
+      status.hidden = true;
+      list.hidden = false;
+    })
+    .catch(() => {
+      status.textContent = "Couldn't load your bookmarks. Try refreshing.";
+    });
 }
 
 function renderFinancials(companies) {
@@ -456,3 +518,5 @@ function renderFinancials(companies) {
 initBillList();
 initBillPage();
 initTabs();
+initBookmarkButton();
+initBookmarksPage();

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Follow The Bill</title>
+  <title>Bookmarks — Follow The Bill</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22><text y=%22.9em%22 font-size=%2290%22>🍁</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
       <div class="masthead-right">
         <span class="masthead-session">45th Parliament, 1st session</span>
         <nav class="masthead-actions">
-          <a class="nav-link" href="{{ url_for('bookmarks_page') }}">Bookmarks</a>
+          <a class="nav-link is-active" href="{{ url_for('bookmarks_page') }}">Bookmarks</a>
           {% if current_user %}
             <span class="masthead-user">{{ current_user.name or current_user.email }}</span>
             <a class="nav-link" href="{{ url_for('auth.logout') }}">Log out</a>
@@ -29,27 +29,18 @@
         </nav>
       </div>
     </div>
-    <p class="masthead-tag">Read what's before the House &mdash; then tell your MP what you think.</p>
+    <p class="masthead-tag">Bills you're following.</p>
   </header>
 
   <main class="wrap index-wrap">
-    <div class="index-layout">
-      <div class="index-main">
-        <div class="list-controls">
-          <label for="search">Search bills</label>
-          <input type="search" id="search" placeholder="Search by title or number, e.g. C-5" autocomplete="off">
-        </div>
-
-        <p id="status" class="status" role="status" aria-live="polite">Loading bills&hellip;</p>
-
-        <ol class="gazette" id="gazette" hidden></ol>
-      </div>
-
-      <aside class="index-sidebar">
-        <h2 class="sidebar-heading">Filter by status</h2>
-        <div class="filters" id="filters" hidden></div>
-      </aside>
-    </div>
+    {% if current_user %}
+      <p id="status" class="status" role="status" aria-live="polite">Loading your bookmarks&hellip;</p>
+      <ol class="gazette" id="bookmark-list" hidden></ol>
+    {% else %}
+      <p class="status">
+        <a href="{{ url_for('auth.login') }}">Log in</a> to save and view bookmarked bills.
+      </p>
+    {% endif %}
   </main>
 
   <footer class="site-footer">

@@ -16,7 +16,18 @@
         <span class="seal" aria-hidden="true">🍁</span>
         Follow the Bill
       </a>
-      <span class="masthead-session">45th Parliament, 1st session</span>
+      <div class="masthead-right">
+        <span class="masthead-session">45th Parliament, 1st session</span>
+        <nav class="masthead-actions">
+          <a class="nav-link" href="{{ url_for('bookmarks_page') }}">Bookmarks</a>
+          {% if current_user %}
+            <span class="masthead-user">{{ current_user.name or current_user.email }}</span>
+            <a class="nav-link" href="{{ url_for('auth.logout') }}">Log out</a>
+          {% else %}
+            <a class="nav-link" href="{{ url_for('auth.login') }}">Log in</a>
+          {% endif %}
+        </nav>
+      </div>
     </div>
     <a class="back-link" href="{{ url_for('index') }}">&larr; All bills</a>
   </header>
@@ -27,9 +38,15 @@
     <article id="bill-article" hidden>
       <div class="bill-heading">
         <span class="bill-code" id="bill-code"></span>
-        <div class="lang-toggle" role="group" aria-label="Language">
-          <button type="button" id="lang-en" class="lang-btn is-active" aria-pressed="true">English</button>
-          <button type="button" id="lang-fr" class="lang-btn" aria-pressed="false">Fran&ccedil;ais</button>
+        <div class="bill-heading-actions">
+          <button type="button" id="bookmark-btn" class="bookmark-btn" data-logged-in="{{ 'true' if current_user else 'false' }}">
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21 12 16l-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            <span id="bookmark-label">Bookmark</span>
+          </button>
+          <div class="lang-toggle" role="group" aria-label="Language">
+            <button type="button" id="lang-en" class="lang-btn is-active" aria-pressed="true">English</button>
+            <button type="button" id="lang-fr" class="lang-btn" aria-pressed="false">Fran&ccedil;ais</button>
+          </div>
         </div>
       </div>
       <h1 id="bill-title"></h1>

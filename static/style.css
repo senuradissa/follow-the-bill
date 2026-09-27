@@ -89,7 +89,29 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-weight: 600;
   flex-shrink: 0;
 }
+.masthead-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 .masthead-session {
+  font-size: 0.8rem;
+  color: var(--on-dark-soft);
+  white-space: nowrap;
+}
+.masthead-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+.nav-link {
+  font-size: 0.85rem;
+  color: var(--on-dark-soft);
+  text-decoration: none;
+}
+.nav-link:hover, .nav-link.is-active { color: var(--on-dark); text-decoration: underline; }
+.masthead-user {
   font-size: 0.8rem;
   color: var(--on-dark-soft);
   white-space: nowrap;
@@ -171,6 +193,48 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .filter-pill:not(.is-active):hover { background: var(--surface); color: var(--ink); }
 
+/* Two-column homepage: search + list on the left, status filters on the right */
+.index-wrap { max-width: 1040px; }
+
+.index-layout {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.index-sidebar {
+  position: sticky;
+  top: 1.5rem;
+}
+
+.sidebar-heading {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin: 2rem 0 0.9rem;
+}
+
+.index-sidebar .filters {
+  flex-direction: column;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.index-sidebar .filter-pill {
+  width: 100%;
+  text-align: left;
+  border-radius: 2px;
+}
+
+@media (max-width: 780px) {
+  .index-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+  .index-sidebar { position: static; order: -1; }
+  .index-main { order: 1; }
+  .index-sidebar .filters { flex-direction: row; flex-wrap: wrap; }
+  .index-sidebar .filter-pill { width: auto; text-align: center; }
+}
+
 /* Gazette bill list */
 .gazette {
   list-style: none;
@@ -207,6 +271,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .gazette-empty { padding: 2rem 0.25rem; color: var(--ink-soft); }
 
+/* Bookmarks page: same row, plus a remove button */
+.gazette-item--bookmark {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.gazette-item--bookmark a { flex: 1; }
+.bookmark-remove {
+  flex-shrink: 0;
+  font: inherit;
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.bookmark-remove:hover { background: var(--surface); color: var(--red); border-color: var(--red); }
+
 /* Bill article */
 .bill-heading {
   margin-top: 2rem;
@@ -217,6 +303,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   flex-wrap: wrap;
 }
 .bill-code { font-family: var(--serif); font-size: 1.1rem; color: var(--ink-soft); }
+.bill-heading-actions { display: flex; align-items: center; gap: 0.75rem; }
+.bookmark-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.bookmark-btn:hover { background: var(--surface); color: var(--ink); }
+.bookmark-btn.is-saved { color: var(--paper); background: var(--ink); border-color: var(--ink); }
+.bookmark-btn.is-saved svg { fill: currentColor; }
 .lang-toggle { display: flex; gap: 0.4rem; }
 .lang-btn {
   font: inherit;

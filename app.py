@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()  # loads GEMINI_API_KEY, AUTH0_*, MONGODB_URI, SMTP_*, etc. from .env
 
-from flask import Flask, jsonify, render_template, request  # noqa: E402
+from flask import Flask, jsonify, render_template, request, send_file  # noqa: E402
 from apscheduler.schedulers.background import BackgroundScheduler  # noqa: E402
 
 import ai  # noqa: E402
@@ -18,6 +18,7 @@ import bills  # noqa: E402
 import mp  # noqa: E402
 import notifications  # noqa: E402
 import users  # noqa: E402
+import voice  # noqa: E402
 import impact
 app = Flask(__name__)
 auth.init_auth(app)
@@ -103,6 +104,28 @@ def bill_impact(session, code):
     lang = request.args.get("lang", "en")
     bill = bills.bill_text(session, code, lang)
     return jsonify(impact.analyze_impact(bill, lang))
+
+
+# ---- Listen to summary (owner: C, ElevenLabs via voice.py) ----
+# Optional: needs ELEVENLABS_API_KEY. Reuses the same Gemini summary (and its
+# cache) that the Description tab shows, so this doesn't cost an extra
+# Gemini call -- only an ElevenLabs one, and voice.speak() caches that MP3 to
+# disk by text hash so the same summary is never re-synthesized twice.
+@app.get("/api/bills/<session>/<code>/audio")
+def bill_audio(session, code):
+    lang = request.args.get("lang", "en")
+    bill = bills.bill_text(session, code, lang)
+    try:
+        summary = ai.summarize(bill, lang)
+        text = " ".join(filter(None, [summary.get("tldr"), summary.get("summary")])) or bill["title"]
+    except Exception:
+        text = bill.get("official_summary") or bill["title"]
+
+    try:
+        path = voice.speak(text)
+    except Exception as e:
+        return jsonify({"error": f"Couldn't generate audio right now: {e}"}), 502
+    return send_file(path, mimetype="audio/mpeg")
 
 
 # ---- Bookmarks (owner: Person B) ----

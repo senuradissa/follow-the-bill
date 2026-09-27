@@ -148,10 +148,12 @@ def draft_letter(lang, mp, bill, stance, note, name):
     stance is 'support', 'oppose' or 'questions'.
     Return {subject, body}
     """
-    # TODO(B): call Gemini
+    # TODO(B): call Gemini to actually draft the body from stance/note/bill;
+    # this still just echoes what the person typed in `note`, no AI writing yet.
+    stance_label = {"support": "Support", "oppose": "Oppose", "questions": "Questions"}.get(stance, stance.title())
     return {
-        "subject": f"Bill {bill['code']}",
-        "body": f"Dear {mp['name']},\n\n(Fake letter: {stance}) {note}\n\n{name}",
+        "subject": f"Bill {bill['code']} - {stance_label}",
+        "body": f"Dear {mp['name']},\n\n{note}\n\n{name}",
     }
 
 def identify_affected_companies(bill, lang):

@@ -33,11 +33,18 @@ def inject_user():
 
 # ---- Bill-change notifications (owner: Person B) ----
 # Polls LEGISinfo every 10 minutes and emails anyone who's bookmarked a bill
-# whose status changed since the last check. flask --debug runs this file
-# twice (the reloader's watcher process + the real worker); WERKZEUG_RUN_MAIN
-# is only set in the real worker, so this guard stops the job from running,
-# and therefore emailing, twice per change.
-if not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
+# whose status changed since the last check. Optional: needs MONGODB_URI to
+# do anything (that's where bookmarks and last-known statuses live), so if
+# it's not set, skip this entirely rather than crashing app startup for
+# everyone who hasn't set up Mongo yet.
+#
+# flask --debug runs this file twice (the reloader's watcher process + the
+# real worker); WERKZEUG_RUN_MAIN is only set in the real worker, so this
+# guard also stops the job from running, and therefore emailing, twice per
+# change.
+if not os.environ.get("MONGODB_URI"):
+    print("[app] MONGODB_URI not set in .env -- bookmarks and bill-change email notifications are disabled, everything else still works.")
+elif not app.debug or os.environ.get("WERKZEUG_RUN_MAIN") == "true":
     scheduler = BackgroundScheduler()
     scheduler.add_job(notifications.check_for_bill_changes, "interval", minutes=10)
     scheduler.start()

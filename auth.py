@@ -2,7 +2,9 @@
 
 Standard Auth0 + Flask login flow using Authlib's OAuth client -- Auth0
 doesn't have its own login SDK for Flask, this is the pattern from their
-own quickstart. Requires these in .env:
+own quickstart. Login is optional: everything else in the app (browsing
+bills, summaries, lobbying activity, MP lookup) works with none of this
+configured. Set these in .env to turn login on:
   APP_SECRET_KEY     any random string, used to sign the Flask session cookie
   AUTH0_CLIENT_ID
   AUTH0_CLIENT_SECRET
@@ -14,6 +16,7 @@ In the Auth0 dashboard (Regular Web Application):
   Allowed Web Origins:   http://localhost:5000
 """
 import os
+import secrets
 from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
@@ -26,8 +29,19 @@ oauth = OAuth()
 
 
 def init_auth(app):
-    """Call once, right after creating the Flask app."""
-    app.secret_key = os.environ["APP_SECRET_KEY"]
+    """Call once, right after creating the Flask app. Never raises, even
+    with no AUTH0_* in .env -- it just leaves login disabled so the rest of
+    the site still runs (see login() below for what that looks like)."""
+    # Falls back to a random key so `session` never errors even if nobody's
+    # set APP_SECRET_KEY yet. Sessions won't survive a restart in that case,
+    # but nothing needs them to until login is actually configured.
+    app.secret_key = os.environ.get("APP_SECRET_KEY") or secrets.token_hex(32)
+
+    required = ("AUTH0_CLIENT_ID", "AUTH0_CLIENT_SECRET", "AUTH0_DOMAIN")
+    if not all(os.environ.get(k) for k in required):
+        print("[auth] AUTH0_* not set in .env -- login is disabled, everything else still works.")
+        return
+
     oauth.init_app(app)
     oauth.register(
         "auth0",
@@ -47,6 +61,8 @@ def current_user():
 
 @auth_bp.route("/login")
 def login():
+    if not hasattr(oauth, "auth0"):
+        return "Login isn't configured on this server yet (missing AUTH0_* in .env).", 503
     return oauth.auth0.authorize_redirect(redirect_uri=url_for("auth.callback", _external=True))
 
 
